@@ -1,26 +1,35 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<meta charset="UTF-8">
-		<title>TAP N'DIA</title>
+		<title>TAP N'DIE</title>
 	</head>
 
 <body>
 
-<div>     <!-- Headbar-->
-    <div></div> <!-- score-->
-    <div></div> <!-- niveau en cours-->
-    <div></div> <!-- Coin-->
-    <div></div> <!-- Gemmes -->
-    <div></div> <!-- Parametre-->
+<div class="headbar">     <!-- Headbar-->
+    <div id="score"><p>SCORE : 2284569</p></div> <!-- score-->
+    <div id="niveauEnCours">Niveau 35 : Le Volcan</div> <!-- niveau en cours-->
+    <div>
+        <img src="/images/icones/coin.png">
+        <div id="compteurOr"> <!-- Coin-->
+            145000
+        </div>
+        <img src="/images/icones/gemmes.png">
+        <div id="compteurGemmes"> <!-- Gemmes -->
+            100
+        </div>
+        <img src="#">
+    </div>
 </div>
 
 <div>      <!-- Journal de bord -->           
     <div></div> <!-- Journal de bord déplié --> 
 
-    <div>       <!-- Journal de bord replié-->
-        <button></button>    <!-- Bouton de déroulement du bouton -->    
+    <div class="jdbFerme">
+        <h5>JOURNAL DE BORD</h5>       <!-- Journal de bord replié-->
+            <img src="/images/icones/arrow.png"> <!-- Bouton de déroulement du bouton -->
     </div> 
           
 </div>
@@ -28,10 +37,21 @@
 
 <div> <!-- Boutique temporaire -->  
    
-    <div> <!-- boutique replié-->  
-        <div></div> <!-- Alliées fermé -->  
-        <div></div><!-- bonus fermé -->  
-        <div></div><!-- potion fermé -->  
+    <div class="caserneFerme"> <!-- boutique repliée-->  
+        <div>
+            <h5>ALLIES</h5><!-- Alliées fermé -->  
+        </div>
+
+        <div>
+            <h5>BONUS</h5>
+        </div><!-- bonus fermé -->
+        
+        <div>
+            <h5>POTIONS</h5>
+        </div><!-- potion fermé --> 
+    
+        <img src="/images/icones/arrow.png"> <!-- Bouton de déroulement du bouton -->
+
     </div>
 
     <div></div> <!-- alliés ouvert -->  
@@ -40,7 +60,7 @@
 
 </div>
 
-<div><!-- Monstre (tout le carré)-->  
+<div></div><!-- Monstre (tout le carré)-->  
     <div>    <!-- Barre de vie Monstre (rouge foncé)--> 
         <div></div> <!-- Vie perdu Monstre  (rouge clair) --> 
     </div>
@@ -68,14 +88,14 @@
 
 
 
-<div> <!-- Bienvenue --> 
+<div style="display: none;"> <!-- Bienvenue --> 
     <h1> Bienvenue sur Tap N'Die</h1>
     <button></button> <!-- Choix Heros --> 
     <button></button> <!-- Boutique --> 
 </div>
 
 
-<div> <!-- Choix du héros -->
+<div style="display: none;"> <!-- Choix du héros -->
     <h2> Choisissez votre héros</h2>
     <div> 
         <div></div><!-- Héros 1 -->
@@ -88,7 +108,7 @@
 </div>
 
 
-<div> <!-- You died --> 
+<div style="display: none;"> <!-- You died --> 
     <h1> You died !</h1>
     <h2> Try Again</h2>
     <div></div> <!-- Gain de gemmes --> 
@@ -96,7 +116,7 @@
 </div>
 
 
-<div>
+<div style="display: none;">
     <button></button>  <!-- Petite croix --> 
     
     <h3>Options</h3> <!-- Options (+img )  --> 
@@ -118,12 +138,12 @@
 
 </div>
 
-<div><!-- Boutique Permanente --> 
+<div style="display: none;"><!-- Boutique Permanente --> 
 
 </div>
 
 
-<div> <!-- Haut - Faits--> 
+<div style="display: none;"> <!-- Haut - Faits--> 
 
 </div>
 
