@@ -11,9 +11,20 @@ let score = 0;
 let potion = "";
 let nombrePaysans = 0; 
 let prixPaysan = 50;
+let forcePaysan = 1;
 let nombreMiliciens = 0; 
 let prixMilicien = 110;
-
+let forceMilicien = 3;
+let nombreLanciers = 0; 
+let prixLancier = 350;
+let forceLancier = 5;
+let nombreSoldats = 0; 
+let prixSoldat = 1000;
+let forceSoldat = 20;
+let multiplicateurAllies = 1;
+let prixPvPlus = 50;
+let prixAttaquePlus = 25;
+let prixAttaqueAlliesPlus = 75;
 
 /* Eléments du html */
 
@@ -32,7 +43,15 @@ let boutonAchatPaysan = document.getElementById("acheterPaysan");
 let paysan = document.getElementById("paysan");
 let boutonAchatMilicien = document.getElementById("acheterMilicien");
 let milicien = document.getElementById("milicien");
-
+let boutonAchatLancier = document.getElementById("acheterLancier");
+let lancier = document.getElementById("lancier");
+let boutonAchatSoldat = document.getElementById("acheterSoldat");
+let soldat = document.getElementById("soldat");
+let boutonAttaquePlus = document.getElementById("attaquePlus");
+let boutonAttaqueAlliesPlus = document.getElementById("attaqueAlliesPlus");
+let boutonPvPlus = document.getElementById("pvPlus");
+let dpsHeros = document.getElementById("dpsHeros");
+let dpsAllies = document.getElementById("dpsAllies");
 
 /* Chronos */
 
@@ -104,11 +123,17 @@ function actualisationAffichage() { //actualisation des valeurs affichées à l'
     monstre.innerHTML = "<p>Vie du monstre : " + vieMonstre + "</p>";
     affichageScore.innerHTML = "<p>Score : " + score + "</p>";
     affichageOr.innerHTML = "<p>Or : " + or + "</p>";
-    heros.innerHTML = "<p>Vie du héros : " + vieHeros + "</p>";
+    heros.innerHTML = "<p>Vie du héros : " + vieHeros + "/" + vieMaxHeros +"</p>";
     paysan.innerHTML = "<p>Vous avez " + nombrePaysans + " paysans.</p>";
     boutonAchatPaysan.innerHTML = "Acheter Paysan<br>Prix : " + prixPaysan;
     milicien.innerHTML = "<p>Vous avez " + nombreMiliciens + " miliciens.</p>";
     boutonAchatMilicien.innerHTML = "Acheter Milicien<br>Prix : " + prixMilicien;
+    lancier.innerHTML = "<p>Vous avez " + nombreLanciers + " lanciers.</p>";
+    boutonAchatLancier.innerHTML = "Acheter Lancier<br>Prix : " + prixLancier;
+    soldat.innerHTML = "<p>Vous avez " + nombreSoldats + " soldats.</p>";
+    boutonAchatSoldat.innerHTML = "Acheter Soldat<br>Prix : " + prixSoldat;
+    dpsHeros.innerHTML = "<p>Dégats du héros : " + forceHeros + "</p>";
+    dpsAllies.innerHTML = "<p>Bonus aux alliés : DPS x" + multiplicateurAllies + "</p>";
 }
 
 function achatPotionVie() {
@@ -174,7 +199,7 @@ function acheterPaysan() {
         nombrePaysans++;
         prixPaysan *= 2;
         actualisationAffichage();
-        fixerChronoAllies(1);
+        fixerChronoAllies(forcePaysan);
     }
     else {
         alert("Vous n'avez pas assez d'or.");
@@ -186,12 +211,70 @@ function acheterMilicien() {
     if(or >= prixMilicien) {
         or -= prixMilicien;
         nombreMiliciens++;
-        prixMilicien *= 3;
+        prixMilicien *= 1.8;
+        prixMilicien = Math.round(prixMilicien); //prixMilicien = Math.round(prixMilicien*1.8)
         actualisationAffichage();
-        fixerChronoAllies(3);
+        fixerChronoAllies(forceMilicien);
     }
     else {
         alert("Vous n'avez pas assez d'or.");
     }
 }
 boutonAchatMilicien.onclick = acheterMilicien;
+
+function acheterLancier() {
+    if(or >= prixLancier) {
+        or -= prixLancier;
+        nombreLanciers++;
+        prixLancier *= 1.1;
+        prixLancier = Math.round(prixLancier);
+        actualisationAffichage();
+        fixerChronoAllies(forceLancier);
+    }
+    else {
+        alert("Vous n'avez pas assez d'or.");
+    }
+}
+boutonAchatLancier.onclick = acheterLancier;
+
+function acheterSoldat() {
+    if(or >= prixSoldat) {
+        or -= prixSoldat;
+        nombreSoldats++;
+        prixSoldat *= 1.2;
+        prixSoldat = Math.round(prixSoldat);
+        actualisationAffichage();
+        fixerChronoAllies(forceSoldat);
+    }
+    else {
+        alert("Vous n'avez pas assez d'or.");
+    }
+}
+boutonAchatSoldat.onclick = acheterSoldat;
+
+function acheterAttaquePlus() {
+    if(or >= prixAttaquePlus) {
+        or -= prixAttaquePlus;
+        prixAttaquePlus *= 2;
+        forceHeros++;
+        actualisationAffichage();
+    }
+    else {
+        alert("Vous n'avez pas assez d'or.")
+    }
+}
+boutonAttaquePlus.onclick = acheterAttaquePlus;
+
+function acheterPvPlus() {
+    if(or >= prixPvPlus) {
+        or -= prixPvPlus;
+        prixPvPlus *= 1.5; 
+        vieMaxHeros += 10;
+        vieHeros += 10;
+        actualisationAffichage();
+    }
+    else {
+        alert("Vous n'avez pas assez d'or.")
+    }
+}
+boutonPvPlus.onclick = acheterPvPlus;
