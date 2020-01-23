@@ -1,151 +1,200 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<link rel="stylesheet" type="text/css" href="css/style.css">
-		<meta charset="UTF-8">
-		<title>TAP N'DIE</title>
-	</head>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <meta charset="UTF-8">
+    <title>TAP N'DIE</title>
+</head>
 
 <body>
 
-<div class="headbar">     <!-- Headbar-->
-    <div id="score"><p>SCORE : 2284569</p></div> <!-- score-->
-    <div id="niveauEnCours">Niveau 35 : Le Volcan</div> <!-- niveau en cours-->
-    <div>
-        <img src="/images/icones/coin.png">
-        <div id="compteurOr"> <!-- Coin-->
-            145000
-        </div>
-        <img src="/images/icones/gemmes.png">
-        <div id="compteurGemmes"> <!-- Gemmes -->
-            100
-        </div>
-        <img src="#">
-    </div>
-</div>
-
-<div>      <!-- Journal de bord -->           
-    <div></div> <!-- Journal de bord déplié --> 
-
-    <div class="jdbFerme">
-        <h5>JOURNAL DE BORD</h5>       <!-- Journal de bord replié-->
-            <img src="/images/icones/arrow.png"> <!-- Bouton de déroulement du bouton -->
-    </div> 
-          
-</div>
-
-
-<div> <!-- Boutique temporaire -->  
-   
-    <div class="caserneFerme"> <!-- boutique repliée-->  
+    <div class="headbar">
+        <!-- Headbar-->
+        <div id="score">
+            <p>SCORE : 2284569</p>
+        </div> <!-- score-->
+        <div id="niveauEnCours">Niveau 35 : Le Volcan</div> <!-- niveau en cours-->
         <div>
-            <h5>ALLIES</h5><!-- Alliées fermé -->  
+            <img src="/images/icones/coin.png">
+            <div id="compteurOr">
+                <!-- Coin-->
+                145000
+            </div>
+            <img src="/images/icones/gemmes.png">
+            <div id="compteurGemmes">
+                <!-- Gemmes -->
+                100
+            </div>
+            <img src="#">
+        </div>
+    </div>
+
+    <div class="conteneur">
+
+        <div class="conteneurGauche">
+            <!-- Journal de bord -->
+            <div></div> <!-- Journal de bord déplié -->
+
+            <div class="jdbFerme">
+                <h5>JOURNAL DE BORD</h5> <!-- Journal de bord replié-->
+                <img src="/images/icones/arrow.png"> <!-- Bouton de déroulement du bouton -->
+            </div>
+
+        </div>
+
+        <div class="conteneurMilieu">
+
+            <div class="monstreDiv">
+                <div class="monstreVieCadre">
+                    <!-- Barre de vie Monstre (rouge foncé)-->
+                    <div class="monstreVieBarre">
+                        <!-- Vie perdu Monstre  (rouge clair) -->
+                    </div>
+                </div>
+
+                <div id="monstre">
+                    <!-- Images Monstre (changeante) -->
+
+                </div>
+
+            </div>
+
+            <div class="joueurDiv">
+
+                <div class="herosDiv">
+                    <div class="herosDivGauche">
+                        <div id="potion">
+
+                        </div>
+                        <div id="shiva">
+
+                        </div>
+                    </div>
+                    <div class="herosDivMilieu">
+                        <div id="herosImage">
+                        </div>
+                        <div class="herosVieCadre">
+                            <div id="herosVieBarre">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="herosDivDroite">
+                        <div id="competence">
+
+                        </div>
+                        <div id="toundra">
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="alliesDiv">
+                <!-- Allié temporaire -->
+
+            </div>
+
+        </div>
+
+        <div class="conteneurDroite">
+            <!-- Boutique temporaire -->
+
+            <div class="caserneFerme">
+                <!-- boutique repliée-->
+                <div>
+                    <h5>ALLIES</h5><!-- Alliées fermé -->
+                </div>
+
+                <div>
+                    <h5>BONUS</h5>
+                </div><!-- bonus fermé -->
+
+                <div>
+                    <h5>POTIONS</h5>
+                </div><!-- potion fermé -->
+
+                <img src="/images/icones/arrow.png"> <!-- Bouton de déroulement du bouton -->
+            </div>
+
+            <div></div> <!-- alliés ouvert -->
+            <div></div><!-- bonus ouvert -->
+            <div></div><!-- potion ouvert -->
+
+        </div>
+
+    </div>
+
+
+
+    <div style="display: none;">
+        <!-- Bienvenue -->
+        <h1> Bienvenue sur Tap N'Die</h1>
+        <button></button> <!-- Choix Heros -->
+        <button></button> <!-- Boutique -->
+    </div>
+
+
+    <div style="display: none;">
+        <!-- Choix du héros -->
+        <h2> Choisissez votre héros</h2>
+        <div>
+            <div></div><!-- Héros 1 -->
+            <div></div><!-- Héros 2 -->
+            <div></div><!-- Héros 3 -->
+            <div></div><!-- Héros 4 -->
+        </div>
+        <button></button> <!-- Retour -->
+        <button></button> <!-- Valider -->
+    </div>
+
+
+    <div style="display: none;">
+        <!-- You died -->
+        <h1> You died !</h1>
+        <h2> Try Again</h2>
+        <div></div> <!-- Gain de gemmes -->
+        <button></button> <!-- Rejouer -->
+    </div>
+
+
+    <div style="display: none;">
+        <button></button> <!-- Petite croix -->
+
+        <h3>Options</h3> <!-- Options (+img )  -->
+
+        <div>
+            <!-- Volume -->
+            <p>Volume</p>
         </div>
 
         <div>
-            <h5>BONUS</h5>
-        </div><!-- bonus fermé -->
-        
-        <div>
-            <h5>POTIONS</h5>
-        </div><!-- potion fermé --> 
-    
-        <img src="/images/icones/arrow.png"> <!-- Bouton de déroulement du bouton -->
-
-    </div>
-
-    <div></div> <!-- alliés ouvert -->  
-    <div></div><!-- bonus ouvert -->  
-    <div></div><!-- potion ouvert -->  
-
-</div>
-
-<div></div><!-- Monstre (tout le carré)-->  
-    <div>    <!-- Barre de vie Monstre (rouge foncé)--> 
-        <div></div> <!-- Vie perdu Monstre  (rouge clair) --> 
-    </div>
-    
-    <div></div> <!-- Images Monstre (changeante) --> 
-
-</div>
-
-<div> <!-- Heros & Alliés --> 
-    <div>   <!-- Heros --> 
-        <div>    <!-- Barre de vie héros (vert foncé)--> 
-            <div></div> <!-- Vie perdu héros  (vert clair) --> 
+            <p>Affichage des dégâts</p>
+            <!-- Checkbox -->
         </div>
-       
-        <div></div> <!-- Images Heros (changeante)--> 
+
+        <div>
+            <button></button> <!-- Haut - Faits-->
+            <button></button> <!-- Crédits -->
+            <button></button> <!-- Réinitialiser la partie -->
+        </div>
+
     </div>
 
-    <div></div>  <!-- Potions --> 
-    <div></div> <!-- Capacité --> 
-    <div></div> <!-- Allié Permanent 1 --> 
-    <div></div> <!-- Allié Permanent 2 --> 
-    <div></div> <!-- Allié temporaire --> 
+    <div style="display: none;">
+        <!-- Boutique Permanente -->
 
-</div>
-
-
-
-<div style="display: none;"> <!-- Bienvenue --> 
-    <h1> Bienvenue sur Tap N'Die</h1>
-    <button></button> <!-- Choix Heros --> 
-    <button></button> <!-- Boutique --> 
-</div>
-
-
-<div style="display: none;"> <!-- Choix du héros -->
-    <h2> Choisissez votre héros</h2>
-    <div> 
-        <div></div><!-- Héros 1 -->
-        <div></div><!-- Héros 2 -->
-        <div></div><!-- Héros 3 -->
-        <div></div><!-- Héros 4 -->
-    </div>
-    <button></button> <!-- Retour --> 
-    <button></button> <!-- Valider --> 
-</div>
-
-
-<div style="display: none;"> <!-- You died --> 
-    <h1> You died !</h1>
-    <h2> Try Again</h2>
-    <div></div> <!-- Gain de gemmes --> 
-    <button></button> <!-- Rejouer --> 
-</div>
-
-
-<div style="display: none;">
-    <button></button>  <!-- Petite croix --> 
-    
-    <h3>Options</h3> <!-- Options (+img )  --> 
-    
-    <div> <!-- Volume --> 
-        <p>Volume</p>
     </div>
 
-    <div>
-        <p>Affichage des dégâts</p> 
-        <!-- Checkbox --> 
+
+    <div style="display: none;">
+        <!-- Haut - Faits-->
+
     </div>
-
-    <div>
-        <button></button> <!-- Haut - Faits--> 
-        <button></button> <!-- Crédits --> 
-        <button></button> <!-- Réinitialiser la partie --> 
-    </div>
-
-</div>
-
-<div style="display: none;"><!-- Boutique Permanente --> 
-
-</div>
-
-
-<div style="display: none;"> <!-- Haut - Faits--> 
-
-</div>
 
 </body>
+
 </html>
