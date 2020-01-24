@@ -91,7 +91,7 @@
 
             </div>
 
-            <div class="alliesDiv">
+            <div id="alliesDiv"> <!-- class -> id -->
                 <!-- Allié temporaire -->
 
             </div>
@@ -101,31 +101,86 @@
         <div class="conteneurDroite">
             <!-- Boutique temporaire -->
 
-            <div class="caserneFerme">
+            <div id="caserneFerme">  <!-- class -> id (modif) -->
                 <!-- boutique repliée-->
-                <div>
+                <div id="alliesFerme">
                     <h5>ALLIES</h5><!-- Alliées fermé -->
                 </div>
 
-                <div>
+                <div id="bonusFerme">
                     <h5>BONUS</h5>
                 </div><!-- bonus fermé -->
 
-                <div>
+                <div id="potionsFerme">
                     <h5>POTIONS</h5>
                 </div><!-- potion fermé -->
 
                 <img src="images/icones/arrow.png"> <!-- Bouton de déroulement du bouton -->
             </div>
 
-            <div></div> <!-- alliés ouvert -->
-            <div></div><!-- bonus ouvert -->
-            <div></div><!-- potion ouvert -->
+            <div id="caserneAllies">
+
+                <h5>Alliés</h5>
+
+                <div class="marron achatCaserne" id="acheterPaysan">
+                    <img src="images/allies-temp/soldat4.png">
+                    <p>Paysan +1 DPS</p>
+                    <div><p>50<img src="images/icones/coin.png" width="24px" height="24px"></p></div>
+                </div>
+
+                <div class="marron achatCaserne" id="acheterMilicien">
+                    <img src="images/allies-temp/soldat1.png">
+                    <p>Milicien +3 DPS</p>
+                    <div><p>110 <img src="images/icones/coin.png" width="24px" height="24px"></p></div>
+                </div>
+
+                <div class="marron achatCaserne" id="acheterLancier">
+                    <img src="images/allies-temp/soldat8.png">
+                    <p>Lancier +5 DPS</p>
+                    <div><p>350<img src="images/icones/coin.png" width="24px" height="24px"></p></div>
+                </div>
+
+                <div class="marron achatCaserne" id="acheterSoldat">
+                    <img src="images/allies-temp/soldat5.png">
+                    <p>Soldat +20 DPS</p>
+                    <div><p>1000<img src="images/icones/coin.png" width="24px" height="24px"></p></div>
+                </div>
+
+                <button id="fermerAllies">X</button>
+                
+            </div> <!-- alliés ouvert -->
+
+            <div id="caserneBonus">
+
+                <h5>Bonus</h5>
+
+                <button id="fermerBonus">X</button>
+
+            </div><!-- bonus ouvert -->
+
+            <div id="casernePotions">
+
+                <h5>Potions</h5>
+
+                <div class="marron achatCaserne" id="acheterPotionVie">
+                    <img src="images/icones/potionrouge.png">
+                    <p>Potion de santé</p>
+                    <div><p>70<img src="images/icones/coin.png" width="24px" height="24px"></p></div>
+                </div>
+
+                <div class="marron achatCaserne" id="acheterPotionForce">
+                    <img src="images/icones/potionverte.png">
+                    <p>Potion de force</p>
+                    <div><p>110<img src="images/icones/coin.png" width="24px" height="24px"></p></div>
+                </div>
+
+                <button id="fermerPotions">X</button>
+
+            </div><!-- potion ouvert -->
 
         </div>
 
     </div>
-
 
 
     <div style="display: none;">

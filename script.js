@@ -38,20 +38,31 @@ let ecranDefaite = document.getElementById("defaite");
 let boutonRejouer = document.getElementById("rejouer");
 let boutonAchatPotionVie = document.getElementById("acheterPotionVie");
 let boutonAchatPotionForce = document.getElementById("acheterPotionForce");
-let boutonUtiliserPotion = document.getElementById("utiliserPotion");
-let boutonAchatPaysan = document.getElementById("acheterPaysan");
-let paysan = document.getElementById("paysan");
+let boutonUtiliserPotion = document.getElementById("potion"); //changement
+let boutonAchatPaysan = document.getElementById("acheterPaysan");   //-4 variables
 let boutonAchatMilicien = document.getElementById("acheterMilicien");
-let milicien = document.getElementById("milicien");
 let boutonAchatLancier = document.getElementById("acheterLancier");
-let lancier = document.getElementById("lancier");
 let boutonAchatSoldat = document.getElementById("acheterSoldat");
-let soldat = document.getElementById("soldat");
-let boutonAttaquePlus = document.getElementById("attaquePlus");
-let boutonAttaqueAlliesPlus = document.getElementById("attaqueAlliesPlus");
-let boutonPvPlus = document.getElementById("pvPlus");
-let dpsHeros = document.getElementById("dpsHeros");
-let dpsAllies = document.getElementById("dpsAllies");
+
+// let boutonAttaquePlus = document.getElementById("attaquePlus");
+// let boutonAttaqueAlliesPlus = document.getElementById("attaqueAlliesPlus");
+// let boutonPvPlus = document.getElementById("pvPlus");
+// let dpsHeros = document.getElementById("dpsHeros");
+// let dpsAllies = document.getElementById("dpsAllies");
+
+let caserneAllies = document.getElementById("caserneAllies");  //ajout
+let alliesFerme = document.getElementById("alliesFerme");
+let caserneFerme = document.getElementById("caserneFerme");
+let boutonFermerAllies = document.getElementById("fermerAllies");
+let alliesDiv = document.getElementById("alliesDiv");
+
+let casernePotions = document.getElementById("casernePotions"); //ajout
+let potionsFerme = document.getElementById("potionsFerme");
+let boutonFermerPotions = document.getElementById("fermerPotions");
+
+let caserneBonus = document.getElementById("caserneBonus"); //ajout
+let bonusFerme = document.getElementById("bonusFerme");
+let boutonFermerBonus = document.getElementById("fermerBonus");
 
 /* Chronos */
 
@@ -65,6 +76,42 @@ let chronoAllies;
 - Faire un compteur de parties; 
 - Faire timer potion de force; 
 */
+
+function ouvrirOngletBonus() {             //modif
+    caserneFerme.style.display = "none";
+    caserneBonus.style.display = "flex";
+}
+bonusFerme.onclick = ouvrirOngletBonus;
+
+function fermerOngletBonus() {             //modif
+    caserneFerme.style.display = "flex";
+    caserneBonus.style.display = "none";
+}
+boutonFermerBonus.onclick = fermerOngletBonus;
+
+function ouvrirOngletPotions() {             //modif
+    caserneFerme.style.display = "none";
+    casernePotions.style.display = "flex";
+}
+potionsFerme.onclick = ouvrirOngletPotions;
+
+function fermerOngletPotions() {             //modif
+    caserneFerme.style.display = "flex";
+    casernePotions.style.display = "none";
+}
+boutonFermerPotions.onclick = fermerOngletPotions;
+
+function ouvrirOngletAllies() {             //modif
+    caserneFerme.style.display = "none";
+    caserneAllies.style.display = "flex";
+}
+alliesFerme.onclick = ouvrirOngletAllies;
+
+function fermerOngletAllies() {             //modif
+    caserneFerme.style.display = "flex";
+    caserneAllies.style.display = "none";
+}
+boutonFermerAllies.onclick = fermerOngletAllies;
 
 /* fonctions */
 
@@ -100,15 +147,15 @@ function fixerChronoMonstre() {
 }
 page.onload = fixerChronoMonstre;
 
-function rejouer() {    //reset du jeu
-    vieHeros = 100;
-    vieMonstre = 100;
-    or = 0;
-    score = 0;
-    actualisationAffichage();
-    ecranDefaite.style.display = "none";    //on enlève la fenêtre de défaite
-}
-boutonRejouer.onclick = rejouer;
+// function rejouer() {    //reset du jeu
+//     vieHeros = 100;
+//     vieMonstre = 100;
+//     or = 0;
+//     score = 0;
+//     actualisationAffichage();
+//     ecranDefaite.style.display = "none";    //on enlève la fenêtre de défaite
+// }
+// boutonRejouer.onclick = rejouer;
 
 function nouveauMonstre() {
     vieMonstre = vieBaseMonstre + 15 * compteurMonstresTues;    //agumentation de la vie max du prochain monstre
@@ -124,28 +171,21 @@ function nouveauMonstre() {
 }
 
 function actualisationAffichage() { //actualisation des valeurs affichées à l'écran
-    monstre.innerHTML = "<p>Vie du monstre : " + vieMonstre + "</p>";
+    monstre.innerHTML = '<p style="color: white;">Vie du monstre : ' + vieMonstre + "</p>";
     affichageScore.innerHTML = "<p>Score : " + score + "</p>";
     affichageOr.innerHTML = "<p>" + or + "</p>";
-    heros.innerHTML = "<p>Vie du héros : " + vieHeros + "/" + vieMaxHeros +"</p>";
-    paysan.innerHTML = "<p>Vous avez " + nombrePaysans + " paysans.</p>";
-    boutonAchatPaysan.innerHTML = "Acheter Paysan<br>Prix : " + prixPaysan;
-    milicien.innerHTML = "<p>Vous avez " + nombreMiliciens + " miliciens.</p>";
-    boutonAchatMilicien.innerHTML = "Acheter Milicien<br>Prix : " + prixMilicien;
-    lancier.innerHTML = "<p>Vous avez " + nombreLanciers + " lanciers.</p>";
-    boutonAchatLancier.innerHTML = "Acheter Lancier<br>Prix : " + prixLancier;
-    soldat.innerHTML = "<p>Vous avez " + nombreSoldats + " soldats.</p>";
-    boutonAchatSoldat.innerHTML = "Acheter Soldat<br>Prix : " + prixSoldat;
-    dpsHeros.innerHTML = "<p>Dégats du héros : " + forceHeros + "</p>";
-    dpsAllies.innerHTML = "<p>Bonus aux alliés : DPS x" + multiplicateurAllies + "</p>";
-    boutonPvPlus.innerHTML = "PV +<br>Prix : " + prixPvPlus;
-    boutonAttaquePlus.innerHTML = "Attaque +<br>Prix : " + prixAttaquePlus;
+    heros.innerHTML = "<p>Vie du héros : " + vieHeros + "/" + vieMaxHeros +"</p>";  //-8 lignes (affichages des alliés dans le moteur)
+    // dpsHeros.innerHTML = "<p>Dégats du héros : " + forceHeros + "</p>";
+    // dpsAllies.innerHTML = "<p>Bonus aux alliés : DPS x" + multiplicateurAllies + "</p>";
+    // boutonPvPlus.innerHTML = "PV +<br>Prix : " + prixPvPlus;
+    // boutonAttaquePlus.innerHTML = "Attaque +<br>Prix : " + prixAttaquePlus;
 }
 
 function achatPotionVie() {
     if (or >= 70 && potion === "") {
         or -= 70;
         actualisationAffichage();
+        boutonUtiliserPotion.innerHTML = '<img src="images/icones/potionrouge.png">';
         potion = "vie";
     }
     else if (or < 70) {
@@ -161,6 +201,7 @@ function achatPotionForce() {
     if (or >= 110 && potion === "") {
         or -= 110;
         actualisationAffichage();
+        boutonUtiliserPotion.innerHTML = '<img src="images/icones/potionverte.png">';
         potion = "force";
     }
     else if (or < 110) {
@@ -179,10 +220,12 @@ function utiliserPotion() {
             vieHeros = vieMaxHeros;
         }
         actualisationAffichage();
+        boutonUtiliserPotion.innerHTML = '';
         potion = "";
     } 
     else if(potion === "force") {
         forceHeros *= 2;
+        boutonUtiliserPotion.innerHTML = '';
         potion = "";
 
     }
@@ -205,6 +248,7 @@ function acheterPaysan() {
         nombrePaysans++;
         prixPaysan *= 2;
         actualisationAffichage();
+        alliesDiv.innerHTML += '<img src="images/allies-temp/soldat4.png">';
         fixerChronoAllies(forcePaysan);
     }
     else {
@@ -220,6 +264,7 @@ function acheterMilicien() {
         prixMilicien *= 1.8;
         prixMilicien = Math.round(prixMilicien); //prixMilicien = Math.round(prixMilicien*1.8)
         actualisationAffichage();
+        alliesDiv.innerHTML += '<img src="images/allies-temp/soldat1.png">';
         fixerChronoAllies(forceMilicien);
     }
     else {
@@ -235,6 +280,7 @@ function acheterLancier() {
         prixLancier *= 1.1;
         prixLancier = Math.round(prixLancier);
         actualisationAffichage();
+        alliesDiv.innerHTML += '<img src="images/allies-temp/soldat8.png">';
         fixerChronoAllies(forceLancier);
     }
     else {
@@ -250,6 +296,7 @@ function acheterSoldat() {
         prixSoldat *= 1.2;
         prixSoldat = Math.round(prixSoldat);
         actualisationAffichage();
+        alliesDiv.innerHTML += '<img src="images/allies-temp/soldat5.png">';
         fixerChronoAllies(forceSoldat);
     }
     else {
@@ -258,29 +305,29 @@ function acheterSoldat() {
 }
 boutonAchatSoldat.onclick = acheterSoldat;
 
-function acheterAttaquePlus() {
-    if(or >= prixAttaquePlus) {
-        or -= prixAttaquePlus;
-        prixAttaquePlus *= 2;
-        forceHeros++;
-        actualisationAffichage();
-    }
-    else {
-        alert("Vous n'avez pas assez d'or.")
-    }
-}
-boutonAttaquePlus.onclick = acheterAttaquePlus;
+// function acheterAttaquePlus() {
+//     if(or >= prixAttaquePlus) {
+//         or -= prixAttaquePlus;
+//         prixAttaquePlus *= 2;
+//         forceHeros++;
+//         actualisationAffichage();
+//     }
+//     else {
+//         alert("Vous n'avez pas assez d'or.")
+//     }
+// }
+// boutonAttaquePlus.onclick = acheterAttaquePlus;
 
-function acheterPvPlus() {
-    if(or >= prixPvPlus) {
-        or -= prixPvPlus;
-        prixPvPlus *= 1.5; 
-        vieMaxHeros += 10;
-        vieHeros += 10;
-        actualisationAffichage();
-    }
-    else {
-        alert("Vous n'avez pas assez d'or.")
-    }
-}
-boutonPvPlus.onclick = acheterPvPlus;
+// function acheterPvPlus() {
+//     if(or >= prixPvPlus) {
+//         or -= prixPvPlus;
+//         prixPvPlus *= 1.5; 
+//         vieMaxHeros += 10;
+//         vieHeros += 10;
+//         actualisationAffichage();
+//     }
+//     else {
+//         alert("Vous n'avez pas assez d'or.")
+//     }
+// }
+// boutonPvPlus.onclick = acheterPvPlus;

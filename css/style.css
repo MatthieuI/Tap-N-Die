@@ -93,7 +93,7 @@ body {
 
 /************** CASERNE ************/
 
-.caserneFerme {
+#caserneFerme { /* . --> # */
     width: 50px;
     height: 800px;
     background: url(../images/textures/scroll.jpg);
@@ -107,14 +107,14 @@ body {
     top: 120px;
 }
 
-.caserneFerme div {
+#caserneFerme div {
     height: 30%;
     display: flex;
     border-bottom: 1px solid #000;
 }
 
 
-.caserneFerme h5 {
+#caserneFerme h5 {
     writing-mode: vertical-rl;
     text-orientation: upright;
     margin: auto;
@@ -122,10 +122,54 @@ body {
     letter-spacing: 0.3rem;
 }
 
-.caserneFerme img {
+#caserneFerme img {
     height: 50px;
     width: 50px;
     transform: rotate(-90deg);
+}
+
+#caserneAllies, #casernePotions, #caserneBonus { /* modif */
+    display: none;
+    width: 350px;
+    height: 800px;
+    background: url(../images/textures/scroll.jpg);
+    background-size: cover;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #000;
+    position: absolute;
+    right:0;
+    top: 120px;
+}
+
+.marron {
+    background-color: #382400;
+    color: white;
+}
+
+.achatCaserne {
+    border-radius: 10px;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 1px solid #000;
+}
+
+.achatCaserne div {
+    border-radius: 10px;
+    background-color: grey;
+    border: 1px solid #000;
+    height: 30px;
+}
+
+.achatCaserne img {
+    height: 32px;
+    width: 32px;
+}
+
+.achatCaserne p, .achatCaserne img, .achatCaserne div {
+    margin: auto 0;
 }
 
 /* MONSTRE */
@@ -262,7 +306,7 @@ body {
     margin: auto;
 }
 
-.alliesDiv {
+#alliesDiv {        /* class -> id */
     background: url(../images/textures/scroll.jpg) rgba(0,0,0,.65);
     background-size: cover;
     height: 100px;
