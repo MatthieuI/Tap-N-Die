@@ -7,21 +7,21 @@
     <title>TAP N'DIE</title>
 </head>
 
-<body>
+<body id="chargementJeu">
 
     <div class="headbar">
         <!-- Headbar-->
         <div id="score">
-            <p>SCORE : 2284569</p>
+            <p>Score : 0</p>
         </div> <!-- score-->
         <div id="niveauEnCours">Niveau 35 : Le Volcan</div> <!-- niveau en cours-->
         <div>
-            <img src="/images/icones/coin.png">
+            <img src="images/icones/coin.png">
             <div id="compteurOr">
                 <!-- Coin-->
-                145000
+                <p>0</p>
             </div>
-            <img src="/images/icones/gemmes.png">
+            <img src="images/icones/gemmes.png">
             <div id="compteurGemmes">
                 <!-- Gemmes -->
                 100
@@ -38,7 +38,7 @@
 
             <div class="jdbFerme">
                 <h5>JOURNAL DE BORD</h5> <!-- Journal de bord replié-->
-                <img src="/images/icones/arrow.png"> <!-- Bouton de déroulement du bouton -->
+                <img src="images/icones/arrow.png"> <!-- Bouton de déroulement du bouton -->
             </div>
 
         </div>
@@ -60,9 +60,8 @@
 
             </div>
 
-            <div class="joueurDiv">
+            <div class="herosDiv">
 
-                <div class="herosDiv">
                     <div class="herosDivGauche">
                         <div id="potion">
 
@@ -73,6 +72,7 @@
                     </div>
                     <div class="herosDivMilieu">
                         <div id="herosImage">
+                            <img src="images/heros/warrior.png" alt="">
                         </div>
                         <div class="herosVieCadre">
                             <div id="herosVieBarre">
@@ -88,8 +88,6 @@
 
                         </div>
                     </div>
-
-                </div>
 
             </div>
 
@@ -117,7 +115,7 @@
                     <h5>POTIONS</h5>
                 </div><!-- potion fermé -->
 
-                <img src="/images/icones/arrow.png"> <!-- Bouton de déroulement du bouton -->
+                <img src="images/icones/arrow.png"> <!-- Bouton de déroulement du bouton -->
             </div>
 
             <div></div> <!-- alliés ouvert -->
@@ -194,7 +192,7 @@
         <!-- Haut - Faits-->
 
     </div>
-
+    <script src="script.js"></script>
 </body>
 
 </html>
