@@ -1,0 +1,160 @@
+/* GENERAL */
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+/* HEADER */
+.headbar {
+    background-image: url(../images/textures/wood.png);
+    background-position-y: 100px;
+    ;
+    height: 20px;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    font-weight: bold;
+}
+
+.headbar img {
+    width: 30px;
+    height: 30px;
+}
+
+.headbar #niveauEnCours {
+
+    font-size: 1.2em;
+}
+
+.headbar div:nth-child(3) {
+    display: flex;
+    justify-content: space-around;
+    width: 200px;
+}
+
+/* JOURNAL DE BORD */
+
+/* JOURNAL DE BORD FERME */
+
+.jdbFerme {
+    width: 50px;
+    height: 800px;
+    background: url(../images/textures/scroll.jpg);
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #000;
+    position: absolute;
+    left: 0;
+    top: 150px;
+
+}
+
+.jdbFerme h5 {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    margin: auto;
+    font-size: 25px;
+    letter-spacing: 0.5rem;
+}
+
+.jdbFerme img {
+    height: 50px;
+    width: 50px;
+    transform: rotate(90deg);
+}
+
+/* JOURNAL DE BORD OUVERT */
+
+
+/* CASERNE */
+
+.caserneFerme {
+    width: 50px;
+    height: 800px;
+    background: url(../images/textures/scroll.jpg);
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border: 1px solid #000;
+    position: absolute;
+    right: 0;
+    top: 150px;
+}
+
+.caserneFerme div {
+    height: 30%;
+    display: flex;
+    border-bottom: 1px solid #000;
+}
+
+
+.caserneFerme h5 {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    margin: auto;
+    font-size: 20px;
+    letter-spacing: 0.3rem;
+}
+
+.caserneFerme img {
+    height: 50px;
+    width: 50px;
+    transform: rotate(-90deg);
+}
+
+
+
+
+/* MONSTRE */
+
+
+/* PANEL DU HEROS */
+
+/* PARAMETRES */
+.parametresOuverts {
+    display: flex;
+    flex-direction: column;
+    vertical-align: middle;
+    background: rgba(0, 0, 53, 0.65);
+    border-radius: 17px;
+    color: white;
+    font-size: 40px;
+    margin-left: 30%;
+    margin-top: 7%;
+    position: relative;
+    width: 700px;
+    height: 700px;
+}
+
+.parametresOuverts > * {
+    margin-left: 30%;
+    margin-bottom: 5%;
+}
+
+.parametresOuverts #fermeture {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.parametresOuverts #fermeture:hover {
+    color: chocolate;
+}
+
+.bouton {
+    background-color: blue;
+    border: 1px solid black;
+    margin: 1em;
+}
+
+.rouge {
+    background-color: red;
+}
+
+.parametresFermes {
+    display: none;
+}
