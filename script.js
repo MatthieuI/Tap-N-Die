@@ -50,7 +50,7 @@ let ecranDefaite = document.getElementById("defaite");
 let boutonRejouer = document.getElementById("rejouer");
 let boutonAchatPotionVie = document.getElementById("acheterPotionVie");
 let boutonAchatPotionForce = document.getElementById("acheterPotionForce");
-let boutonUtiliserPotion = document.getElementById("utiliserPotion");
+let boutonUtiliserPotion = document.getElementById("potion");
 let boutonAchatPaysan = document.getElementById("acheterPaysan");
 let boutonAchatMilicien = document.getElementById("acheterMilicien");
 let boutonAchatLancier = document.getElementById("acheterLancier");
@@ -145,6 +145,7 @@ boutonRetour.onclick = retour;                 // Louise //
 function valider () {                          // Louise // 
     introduction.style.display = "none";       // Louise // 
     choisirHeros.style.display = "none";       // Louise // 
+    fixerChronoMonstre();                      //modif 26/01 matthieu
 }
 boutonValider.onclick = valider;               // Louise // 
 
@@ -178,17 +179,21 @@ function attaquerHeros() {
 
 function fixerChronoMonstre() {
     chronoMonstre = setInterval(attaquerHeros, 1000);   //timer entre chaque attaque du monstre (en ms)
-}
-page.onload = fixerChronoMonstre;
+} //modif 26/01 matthieu
 
-function rejouer() {    //reset du jeu
+function rejouer() {    //reset du jeu  //modif 26/01 matthieu
     vieHeros = 100;
     vieMaxMonstre = 100;
     or = 0;
     score = 0;
     gemmes += gemmesGagnes;
+    clearInterval(chronoMonstre);
+    clearInterval(chronoAllies);
+    alliesDiv.innerHTML = "";
+    potion = "";
+    boutonUtiliserPotion.innerHTML = "";
     ecranDefaite.style.display = "none";    //on enlève la fenêtre de défaite
-    actualisationAffichage();
+    actualisationAffichage();       
 }
 boutonRejouer.onclick = rejouer;
 
