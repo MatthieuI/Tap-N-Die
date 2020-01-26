@@ -79,8 +79,7 @@ let chronoAllies;
 
 /* Bugs et corrections :
 - boutonUtiliserPotion.disabled = true;
-- onload ---> onclick choix du héros;
-- compléter la fonction rejouer;
+- compléter la fonction rejouer; ??? a checker
 - Faire un compteur de parties; 
 - Faire timer potion de force; 
 */
