@@ -1,8 +1,10 @@
 /* Valeurs */
 
+let herosActif;
 let vieHeros = 100;
 let vieMaxHeros = 100; //pour ne pas dépasser la vie max du héros
 let forceHeros = 10;
+let forceMonstre = 1;
 let vieMonstre = 100;
 let vieBaseMonstre = 100;   //besoin pour augmenter la vie du monstre suivant
 let vieMaxMonstre = 100;
@@ -47,16 +49,18 @@ let prixPvPlus = 50;
 let prixAttaquePlus = 25;
 let prixAttaqueAlliesPlus = 75;
 let dispoCapacite = true;
+let i = 30;
 
 /* Eléments du html */
 
 let introduction = document.getElementById ("bienvenue");       //Louise // 
-let boutonChoixheros = document.getElementById("boutonChoixHeros");     // Louise //
-let choisirHeros = document.getElementById ("choisirHeros")     // Louise // 
+let boutonChoixheros = document.getElementById("boutonChoixHeros");     
+let choisirHeros = document.getElementById ("choisirHeros");
 let guerriere = document.getElementById ("guerriere") ;// Louise //
 let archere = document.getElementById ("archere") ;// Louise //
 let magicienne = document.getElementById ("magicienne") ;// Louise //
 let voleur = document.getElementById ("voleur") ;// Louise //
+
 
 let competence = document.getElementById ("competence");
 /* Parametre */ 
@@ -67,12 +71,11 @@ let boutonReinitialiser = document.getElementById ("boutonReinitialiser");
 /////////////////////////////////////
 let boutonRetour = document.getElementById("boutonRetour");     // Louise //
 let boutonValider = document.getElementById ("boutonValider");  // Louise // 
-
 let affichageNiveau = document.getElementById("niveauEnCours");
 let affichageScore = document.getElementById("score");
 let affichageOr = document.getElementById("compteurOr");
 let affichageGemmes = document.getElementById ("compteurGemmes");
-let affichageGemmes2 = document.getElementById ("compteurGemmesGagnes");
+let affichageGemmes2 = document.getElementById("compteurGemmesGagnes");
 let boutonAttaquer = document.getElementById("monstre");
 let page = document.getElementById("chargementJeu");
 let heros = document.getElementById("affichageVieNombre");
@@ -114,6 +117,106 @@ let competence = document.getElementById("competence");
 
 let chronoMonstre;
 let chronoAllies;
+let chronoArchere;
+
+/* Héros */
+
+let guerriereObjet = {
+    nom: "guerriere",
+    capaciteSpeciale() {
+        if (dispoCapacite===true) {
+            vieMonstre -= (3*forceHeros);   
+            verifierMortMonstre();                              // Attaque plus puissante
+            clearInterval(chronoMonstre);                       // Le monstre arrête d'attaquer le héros
+            setTimeout(fixerChronoMonstre, 5000);               // Le monstre n'attaque plus pendant 5sec puis reprend son attaque normale
+            dispoCapacite = false;    
+            setTimeout(reactiverCapacite, 30000);
+            chronoCapacite = setInterval(capaciteRecharge, 1000);
+            setTimeout(clearInterval, 30000, chronoCapacite);
+        }               
+    }
+}
+
+function capaciteRecharge() {  
+    i--;
+    competence.innerHTML = "";
+    competence.innerHTML = "<p>" + i + "</p>";
+    actualisationAffichage();
+    if (i===0) {
+        competence.innerHTML = `<img src="images/icones/arme2.png">` ;
+        i = 30;
+        }
+    } 
+
+let mageObjet = {
+    nom : "mage",
+    capaciteSpeciale() {
+        if (dispoCapacite===true) {
+            vieMonstre -= (10*forceHeros);                      // Attaque plus puissante
+            verifierMortMonstre();
+            dispoCapacite = false;    
+            setTimeout(reactiverCapacite, 30000);
+        }
+    }
+}
+
+let archereObjet = {
+    nom : "archere",
+    capaciteSpeciale() {
+        if (dispoCapacite===true) {
+            chronoArchere = setInterval(degatsAuto, 100, forceHeros/5);
+            setTimeout(clearInterval, 5000, chronoArchere);
+            dispoCapacite = false;    
+            setTimeout(reactiverCapacite, 30000);
+        }
+    }
+}
+
+function competenceVoleur() {
+    attaquerMonstre();
+    let critique = entierAleatoire(1, 100);
+    if (critique<=10) {
+        vieHeros += vieHeros/100;
+        vieHeros = Math.round(vieHeros);
+        if (vieHeros>vieMaxHeros) {vieHeros=vieMaxHeros}
+    }    
+    if (critique>=90) {
+        or += or/100; 
+        or = Math.round(or);
+    }
+}
+
+function resetCapaciteVoleur() {
+    boutonAttaquer.onclick = attaquerMonstre;
+}
+
+
+let voleurObjet = {
+    nom : "voleur",
+    capaciteSpeciale() {
+        if (dispoCapacite===true) {
+            boutonAttaquer.onclick = competenceVoleur;
+            setTimeout(resetCapaciteVoleur, 10000);
+            dispoCapacite = false;    
+            setTimeout(reactiverCapacite, 30000);
+        }
+    }
+}
+
+function reactiverCapacite() {
+    dispoCapacite = true;
+}
+
+function capaciteSpeciale() {
+    herosActif.capaciteSpeciale();
+}
+
+competence.onclick = capaciteSpeciale;
+
+// let bonusPermanents = {
+//     attaqueHeros = 0,
+//    // [...]
+// }
 
 /* Héros */
 
@@ -134,32 +237,6 @@ let guerriere = {
 function reactiverCapacite() {
     dispoCapacite = true;
 }
-
-let mage = {
-    nom : "mage",
-    capaciteSpeciale() {
-        if (dispoCapacite===true) {
-            vieMonstre -= (10*forceHeros);                      // Attaque plus puissante
-            verifierMortMonstre();
-            dispoCapacite = false;    
-            setTimeout(reactiverCapacite, 10000)
-        }
-    }
-}
-
-// let archere = {
-//     nom = "archere",
-//     capaciteSpeciale() {
-
-//     }
-// }
-
-// let voleur = {
-//     nom = "voleur",
-//     capaciteSpeciale() {
-
-//     }
-// }
 
 let herosActif = guerriere;
 
@@ -217,9 +294,8 @@ function fermerOngletAllies() {             //modif
 }
 boutonFermerAllies.onclick = fermerOngletAllies;    //cliquer sur le bouton fermer
 
-function entierAleatoire(min,max) /* MODIF BY YANN */
-{
- return Math.floor(Math.random() * (max - min + 1)) + min;
+function entierAleatoire(min,max) /* MODIF BY YANN */{
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 let aleatoire = entierAleatoire(1, 120);
@@ -233,7 +309,7 @@ function selectionneGuerriere() {                   // Louise //
     voleur.style.border = "";// Louise // 
     herosImage.innerHTML = `<img src="images/heros/warrior.png"> `;// Louise // 
     competence.innerHTML = `<img src="images/icones/arme2.png">` ;
-    herosActif = guerriere ;      
+    herosActif = guerriereObjet ;      
 }
 guerriere.onclick = selectionneGuerriere;           // Louise // 
 
@@ -242,27 +318,33 @@ function selectionneArchere() {                   // Louise //
     guerriere.style.border = "";// Louise // 
     magicienne.style.border = "";// Louise // 
     voleur.style.border = "";// Louise // 
-    herosImage.innerHTML = `<img src="images/heros/archer.png"> `;// Louise // 
+    herosImage.innerHTML = `<img src="images/heros/archer.png"> `;// Louise //boutonAttaquer.onclick
+    competence.innerHTML = `<img src="images/icones/arme2.png">` ;
+    herosActif = archereObjet ;         // Louise // 
 }
-archere.onclick = selectionneArchere;           // Louise // 
+archere.onclick = selectionneArchere; 
 
 function selectionneMagicienne() {                   // Louise // 
     magicienne.style.border = "3px solid #bb0b0b";   // Louise // 
     archere.style.border = "";// Louise // 
     guerriere.style.border = "";// Louise // 
     voleur.style.border = "";// Louise // 
-    herosImage.innerHTML = `<img src="images/heros/mage.png"> `;// Louise // 
+    herosImage.innerHTML = `<img src="images/heros/mage.png"> `;// Louise //
+    competence.innerHTML = `<img src="images/icones/capaheros.png">` ;
+    herosActif = mageObjet ;      
 }
 magicienne.onclick = selectionneMagicienne;           // Louise // 
 
 function selectionneVoleur() {                   // Louise // 
     voleur.style.border = "3px solid #bb0b0b";   // Louise // 
     archere.style.border = "";                   // Louise //    
-    magicienne.style.border = "";                // Louise // 
-    guerriere.style.border = "";      
+    magicienne.style.border = "";   
+    guerriere.style.border = "";       
     herosImage.innerHTML = `<img src="images/heros/rogue.png"> `;// Louise // 
+    competence.innerHTML = `<img src="images/icones/alliees.png">` ;
+    herosActif = voleurObjet ;      
 }
-voleur.onclick = selectionneVoleur;           // Louise // 
+voleur.onclick = selectionneVoleur;
 
 function boutonHeros() {                       // Louise // 
     introduction.style.display = "none";       // Louise // 
@@ -275,6 +357,7 @@ function retour () {                           // Louise //
     choisirHeros.style.display = "none";       // Louise //   
 }
 boutonRetour.onclick = retour;                 // Louise // 
+
 
 function valider () {                          // Louise // 
     introduction.style.display = "none";       // Louise // 
@@ -321,7 +404,7 @@ function verifierMortMonstre() {
 }
 
 function attaquerHeros() {
-    vieHeros -= 1;
+    vieHeros -= forceMonstre;
     if (vieHeros > 0) { //pour ne pas passer en négatif
         actualisationAffichage();
     }
@@ -336,13 +419,14 @@ function fixerChronoMonstre() {
     chronoMonstre = setInterval(attaquerHeros, 1000);   //timer entre chaque attaque du monstre (en ms)
 } //modif 26/01 matthieu
 
-function rejouer() {    //reset du jeu  //modif 26/01 matthieu
+function rejouer() {    //reset du jeu  //modif 26/01 matthieu //resolution bugs mineurs
     vieHeros = 100;
     vieMaxMonstre = 100;
     vieMonstre = 100;
     compteurMonstresTues = 0;
     or = 0;
     score = 0;
+    forceMonstre = 1;
     gemmes += gemmesGagnes;
     clearInterval(chronoMonstre);
     clearInterval(chronoAllies);        //sensé reset les alliés ?
@@ -358,6 +442,7 @@ boutonRejouer.onclick = rejouer;
 function nouveauMonstre() {
     vieMonstre = vieBaseMonstre + 15 * compteurMonstresTues;    //argumentation de la vie max du prochain monstre
     vieMaxMonstre = vieMonstre;
+    if (compteurMonstresTues%5===0) {forceMonstre = forceMonstre*2}
     aleatoire = entierAleatoire(1, 120);
     vieHeros += 10; //soin du héros
     if (vieHeros > vieMaxHeros) {   //on empeche le héros de regagner plus de vie que son maximum
@@ -369,15 +454,6 @@ function nouveauMonstre() {
     clearInterval(chronoMonstre);   //on reset le timer
     fixerChronoMonstre();   
 }
-
-// function monstreElite {
-//     if (compteurMonstresTues%10===0) {
-
-//     }
-//     else {
-//         nouveauMonstre();
-//     }
-// }
 
 function actualisationAffichage() { //actualisation des valeurs affichées à l'écran
     // monstre.innerHTML = "<p>Vie du monstre : " + vieMonstre + "</p>";
@@ -454,7 +530,7 @@ function degatsAuto(dps) {
 }
 
 function fixerChronoAllies(dps) {
-    chronoAllies = setInterval(degatsAuto, 1000, dps);   //appelle fixerChronoAllies(dps) une fois par seconde
+    chronoAllies = setInterval(degatsAuto, 1000, dps);   //appelle degatsAuto(dps) une fois par seconde
 }
 
 function acheterPaysan() {
