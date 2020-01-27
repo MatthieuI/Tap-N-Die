@@ -183,16 +183,19 @@ function fixerChronoMonstre() {
 function rejouer() {    //reset du jeu  //modif 26/01 matthieu
     vieHeros = 100;
     vieMaxMonstre = 100;
+    vieMonstre = 100;
+    compteurMonstresTues = 0;
     or = 0;
     score = 0;
     gemmes += gemmesGagnes;
     clearInterval(chronoMonstre);
-    clearInterval(chronoAllies);
+    clearInterval(chronoAllies);        //sensé reset les alliés ?
     alliesDiv.innerHTML = "";
     potion = "";
     boutonUtiliserPotion.innerHTML = "";
     ecranDefaite.style.display = "none";    //on enlève la fenêtre de défaite
-    actualisationAffichage();       
+    actualisationAffichage();
+    fixerChronoMonstre();
 }
 boutonRejouer.onclick = rejouer;
 
@@ -225,7 +228,7 @@ function actualisationAffichage() { //actualisation des valeurs affichées à l'
     monstre.innerHTML = `<img src="images/monstres/MonsterPack/${aleatoire}.png">`;
     monstreVieBarre.style.width = `${vieMonstre*400/vieMaxMonstre}px`;                  /* MODIF BY YANN */
     affichageScore.innerHTML = "<p>Score : " + score + "</p>";
-    affichageNiveau.innerHTML = "<p>Niveau " + compteurMonstresTues + "</p>";
+    affichageNiveau.innerHTML = "<p>Niveau " + (compteurMonstresTues+1) + "</p>";
     affichageOr.innerHTML = "<p>" + or + "</p>";
     affichageGemmes.innerHTML = "<p>" + gemmes + "</p>";
     affichageGemmes2.innerHTML =  gemmesGagnes ;
