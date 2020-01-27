@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <meta charset="UTF-8">
+    <title>TAP N'DIE</title>
+</head>
+
+<body id="chargementJeu">
+
+    <div class="headbar">
+        <!-- Headbar-->
+        <div id="score">
+            <p>Score : 0</p>
+        </div> <!-- score-->
+        <div id="niveauEnCours"></div> <!-- niveau en cours-->
+        <div>
+            <img src="images/icones/coin.png">
+            <div id="compteurOr">
+                <!-- Coin-->
+                <p>0</p>
+            </div>
+            <img src="images/icones/gemmes.png">
+            <div id="compteurGemmes">
+                <!-- Gemmes -->
+                <p>0</p>
+            </div>
+            <img id="ecrou" src="images/icones/ecrou.png">
+        </div>
+    </div>
+
+    <div class="conteneur">
+
+        <div class="conteneurGauche">
+            <!-- Journal de bord -->
+            <div></div> <!-- Journal de bord déplié -->
+
+            <div class="jdbFerme">
+                <h5>JOURNAL DE BORD</h5> <!-- Journal de bord replié-->
+                <img src="images/icones/arrow.png"> <!-- Bouton de déroulement du bouton -->
+            </div>
+
+        </div>
+
+        <div class="conteneurMilieu">
+
+<!-- ////////////////////////////////////////////// -->
+<!-- //////////////ECRAN ACCUEIL/////////////////// -->
+<!-- ////////////////////////////////////////////// -->
+          
+    <div id="bienvenue">
+        <!-- Bienvenue -->
+        <h2> BIENVENUE SUR </h2>
+    	<h1>TAP N'DIE</h1>
+    	<div id="boutonDeDepart">
+        	<button id="boutonChoixHeros">CHOISIR MON HEROS</button> <!-- Choix Heros -->
+        	<button id="boutiquePermanente">BOUTIQUE</button> <!-- Boutique -->
+        </div>
+    </div>
+          
+<!-- ////////////////////////////////////////////// -->
+<!-- /////////////CHOIX DU HEROS/////////////////// -->
+<!-- ////////////////////////////////////////////// -->
+
+    <div id="choisirHeros">   <!-- Choix du héros -->
+        <h2> CHOISISSEZ VOTRE HEROS</h2>
+        <div id="lesHeros">
+            <div id="guerriere"></div><!-- Héros 1 -->
+            <div id="archere"></div><!-- Héros 2 -->
+            <div id="magicienne"></div><!-- Héros 3 -->
+            <div id="voleur"></div><!-- Héros 4 -->
+        </div>
+        <div id="boutonChoixHeros">
+        	<button id="boutonRetour">RETOUR</button> <!-- Retour -->
+        	<button id="boutonValider">VALIDER </button> <!-- Valider -->
+    	</div>
+    </div>
+          
+<!-- ////////////////////////////////////////////// -->
+<!-- /////////////////TRY AGAIN//////////////////// -->
+<!-- ////////////////////////////////////////////// -->
+          
+    <div id="defaite">           <!-- You died --> 
+        <h1> YOU DIED !</h1>
+        <h2> TRY AGAIN</h2>
+        <div id>                    <!-- Gain de gemmes -->
+            <p> Tu gagnes <span  id="compteurGemmesGagnes">0</span> <img src="images/icones/gemmes.png"> 
+                <br/>
+                <button id="rejouer"> REJOUER ?</button>  <!-- Rejouer -->
+            </p>
+        </div>
+    </div>
+
+<!-- /////////////////////////////////////////////// --> 
+<!-- ////////////////////PARAMETRE////////////////// --> 
+<!-- /////////////////////////////////////////////// --> 
+    <div id="parametres" class="parametresFermes">
+       
+        <div id="fermeture"> <!-- Petite croix -->
+            <p id="croix">X</p>
+        </div> 
+
+        <div id="titreParametre">
+            <h3><img src="images/icones/ecrou.png" alt="">Options</h3>
+        </div> 
+
+        <div id="reglageSon"> <!-- Volume -->
+            <p id="volume">VOLUME</p>
+            <input type="checkbox" name="Oui">
+                <label for="oui">Oui</label>
+            <input type="checkbox" name="Non">
+                <label for="non">Non</label>
+        </div>
+
+        <div id="affichageDegats">
+            <p>AFFICHAGE DES DEGATS</p> 
+            <input type="checkbox" name="Non">
+                <label for="non"></label>
+           
+        </div>
+        <div id="boutonOptions">
+            <button id="boutonHautsFaits">HAUTS-FAITS</button> <!-- Haut - Faits-->
+            <button id="boutonCredits">CREDITS</button> <!-- Crédits -->
+            <button id="boutonReinitialiser">REINITIALISER PARTIE</button>
+        </div>
+    </div>
+<!-- /////////////////////////////////////////////// --> 
+          
+            <div class="monstreDiv">
+                <div class="monstreVieCadre">
+                    <!-- Barre de vie Monstre (rouge foncé)-->
+                    <div id="monstreVieBarre">
+                        <!-- Vie perdu Monstre  (rouge clair) -->
+                    </div>
+                </div>
+
+                <div id="monstre">
+                    <!-- Images Monstre (changeante) -->
+
+
+                </div>
+
+            </div>
+
+            <div class="herosDiv">
+
+                    <div class="herosDivGauche">
+                        <div id="potion">
+
+                        </div>
+                        <div id="shiva">
+
+                        </div>
+                    </div>
+                    <div class="herosDivMilieu">
+                        <div id="herosImage">
+                            <img src="images/heros/warrior.png" alt="">
+                        </div>
+                        <div id="herosVieCadre">
+                            <div id="herosVieBarre">
+
+                            </div>
+                        </div>
+                        <div id="affichageVieNombre"></div>
+                    </div>
+                    <div class="herosDivDroite">
+                        <div id="competence">
+
+                        </div>
+                        <div id="toundra">
+
+                        </div>
+                    </div>
+
+            </div>
+
+            <div id="alliesDiv">
+                <!-- Allié temporaire -->
+
+            </div>
+
+        </div>
+
+        <div class="conteneurDroite">
+            <!-- Boutique temporaire -->
+
+            <div id="caserneFerme">  <!-- class -> id (modif) -->
+                <!-- boutique repliée-->
+                <div id="alliesFerme">
+                    <h5>ALLIES</h5><!-- Alliées fermé -->
+                </div>
+
+                <div id="bonusFerme">
+                    <h5>BONUS</h5>
+                </div><!-- bonus fermé -->
+
+                <div id="potionsFerme">
+                    <h5>POTIONS</h5>
+                </div><!-- potion fermé -->
+
+                <img src="images/icones/arrow.png"> <!-- Bouton de déroulement du bouton -->
+            </div>
+
+            <div id="caserneAllies">
+
+                <h5>Alliés</h5>
+
+                <div class="marron achatCaserne" id="acheterPaysan">
+                    <img src="images/allies-temp/soldat4.png">
+                    <p>Paysan +1 DPS</p>
+                    <div><p>50<img src="images/icones/coin.png" width="24px" height="24px"></p></div>
+                </div>
+
+                <div class="marron achatCaserne" id="acheterMilicien">
+                    <img src="images/allies-temp/soldat1.png">
+                    <p>Milicien +5 DPS</p>
+                    <div><p>110 <img src="images/icones/coin.png" width="24px" height="24px"></p></div>
+                </div>
+
+                <div class="marron achatCaserne" id="acheterLancier">
+                    <img src="images/allies-temp/soldat8.png">
+                    <p>Lancier +10 DPS</p>
+                    <div><p>350<img src="images/icones/coin.png" width="24px" height="24px"></p></div>
+                </div>
+
+                <div class="marron achatCaserne" id="acheterSoldat">
+                    <img src="images/allies-temp/soldat5.png">
+                    <p>Soldat +20 DPS</p>
+                    <div><p>1000<img src="images/icones/coin.png" width="24px" height="24px"></p></div>
+                </div>
+              
+                <div class="marron achatCaserne" id="acheterFantassin">
+                    <img src="images/allies-temp/soldat2.png">
+                    <p>Fantassin +50 DPS</p>
+                    <div><p>2000<img src="images/icones/coin.png" width="24px" height="24px"></p></div>
+                </div>
+
+                <div class="marron achatCaserne" id="acheterGarde">
+                    <img src="images/allies-temp/soldat7.png">
+                    <p>Garde d'élite +100 DPS</p>
+                    <div><p>4000<img src="images/icones/coin.png" width="24px" height="24px"></p></div>
+                </div>
+
+                <div class="marron achatCaserne" id="acheterGeneral">
+                    <img src="images/allies-temp/soldat6.png">
+                    <p>Général +200 DPS</p>
+                    <div><p>10000<img src="images/icones/coin.png" width="24px" height="24px"></p></div>
+                </div>
+
+                <div class="marron achatCaserne" id="acheterPretre">
+                    <img src="images/allies-temp/soldat10.png">
+                    <p>Prêtre +500 DPS</p>
+                    <div><p>20000<img src="images/icones/coin.png" width="24px" height="24px"></p></div>
+                </div>
+
+                <div class="marron achatCaserne" id="acheterEnchanteresse">
+                    <img src="images/allies-temp/soldat9.png">
+                    <p>Enchanteresse +1000 DPS</p>
+                    <div><p>40000<img src="images/icones/coin.png" width="24px" height="24px"></p></div>
+                </div>
+
+                <div class="marron achatCaserne" id="acheterSeigneur">
+                    <img src="images/allies-temp/soldat3.png">
+                    <p>Seigneur de guerre +2000 DPS</p>
+                    <div><p>100000<img src="images/icones/coin.png" width="24px" height="24px"></p></div>
+                </div>
+              
+                <button id="fermerAllies">X</button>
+                
+            </div> <!-- alliés ouvert -->
+
+            <div id="caserneBonus">
+
+                <h5>Bonus</h5>
+
+                <div class="marron achatCaserne" id="attaquePlus">
+                    <img src="images/icones/epee.png">
+                    <p>Attaque +</p>
+                    <div><p>25<img src="images/icones/coin.png" width="24px" height="24px"></p></div>
+                </div>
+
+                <div class="marron achatCaserne" id="attaqueAlliesPlus">
+                    <img src="images/icones/alliees.png">
+                    <p>Attaque Alliés +</p>
+                    <div><p>75<img src="images/icones/coin.png" width="24px" height="24px"></p></div>
+                </div>
+
+                <div class="marron achatCaserne" id="pvPlus">
+                    <img src="images/icones/santé.png">
+                    <p>PV +</p>
+                    <div><p>50<img src="images/icones/coin.png" width="24px" height="24px"></p></div>
+                </div>
+
+                <button id="fermerBonus">X</button>
+
+            </div><!-- bonus ouvert -->
+
+            <div id="casernePotions">
+
+                <h5>Potions</h5>
+
+                <div class="marron achatCaserne" id="acheterPotionVie">
+                    <img src="images/icones/potionrouge.png">
+                    <p>Potion de santé</p>
+                    <div><p>70<img src="images/icones/coin.png" width="24px" height="24px"></p></div>
+                </div>
+
+                <div class="marron achatCaserne" id="acheterPotionForce">
+                    <img src="images/icones/potionverte.png">
+                    <p>Potion de force</p>
+                    <div><p>110<img src="images/icones/coin.png" width="24px" height="24px"></p></div>
+                </div>
+
+                <button id="fermerPotions">X</button>
+
+            </div><!-- potion ouvert -->
+
+        </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div style="display: none;">
+        <!-- Bienvenue -->
+        <h1> Bienvenue sur Tap N'Die</h1>
+        <button></button> <!-- Boutique -->
+        <button></button>
+    </div>
+
+
+    <div style="display: none;">
+        <!-- Choix du héros -->
+        <h2> Choisissez votre héros</h2>
+        <div>
+            <div></div><!-- Héros 1 -->
+            <div></div><!-- Héros 2 -->
+            <div></div><!-- Héros 3 -->
+            <div></div><!-- Héros 4 -->
+        </div>
+        <button></button> <!-- Retour -->
+        <button></button> <!-- Valider -->
+    </div>
+
+    <div style="display: none;">
+        <button></button> <!-- Petite croix -->
+
+        <h3>Options</h3> <!-- Options (+img )  -->
+
+        <div>
+            <!-- Volume -->
+            <p>Volume</p>
+        </div>
+
+        <div>
+            <p>Affichage des dégâts</p>
+            <!-- Checkbox -->
+        </div>
+
+        <div>
+            <button></button> <!-- Haut - Faits-->
+            <button></button> <!-- Crédits -->
+            <button></button> <!-- Réinitialiser la partie -->
+        </div>
+
+    </div>
+
+    <div style="display: none;">
+        <!-- Boutique Permanente -->
+
+    </div>
+
+
+    <div style="display: none;">
+        <!-- Haut - Faits-->
+
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
