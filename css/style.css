@@ -516,10 +516,6 @@ body {
     margin-top: 50px;
 }
 
-.herosSelectionne {
-    border: 3px solid #bb0b0b;
-}
-
 /* ///////////////////////// ECRAN GAME OVER //////////////////////////////*/ 
 
 #defaite {
@@ -571,16 +567,11 @@ body {
 	width: 300px;
 	font-size: 25px;
 	margin-top: 50px;
-
 }
 
 
 /* ////////////////// PARAMETRES /////////////////////////// */
 
-
-.parametresFermes {
-
-}
 #parametres{
     z-index: 1900;
     margin: 60px 0 0 0;
