@@ -493,7 +493,7 @@ function acheterSeigneur() {
         alert("Vous n'avez pas assez d'or.");
     }
 }
-boutonAchatSeigneur.onclick = acheterSeigneur;  //ajout 27/01
+boutonAchatSeigneur.onclick = acheterSeigneur;  //ajout 27/01 des alliés
 
 // function acheterAttaquePlus() {
 //     if(or >= prixAttaquePlus) {
