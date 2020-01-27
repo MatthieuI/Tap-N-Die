@@ -2,7 +2,7 @@
 
 @font-face {
 	font-family: "Dalelands"; 
-	src : url("../images/fonts/DalelandsUncialBold-82zA.ttf"); /* modif 26/01 matthieu */
+	src : url("../images/fonts/DalelandsUncialBold-82zA.ttf"); 
 	font-weight: normal;
 	font-style: normal;
 }
@@ -515,6 +515,7 @@ body {
     font-size: 20px;
     margin-top: 50px;
 }
+
 /* ///////////////////////// ECRAN GAME OVER //////////////////////////////*/ 
 
 #defaite {
@@ -566,5 +567,114 @@ body {
 	width: 300px;
 	font-size: 25px;
 	margin-top: 50px;
+}
 
+
+/* ////////////////// PARAMETRES /////////////////////////// */
+
+#parametres{
+    z-index: 1900;
+    margin: 60px 0 0 0;
+    height: 550px;
+    width: 60%;
+    background: rgba(0, 0, 53, 1);
+    border-radius: 2%;
+    border: 1px solid #000;
+   display: none;
+    position: fixed;
+    color: white;
+    text-align: center;
+    font-family: "Dalelands";
+}
+
+#parametres h3{
+    color: white;
+    font-family: "Dalelands";
+    text-align: center;
+    margin-top: 10px;
+    font-size: 50px;
+}
+
+#croix{
+    text-align: right;
+    font-family: "Dalelands";
+    margin-right: 20px;
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+#parametres h3 img {
+    width: 40px;
+    height: 40px;
+    padding-right: 10px;
+}
+
+#volume hr{
+
+}
+
+#reglageSon {
+    display: flex;
+    justify-content: space-around;
+    width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+
+}
+
+#affichageDegats{
+    display: flex;
+    justify-content: space-around;
+    width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+}
+
+#boutonOptions{
+    display: flex;
+    flex-direction: column;
+    align-items : center;
+}
+
+#boutonReinitialiser{
+    background-color: #4D0000;
+    color: white; 
+    font-family: "Dalelands";
+    border: 2px solid black;
+    border-radius: 10px;
+    height: 50px;
+    width: 300px;
+    font-size: 25px;
+    margin-top: 50px;
+}
+
+#boutonCredits{
+    background-color: #003451;
+    color: white; 
+    font-family: "Dalelands";
+    border: 2px solid black;
+    border-radius: 10px;
+    height: 50px;
+    width: 300px;
+    font-size: 25px;
+    margin-top: 50px;
+}
+
+#boutonHautsFaits{
+    background-color: #003451;
+    color: white; 
+    font-family: "Dalelands";
+    border: 2px solid black;
+    border-radius: 10px;
+    height: 50px;
+    width: 300px;
+    font-size: 25px;
+    margin-top: 30px;
+}
+
+
+#croix:hover {
+    color: #4D0000;
 }

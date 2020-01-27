@@ -26,7 +26,7 @@
                 <!-- Gemmes -->
                 <p>0</p>
             </div>
-            <img src="#">
+            <img id="ecrou" src="images/icones/ecrou.png">
         </div>
     </div>
 
@@ -45,7 +45,10 @@
 
         <div class="conteneurMilieu">
 
-            <!-- ////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////// -->
+<!-- //////////////ECRAN ACCUEIL/////////////////// -->
+<!-- ////////////////////////////////////////////// -->
+          
     <div id="bienvenue">
         <!-- Bienvenue -->
         <h2> BIENVENUE SUR </h2>
@@ -55,10 +58,11 @@
         	<button id="boutiquePermanente">BOUTIQUE</button> <!-- Boutique -->
         </div>
     </div>
+          
+<!-- ////////////////////////////////////////////// -->
+<!-- /////////////CHOIX DU HEROS/////////////////// -->
 <!-- ////////////////////////////////////////////// -->
 
-
-<!-- ////////////////////////////////////////////// -->
     <div id="choisirHeros">   <!-- Choix du héros -->
         <h2> CHOISISSEZ VOTRE HEROS</h2>
         <div id="lesHeros">
@@ -72,9 +76,11 @@
         	<button id="boutonValider">VALIDER </button> <!-- Valider -->
     	</div>
     </div>
+          
 <!-- ////////////////////////////////////////////// -->
-
-            <!-- ////////////////////////////////////////////// -->
+<!-- /////////////////TRY AGAIN//////////////////// -->
+<!-- ////////////////////////////////////////////// -->
+          
     <div id="defaite">           <!-- You died --> 
         <h1> YOU DIED !</h1>
         <h2> TRY AGAIN</h2>
@@ -85,8 +91,42 @@
             </p>
         </div>
     </div>
-<!-- /////////////////////////////////////////////// --> 
 
+<!-- /////////////////////////////////////////////// --> 
+<!-- ////////////////////PARAMETRE////////////////// --> 
+<!-- /////////////////////////////////////////////// --> 
+    <div id="parametres" class="parametresFermes">
+       
+        <div id="fermeture"> <!-- Petite croix -->
+            <p id="croix">X</p>
+        </div> 
+
+        <div id="titreParametre">
+            <h3><img src="images/icones/ecrou.png" alt="">Options</h3>
+        </div> 
+
+        <div id="reglageSon"> <!-- Volume -->
+            <p id="volume">VOLUME</p>
+            <input type="checkbox" name="Oui">
+                <label for="oui">Oui</label>
+            <input type="checkbox" name="Non">
+                <label for="non">Non</label>
+        </div>
+
+        <div id="affichageDegats">
+            <p>AFFICHAGE DES DEGATS</p> 
+            <input type="checkbox" name="Non">
+                <label for="non"></label>
+           
+        </div>
+        <div id="boutonOptions">
+            <button id="boutonHautsFaits">HAUTS-FAITS</button> <!-- Haut - Faits-->
+            <button id="boutonCredits">CREDITS</button> <!-- Crédits -->
+            <button id="boutonReinitialiser">REINITIALISER PARTIE</button>
+        </div>
+    </div>
+<!-- /////////////////////////////////////////////// --> 
+          
             <div class="monstreDiv">
                 <div class="monstreVieCadre">
                     <!-- Barre de vie Monstre (rouge foncé)-->
@@ -189,7 +229,7 @@
                     <p>Soldat +20 DPS</p>
                     <div><p>1000<img src="images/icones/coin.png" width="24px" height="24px"></p></div>
                 </div>
-
+              
                 <div class="marron achatCaserne" id="acheterFantassin">
                     <img src="images/allies-temp/soldat2.png">
                     <p>Fantassin +50 DPS</p>
@@ -225,7 +265,7 @@
                     <p>Seigneur de guerre +2000 DPS</p>
                     <div><p>100000<img src="images/icones/coin.png" width="24px" height="24px"></p></div>
                 </div>
-
+              
                 <button id="fermerAllies">X</button>
                 
             </div> <!-- alliés ouvert -->

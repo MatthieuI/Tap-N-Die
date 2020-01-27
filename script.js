@@ -7,7 +7,7 @@ let vieMonstre = 100;
 let vieBaseMonstre = 100;   //besoin pour augmenter la vie du monstre suivant
 let vieMaxMonstre = 100;
 let compteurMonstresTues = 0; //besoin pour augmenter la vie du monstre suivant
-let or = 1000000000;
+let or = 0;
 let gemmes = 0;   
 let gemmesGagnes = 10; 
 let score = 0;
@@ -53,6 +53,18 @@ let dispoCapacite = true;
 let introduction = document.getElementById ("bienvenue");       //Louise // 
 let boutonChoixheros = document.getElementById("boutonChoixHeros");     // Louise //
 let choisirHeros = document.getElementById ("choisirHeros")     // Louise // 
+let guerriere = document.getElementById ("guerriere") ;// Louise //
+let archere = document.getElementById ("archere") ;// Louise //
+let magicienne = document.getElementById ("magicienne") ;// Louise //
+let voleur = document.getElementById ("voleur") ;// Louise //
+
+let competence = document.getElementById ("competence");
+/* Parametre */ 
+let fermeture = document.getElementById ("fermeture");
+let ecrou = document.getElementById ("ecrou");
+let parametres = document.getElementById ("parametres");
+let boutonReinitialiser = document.getElementById ("boutonReinitialiser"); 
+/////////////////////////////////////
 let boutonRetour = document.getElementById("boutonRetour");     // Louise //
 let boutonValider = document.getElementById ("boutonValider");  // Louise // 
 
@@ -214,6 +226,44 @@ let aleatoire = entierAleatoire(1, 120);
 
 /* fonctions */
 
+function selectionneGuerriere() {                   // Louise // 
+    guerriere.style.border = "3px solid #bb0b0b";   // Louise // 
+    archere.style.border = "";// Louise // 
+    magicienne.style.border = "";// Louise // 
+    voleur.style.border = "";// Louise // 
+    herosImage.innerHTML = `<img src="images/heros/warrior.png"> `;// Louise // 
+    competence.innerHTML = `<img src="images/icones/arme2.png">` ;
+    herosActif = guerriere ;      
+}
+guerriere.onclick = selectionneGuerriere;           // Louise // 
+
+function selectionneArchere() {                   // Louise // 
+    archere.style.border = "3px solid #bb0b0b";   // Louise // 
+    guerriere.style.border = "";// Louise // 
+    magicienne.style.border = "";// Louise // 
+    voleur.style.border = "";// Louise // 
+    herosImage.innerHTML = `<img src="images/heros/archer.png"> `;// Louise // 
+}
+archere.onclick = selectionneArchere;           // Louise // 
+
+function selectionneMagicienne() {                   // Louise // 
+    magicienne.style.border = "3px solid #bb0b0b";   // Louise // 
+    archere.style.border = "";// Louise // 
+    guerriere.style.border = "";// Louise // 
+    voleur.style.border = "";// Louise // 
+    herosImage.innerHTML = `<img src="images/heros/mage.png"> `;// Louise // 
+}
+magicienne.onclick = selectionneMagicienne;           // Louise // 
+
+function selectionneVoleur() {                   // Louise // 
+    voleur.style.border = "3px solid #bb0b0b";   // Louise // 
+    archere.style.border = "";                   // Louise //    
+    magicienne.style.border = "";                // Louise // 
+    guerriere.style.border = "";      
+    herosImage.innerHTML = `<img src="images/heros/rogue.png"> `;// Louise // 
+}
+voleur.onclick = selectionneVoleur;           // Louise // 
+
 function boutonHeros() {                       // Louise // 
     introduction.style.display = "none";       // Louise // 
     choisirHeros.style.display = "block";      // Louise //    
@@ -232,6 +282,27 @@ function valider () {                          // Louise //
     fixerChronoMonstre();                      //modif 26/01 matthieu
 }
 boutonValider.onclick = valider;               // Louise // 
+
+///////////////////// PARAMETRE ///////////////////////////////////
+
+function ouvrirParametre() {
+    parametres.style.display = "block";      // Louise //  
+}
+ecrou.onclick = ouvrirParametre;
+
+function fermerParametre() {
+    parametres.style.display = "none";      // Louise //     
+}
+fermeture.onclick = fermerParametre;
+
+function reinitialiser(){
+    rejouer();
+    parametres.style.display = "none";      // Louise //  
+    choisirHeros.style.display = "block";   
+    clearInterval(chronoMonstre);
+}
+boutonReinitialiser.onclick = reinitialiser;
+///////////////////////////////////////////////////////////////////////////
 
 function attaquerMonstre() {
     vieMonstre -= forceHeros;
@@ -265,7 +336,7 @@ function fixerChronoMonstre() {
     chronoMonstre = setInterval(attaquerHeros, 1000);   //timer entre chaque attaque du monstre (en ms)
 } //modif 26/01 matthieu
 
-function rejouer() {    //reset du jeu  //modif 26/01 matthieu //resolution bugs mineurs
+function rejouer() {    //reset du jeu  //modif 26/01 matthieu
     vieHeros = 100;
     vieMaxMonstre = 100;
     vieMonstre = 100;
@@ -298,6 +369,15 @@ function nouveauMonstre() {
     clearInterval(chronoMonstre);   //on reset le timer
     fixerChronoMonstre();   
 }
+
+// function monstreElite {
+//     if (compteurMonstresTues%10===0) {
+
+//     }
+//     else {
+//         nouveauMonstre();
+//     }
+// }
 
 function actualisationAffichage() { //actualisation des valeurs affichées à l'écran
     // monstre.innerHTML = "<p>Vie du monstre : " + vieMonstre + "</p>";
@@ -573,4 +653,3 @@ boutonAchatSeigneur.onclick = acheterSeigneur;  //ajout 27/01 des alliés
 //     }
 // }
 // boutonPvPlus.onclick = acheterPvPlus;
-
