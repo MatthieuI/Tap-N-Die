@@ -2,7 +2,7 @@
 
 @font-face {
 	font-family: "Dalelands"; 
-	src : url("../images/fonts/DalelandsUncialBold-82zA.ttf"); 
+	src : url("../images/fonts/DalelandsUncialBold-82zA.ttf"); /* modif 26/01 matthieu */
 	font-weight: normal;
 	font-style: normal;
 }
