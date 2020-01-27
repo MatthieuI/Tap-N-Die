@@ -26,6 +26,24 @@ let forceLancier = 5;
 let nombreSoldats = 0; 
 let prixSoldat = 1000;
 let forceSoldat = 20;
+let nombreFantassins = 0; //ajout 27/01
+let prixFantassin = 2000;
+let forceFantassin = 50;
+let nombreGardes = 0; 
+let prixGarde = 4000;
+let forceGarde = 100;
+let nombreGenerals = 0; 
+let prixGeneral = 10000;
+let forceGeneral = 200;
+let nombrePretres = 0; 
+let prixPretre = 20000;
+let forcePretre = 500;
+let nombreEnchanteresses = 0; 
+let prixEnchanteresse = 40000;
+let forceEnchanteresse = 1000;
+let nombreSeigneurs = 0; 
+let prixSeigneur = 100000;
+let forceSeigneur = 2000;   //ajout 27/01
 let multiplicateurAllies = 1;
 let prixPvPlus = 50;
 let prixAttaquePlus = 25;
@@ -36,14 +54,21 @@ let i = 30;
 /* Eléments du html */
 
 let introduction = document.getElementById ("bienvenue");       //Louise // 
-let boutonChoixheros = document.getElementById("boutonChoixHeros");     // Louise //
-let choisirHeros = document.getElementById ("choisirHeros");     // Louise // 
+let boutonChoixheros = document.getElementById("boutonChoixHeros");     
+let choisirHeros = document.getElementById ("choisirHeros");
 let guerriere = document.getElementById ("guerriere") ;// Louise //
 let archere = document.getElementById ("archere") ;// Louise //
 let magicienne = document.getElementById ("magicienne") ;// Louise //
 let voleur = document.getElementById ("voleur") ;// Louise //
 
 
+let competence = document.getElementById ("competence");
+/* Parametre */ 
+let fermeture = document.getElementById ("fermeture");
+let ecrou = document.getElementById ("ecrou");
+let parametres = document.getElementById ("parametres");
+let boutonReinitialiser = document.getElementById ("boutonReinitialiser"); 
+/////////////////////////////////////
 let boutonRetour = document.getElementById("boutonRetour");     // Louise //
 let boutonValider = document.getElementById ("boutonValider");  // Louise // 
 let affichageNiveau = document.getElementById("niveauEnCours");
@@ -64,6 +89,12 @@ let boutonAchatPaysan = document.getElementById("acheterPaysan");
 let boutonAchatMilicien = document.getElementById("acheterMilicien");
 let boutonAchatLancier = document.getElementById("acheterLancier");
 let boutonAchatSoldat = document.getElementById("acheterSoldat");
+let boutonAchatFantassin = document.getElementById("acheterFantassin"); //ajout 27/01
+let boutonAchatGarde = document.getElementById("acheterGarde");
+let boutonAchatGeneral = document.getElementById("acheterGeneral");
+let boutonAchatPretre = document.getElementById("acheterPretre");
+let boutonAchatEnchanteresse = document.getElementById("acheterEnchanteresse");
+let boutonAchatSeigneur = document.getElementById("acheterSeigneur");   //ajout 27/01
 // let boutonAttaquePlus = document.getElementById("attaquePlus");
 // let boutonAttaqueAlliesPlus = document.getElementById("attaqueAlliesPlus");
 // let boutonPvPlus = document.getElementById("pvPlus");
@@ -187,6 +218,39 @@ competence.onclick = capaciteSpeciale;
 //    // [...]
 // }
 
+/* Héros */
+
+let guerriere = {
+    nom: "guerriere",
+    capaciteSpeciale() {
+        if (dispoCapacite===true) {
+            vieMonstre -= (3*forceHeros);   
+            verifierMortMonstre();                    // Attaque plus puissante
+            clearInterval(chronoMonstre);                       // Le monstre arrête d'attaquer le héros
+            setTimeout(fixerChronoMonstre, 5000);               // Le monstre n'attaque plus pendant 5sec puis reprend son attaque normale
+            dispoCapacite = false;    
+            setTimeout(reactiverCapacite, 10000)   
+        }               
+    }
+}
+
+function reactiverCapacite() {
+    dispoCapacite = true;
+}
+
+let herosActif = guerriere;
+
+function capaciteSpeciale() {
+    herosActif.capaciteSpeciale();
+}
+
+competence.onclick = capaciteSpeciale;
+
+// let bonusPermanents = {
+//     attaqueHeros = 0,
+//    // [...]
+// }
+
 /* Bugs et corrections :
 - boutonUtiliserPotion.disabled = true;
 - compléter la fonction rejouer; ??? a checker
@@ -198,37 +262,37 @@ function ouvrirOngletBonus() {             //modif
     caserneFerme.style.display = "none";
     caserneBonus.style.display = "flex";
 }
-bonusFerme.onclick = ouvrirOngletBonus;
+bonusFerme.onclick = ouvrirOngletBonus;     //cliquer sur la div bonus
 
 function fermerOngletBonus() {             //modif
     caserneFerme.style.display = "flex";
     caserneBonus.style.display = "none";
 }
-boutonFermerBonus.onclick = fermerOngletBonus;
+boutonFermerBonus.onclick = fermerOngletBonus;  //cliquer sur le bouton fermer
 
 function ouvrirOngletPotions() {             //modif
     caserneFerme.style.display = "none";
     casernePotions.style.display = "flex";
 }
-potionsFerme.onclick = ouvrirOngletPotions;
+potionsFerme.onclick = ouvrirOngletPotions; //cliquer sur la div potion
 
 function fermerOngletPotions() {             //modif
     caserneFerme.style.display = "flex";
     casernePotions.style.display = "none";
 }
-boutonFermerPotions.onclick = fermerOngletPotions;
+boutonFermerPotions.onclick = fermerOngletPotions;  //cliquer sur le bouton fermer
 
 function ouvrirOngletAllies() {             //modif
     caserneFerme.style.display = "none";
     caserneAllies.style.display = "flex";
 }
-alliesFerme.onclick = ouvrirOngletAllies;
+alliesFerme.onclick = ouvrirOngletAllies;   //cliquer sur la div alliés
 
 function fermerOngletAllies() {             //modif
     caserneFerme.style.display = "flex";
     caserneAllies.style.display = "none";
 }
-boutonFermerAllies.onclick = fermerOngletAllies;
+boutonFermerAllies.onclick = fermerOngletAllies;    //cliquer sur le bouton fermer
 
 function entierAleatoire(min,max) /* MODIF BY YANN */{
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -260,7 +324,6 @@ function selectionneArchere() {                   // Louise //
 }
 archere.onclick = selectionneArchere; 
 
-
 function selectionneMagicienne() {                   // Louise // 
     magicienne.style.border = "3px solid #bb0b0b";   // Louise // 
     archere.style.border = "";// Louise // 
@@ -275,7 +338,7 @@ magicienne.onclick = selectionneMagicienne;           // Louise //
 function selectionneVoleur() {                   // Louise // 
     voleur.style.border = "3px solid #bb0b0b";   // Louise // 
     archere.style.border = "";                   // Louise //    
-    magicienne.style.border = "";                // Louise // 
+    magicienne.style.border = "";   
     guerriere.style.border = "";       
     herosImage.innerHTML = `<img src="images/heros/rogue.png"> `;// Louise // 
     competence.innerHTML = `<img src="images/icones/alliees.png">` ;
@@ -302,6 +365,27 @@ function valider () {                          // Louise //
     fixerChronoMonstre();                      //modif 26/01 matthieu
 }
 boutonValider.onclick = valider;               // Louise // 
+
+///////////////////// PARAMETRE ///////////////////////////////////
+
+function ouvrirParametre() {
+    parametres.style.display = "block";      // Louise //  
+}
+ecrou.onclick = ouvrirParametre;
+
+function fermerParametre() {
+    parametres.style.display = "none";      // Louise //     
+}
+fermeture.onclick = fermerParametre;
+
+function reinitialiser(){
+    rejouer();
+    parametres.style.display = "none";      // Louise //  
+    choisirHeros.style.display = "block";   
+    clearInterval(chronoMonstre);
+}
+boutonReinitialiser.onclick = reinitialiser;
+///////////////////////////////////////////////////////////////////////////
 
 function attaquerMonstre() {
     vieMonstre -= forceHeros;
@@ -453,8 +537,10 @@ function acheterPaysan() {
     if(or >= prixPaysan) {
         or -= prixPaysan;
         nombrePaysans++;
-        prixPaysan *= 2;
+        prixPaysan *= 1.3;
+        prixPaysan = Math.round(prixPaysan);
         actualisationAffichage();
+        boutonAchatPaysan.children[2].innerHTML = '<p>' + prixPaysan + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
         alliesDiv.innerHTML += '<img src="images/allies-temp/soldat4.png">';
         fixerChronoAllies(forcePaysan);
     }
@@ -468,9 +554,10 @@ function acheterMilicien() {
     if(or >= prixMilicien) {
         or -= prixMilicien;
         nombreMiliciens++;
-        prixMilicien *= 1.8;
+        prixMilicien *= 1.3;
         prixMilicien = Math.round(prixMilicien); //prixMilicien = Math.round(prixMilicien*1.8)
         actualisationAffichage();
+        boutonAchatMilicien.children[2].innerHTML = '<p>' + prixMilicien + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
         alliesDiv.innerHTML += '<img src="images/allies-temp/soldat1.png">';
         fixerChronoAllies(forceMilicien);
     }
@@ -484,9 +571,10 @@ function acheterLancier() {
     if(or >= prixLancier) {
         or -= prixLancier;
         nombreLanciers++;
-        prixLancier *= 1.1;
+        prixLancier *= 1.3;
         prixLancier = Math.round(prixLancier);
         actualisationAffichage();
+        boutonAchatLancier.children[2].innerHTML = '<p>' + prixLancier + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
         alliesDiv.innerHTML += '<img src="images/allies-temp/soldat8.png">';
         fixerChronoAllies(forceLancier);
     }
@@ -500,9 +588,10 @@ function acheterSoldat() {
     if(or >= prixSoldat) {
         or -= prixSoldat;
         nombreSoldats++;
-        prixSoldat *= 1.2;
+        prixSoldat *= 1.3;
         prixSoldat = Math.round(prixSoldat);
         actualisationAffichage();
+        boutonAchatSoldat.children[2].innerHTML = '<p>' + prixSoldat + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
         alliesDiv.innerHTML += '<img src="images/allies-temp/soldat5.png">';
         fixerChronoAllies(forceSoldat);
     }
@@ -511,6 +600,108 @@ function acheterSoldat() {
     }
 }
 boutonAchatSoldat.onclick = acheterSoldat;
+
+function acheterFantassin() {   //ajout 27/01
+    if(or >= prixFantassin) {
+        or -= prixFantassin;
+        nombreFantassins++;
+        prixFantassin *= 1.3;
+        prixFantassin = Math.round(prixFantassin);
+        actualisationAffichage();
+        boutonAchatFantassin.children[2].innerHTML = '<p>' + prixFantassin + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
+        alliesDiv.innerHTML += '<img src="images/allies-temp/soldat2.png">';
+        fixerChronoAllies(forceFantassin);
+    }
+    else {
+        alert("Vous n'avez pas assez d'or.");
+    }
+}
+boutonAchatFantassin.onclick = acheterFantassin;
+
+function acheterGarde() {
+    if(or >= prixGarde) {
+        or -= prixGarde;
+        nombreGardes++;
+        prixGarde *= 1.3;
+        prixGarde = Math.round(prixGarde);
+        actualisationAffichage();
+        boutonAchatGarde.children[2].innerHTML = '<p>' + prixGarde + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
+        alliesDiv.innerHTML += '<img src="images/allies-temp/soldat7.png">';
+        fixerChronoAllies(forceGarde);
+    }
+    else {
+        alert("Vous n'avez pas assez d'or.");
+    }
+}
+boutonAchatGarde.onclick = acheterGarde;
+
+function acheterGeneral() {
+    if(or >= prixGeneral) {
+        or -= prixGeneral;
+        nombreGenerals++;
+        prixGeneral *= 1.3;
+        prixGeneral = Math.round(prixGeneral);
+        actualisationAffichage();
+        boutonAchatGeneral.children[2].innerHTML = '<p>' + prixGeneral + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
+        alliesDiv.innerHTML += '<img src="images/allies-temp/soldat6.png">';
+        fixerChronoAllies(forceGeneral);
+    }
+    else {
+        alert("Vous n'avez pas assez d'or.");
+    }
+}
+boutonAchatGeneral.onclick = acheterGeneral;
+
+function acheterPretre() {
+    if(or >= prixPretre) {
+        or -= prixPretre;
+        nombrePretres++;
+        prixPretre *= 1.3;
+        prixPretre = Math.round(prixPretre);
+        actualisationAffichage();
+        boutonAchatPretre.children[2].innerHTML = '<p>' + prixPretre + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
+        alliesDiv.innerHTML += '<img src="images/allies-temp/soldat10.png">';
+        fixerChronoAllies(forcePretre);
+    }
+    else {
+        alert("Vous n'avez pas assez d'or.");
+    }
+}
+boutonAchatPretre.onclick = acheterPretre;
+
+function acheterEnchanteresse() {
+    if(or >= prixEnchanteresse) {
+        or -= prixEnchanteresse;
+        nombreEnchanteresses++;
+        prixEnchanteresse *= 1.3;
+        prixEnchanteresse = Math.round(prixEnchanteresse);
+        actualisationAffichage();
+        boutonAchatEnchanteresse.children[2].innerHTML = '<p>' + prixEnchanteresse + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
+        alliesDiv.innerHTML += '<img src="images/allies-temp/soldat9.png">';
+        fixerChronoAllies(forceEnchanteresse);
+    }
+    else {
+        alert("Vous n'avez pas assez d'or.");
+    }
+}
+boutonAchatEnchanteresse.onclick = acheterEnchanteresse;
+
+function acheterSeigneur() {
+    if(or >= prixSeigneur) {
+        or -= prixSeigneur;
+        nombreSeigneurs++;
+        prixSeigneur *= 1.3;
+        prixSeigneur = Math.round(prixSeigneur);
+        actualisationAffichage();
+        boutonAchatSeigneur.children[2].innerHTML = '<p>' + prixSeigneur + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
+        alliesDiv.innerHTML += '<img src="images/allies-temp/soldat3.png">';
+        fixerChronoAllies(forceSeigneur);
+    }
+    else {
+        alert("Vous n'avez pas assez d'or.");
+    }
+}
+boutonAchatSeigneur.onclick = acheterSeigneur;  //ajout 27/01 des alliés
 
 // function acheterAttaquePlus() {
 //     if(or >= prixAttaquePlus) {
