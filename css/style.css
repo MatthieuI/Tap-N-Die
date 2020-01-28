@@ -282,6 +282,14 @@ body {
     position: absolute;
     left:0;
     border: 1px solid #000;
+    font-size: 400%;
+    color: #fff;
+    text-align: center;
+}
+
+.herosDiv .herosDivDroite #competence img {
+    height: 100%;
+    width: 100%;
 }
 
 .herosDiv .herosDivDroite #toundra {
@@ -516,10 +524,6 @@ body {
     margin-top: 50px;
 }
 
-.herosSelectionne {
-    border: 3px solid #bb0b0b;
-}
-
 /* ///////////////////////// ECRAN GAME OVER //////////////////////////////*/ 
 
 #defaite {
@@ -571,7 +575,6 @@ body {
 	width: 300px;
 	font-size: 25px;
 	margin-top: 50px;
-
 }
 
 
