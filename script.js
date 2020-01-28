@@ -36,6 +36,8 @@ let nombreGenerals = 0;
 let prixGeneral = 10000;
 let forceGeneral = 200;
 let nombrePretres = 0;
+let prixPretre = 20000;
+let forcePretre = 500;
 let prixEnchanteresse = 40000;
 let forceEnchanteresse = 1000;
 let nombreSeigneurs = 0; 
@@ -114,12 +116,15 @@ let caserneBonus = document.getElementById("caserneBonus"); //ajout
 let bonusFerme = document.getElementById("bonusFerme");
 let boutonFermerBonus = document.getElementById("fermerBonus");
 let monstreElite = document.getElementById("elite");
+let cooldownCapacite = 30;
+let cooldownCapaciteMS = cooldownCapacite*1000;
 
 /* Chronos */
 
 let chronoMonstre;
 let chronoAllies = [];
 let chronoArchere;
+let chronoCapacite;
 
 /* Héros */
 
@@ -131,23 +136,25 @@ let guerriereObjet = {
             verifierMortMonstre();                              // Attaque plus puissante
             clearInterval(chronoMonstre);                       // Le monstre arrête d'attaquer le héros
             setTimeout(fixerChronoMonstre, 5000);               // Le monstre n'attaque plus pendant 5sec puis reprend son attaque normale
-            dispoCapacite = false;    
-            setTimeout(reactiverCapacite, 30000);
+            dispoCapacite = false;
+            i = cooldownCapacite;
+            cooldownCapaciteMS = cooldownCapacite*1000      
+            setTimeout(reactiverCapacite, cooldownCapaciteMS);   
             chronoCapacite = setInterval(capaciteRecharge, 1000);
-            setTimeout(clearInterval, 30000, chronoCapacite);
+            setTimeout(clearInterval, cooldownCapaciteMS, chronoCapacite);
         }            
     }
 }
 
 
-function capaciteRecharge() {  
+function capaciteRecharge() {
     i--;
     competence.innerHTML = "";
     competence.innerHTML = "<p>" + i + "</p>";
     actualisationAffichage();
     if (i===0) {
         competence.innerHTML = `<img src="images/icones/arme2.png">` ;
-        i = 30;
+        i = cooldownCapacite;
         }
     } 
 
@@ -157,10 +164,12 @@ let mageObjet = {
         if (dispoCapacite===true) {
             vieMonstre -= (10*forceHeros);                      // Attaque plus puissante
             verifierMortMonstre();
-            dispoCapacite = false;    
-            setTimeout(reactiverCapacite, 30000);
+            dispoCapacite = false;
+            i = cooldownCapacite;
+            cooldownCapaciteMS = cooldownCapacite*1000      
+            setTimeout(reactiverCapacite, cooldownCapaciteMS);   
             chronoCapacite = setInterval(capaciteRecharge, 1000);
-            setTimeout(clearInterval, 30000, chronoCapacite);
+            setTimeout(clearInterval, cooldownCapaciteMS, chronoCapacite);
         }
     }
 }
@@ -171,10 +180,12 @@ let archereObjet = {
         if (dispoCapacite===true) {
             chronoArchere = setInterval(degatsAuto, 100, forceHeros/5);
             setTimeout(clearInterval, 5000, chronoArchere);
-            dispoCapacite = false;    
-            setTimeout(reactiverCapacite, 30000);
+            dispoCapacite = false;
+            i = cooldownCapacite;
+            cooldownCapaciteMS = cooldownCapacite*1000      
+            setTimeout(reactiverCapacite, cooldownCapaciteMS);   
             chronoCapacite = setInterval(capaciteRecharge, 1000);
-            setTimeout(clearInterval, 30000, chronoCapacite);
+            setTimeout(clearInterval, cooldownCapaciteMS, chronoCapacite);
         }
     }
 }
@@ -205,10 +216,12 @@ let voleurObjet = {
         if (dispoCapacite===true) {
             boutonAttaquer.onclick = competenceVoleur;
             setTimeout(resetCapaciteVoleur, 10000);
-            dispoCapacite = false;    
-            setTimeout(reactiverCapacite, 30000);
+            dispoCapacite = false;
+            i = cooldownCapacite;
+            cooldownCapaciteMS = cooldownCapacite*1000      
+            setTimeout(reactiverCapacite, cooldownCapaciteMS);   
             chronoCapacite = setInterval(capaciteRecharge, 1000);
-            setTimeout(clearInterval, 30000, chronoCapacite);
+            setTimeout(clearInterval, cooldownCapaciteMS, chronoCapacite);
         }
     }
 }
@@ -390,6 +403,9 @@ function verifierMortMonstre() {
         actualisationAffichage();
     }
     else {
+        if((compteurMonstresTues+1)%10===0) {
+            forceMonstre /= 2;
+        }
         compteurMonstresTues++;
         nouveauMonstre();   //action effectuée à la mort du monstre
     }
@@ -402,6 +418,10 @@ function attaquerHeros() {
     }
     else {
         heros.innerHTML = "<p>Le héros est mort.</p>";
+        clearInterval(chronoMonstre);
+            for(let j = 0; j < chronoAllies.length; j++) {
+                clearInterval(chronoAllies[j]);
+            }
         herosVieBarre.style.width = "0px"; /*MODIF BY YANN*/
         ecranDefaite.style.display = "block";   //affichage de la fenêtre de défaite
     }
@@ -416,6 +436,7 @@ function rejouer() {    //reset du jeu  //modif 26/01 matthieu //resolution bugs
     vieMaxMonstre = 100;
     vieMonstre = 100;
     compteurMonstresTues = 0;
+    vieMaxHeros = 100;
     or = 0;
     score = 0;
     gemmes += gemmesGagnes;
@@ -440,21 +461,41 @@ function nouveauMonstre() {
     vieMaxMonstre = vieMonstre;
     monstreElite.style.display = "none";  
 
-    if ((compteurMonstresTues+1)%5===0) {                   // SCALING
+
+    if ((compteurMonstresTues+1)%1000===0) {
+        forceMonstre = forceMonstre*100;
+        vieMaxMonstre = vieMaxMonstre*100;
+        vieMonstre = vieMonstre*100;
+        monstreElite.style.display = "block";
+    }       
+
+    else if ((compteurMonstresTues+1)%200===0) {                  // BOSS TOUS LES 200 NIVEAUX
+        forceMonstre = forceMonstre*10;
+        vieMaxMonstre = vieMaxMonstre*10;
+        vieMonstre = vieMonstre*10;
+        monstreElite.style.display = "block";
+    }
+
+    else if ((compteurMonstresTues+1)%10===0) {                  // ELITE TOUS LES 10 NIVEAUX
+        forceMonstre = forceMonstre*3;
+        vieMaxMonstre = vieMaxMonstre*3;
+        vieMonstre = vieMonstre*3;
+        monstreElite.style.display = "block";
+    }
+
+    else if ((compteurMonstresTues+1)%5===0) {                   // LES MONSTRES GAGNENT EN ATTAQUE TOUS LES 5 NIVEAUX
       forceMonstre = forceMonstre*2;
 
     }
-    if ((compteurMonstresTues+1)%10===0) {                   // ELITE
-        forceMonstre = forceMonstre*2;
-        vieMaxMonstre = vieMaxMonstre*2;
-        vieMonstre = vieMonstre*2;
-        monstreElite.style.display = "block";
-    }
+
+    
     aleatoire = entierAleatoire(1, 120);
+
     vieHeros += 10; //soin du héros
     if (vieHeros > vieMaxHeros) {   //on empeche le héros de regagner plus de vie que son maximum
         vieHeros = vieMaxHeros;
     }
+
     or += 100;
     score +=  100 + 1 * compteurMonstresTues;
     actualisationAffichage();
@@ -463,15 +504,37 @@ function nouveauMonstre() {
 }
 
 function actualisationAffichage() { //actualisation des valeurs affichées à l'écran
-    monstre.innerHTML = `<img src="images/monstres/MonsterPack/${aleatoire}.png">`;
+    verificationBoss();
     monstreVieBarre.style.width = `${vieMonstre*400/vieMaxMonstre}px`;                  /* MODIF BY YANN */
-    affichageScore.innerHTML = "<p>Score : " + score + "</p>";
+    affichageScore.innerHTML = "<p>Score : " + score + "</p><br><p>" + vieMonstre+ "/" + vieMaxMonstre + "</p>";
     affichageNiveau.innerHTML = "<p>Niveau " + (compteurMonstresTues+1) + "</p>";
     affichageOr.innerHTML = "<p>" + or + "</p>";
     affichageGemmes.innerHTML = "<p>" + gemmes + "</p>";
     affichageGemmes2.innerHTML =  gemmesGagnes ;
     heros.innerHTML = "<p>" + vieHeros + "/" + vieMaxHeros +"</p>";                     /* MODIF BY YANN */
     herosVieBarre.style.width = `${vieHeros*100/vieMaxHeros}%`;
+}
+
+function verificationBoss() {
+    monstre.innerHTML = "";
+    if (compteurMonstresTues===199) {
+        monstre.innerHTML = `<img src="images/monstres/MonsterPack/boss1.png">`;
+    }
+    else if (compteurMonstresTues===399) {
+        monstre.innerHTML = `<img src="images/monstres/MonsterPack/boss2.png">`;
+    }
+    else if (compteurMonstresTues===599) {
+        monstre.innerHTML = `<img src="images/monstres/MonsterPack/boss3.png">`;
+    }
+    else if (compteurMonstresTues===799) {
+        monstre.innerHTML = `<img src="images/monstres/MonsterPack/boss4.png">`;
+    }
+    else if (compteurMonstresTues===999) {
+        monstre.innerHTML = `<img src="images/monstres/Cthulhu.png">`;
+    }
+    else {
+        monstre.innerHTML = `<img src="images/monstres/MonsterPack/${aleatoire}.png">`;
+    }
 }
 
 function achatPotionVie() {
@@ -658,7 +721,7 @@ function acheterGeneral() {
 boutonAchatGeneral.onclick = acheterGeneral;
 
 function acheterPretre() {
-    if(or >= prixPretre) {
+    if (or >= prixPretre) {
         or -= prixPretre;
         nombrePretres++;
         prixPretre *= 1.3;

@@ -663,7 +663,7 @@ body {
     margin-right: auto;
     margin-top: 25px;
 }
-monstreElite.innerHTML += "<img src=images/icones/collier.png>";
+
 #boutonReinitialiser{
     background-color: #4D0000;
     color: white; 
