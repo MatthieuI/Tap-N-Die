@@ -54,28 +54,35 @@ let i = 30;
 /* Eléments du html */
 
 let introduction = document.getElementById ("bienvenue");       //Louise // 
-let boutonChoixheros = document.getElementById("boutonChoixHeros");     
-let choisirHeros = document.getElementById ("choisirHeros");
+let boutonChoixheros = document.getElementById("boutonChoixHeros");     // Louise //
+let choisirHeros = document.getElementById ("choisirHeros")     // Louise // 
 let guerriere = document.getElementById ("guerriere") ;// Louise //
 let archere = document.getElementById ("archere") ;// Louise //
 let magicienne = document.getElementById ("magicienne") ;// Louise //
 let voleur = document.getElementById ("voleur") ;// Louise //
-
 
 let competence = document.getElementById ("competence");
 /* Parametre */ 
 let fermeture = document.getElementById ("fermeture");
 let ecrou = document.getElementById ("ecrou");
 let parametres = document.getElementById ("parametres");
+let boutonCredits = document.getElementById ("boutonCredits");
 let boutonReinitialiser = document.getElementById ("boutonReinitialiser"); 
-/////////////////////////////////////
+/* Crédits*/
+let credits = document.getElementById ("credits")
+let boutonRetourParametre = document.getElementById ("boutonRetourParametre");
+
+let boutonBoutiquePermanente = document.getElementById ("boutonBoutiquePermanente");
+let boutonRetourBienvenue = document.getElementById ("boutonRetourBienvenue");
+
 let boutonRetour = document.getElementById("boutonRetour");     // Louise //
 let boutonValider = document.getElementById ("boutonValider");  // Louise // 
+
 let affichageNiveau = document.getElementById("niveauEnCours");
 let affichageScore = document.getElementById("score");
 let affichageOr = document.getElementById("compteurOr");
 let affichageGemmes = document.getElementById ("compteurGemmes");
-let affichageGemmes2 = document.getElementById("compteurGemmesGagnes");
+let affichageGemmes2 = document.getElementById ("compteurGemmesGagnes");
 let boutonAttaquer = document.getElementById("monstre");
 let page = document.getElementById("chargementJeu");
 let heros = document.getElementById("affichageVieNombre");
@@ -111,7 +118,6 @@ let boutonFermerPotions = document.getElementById("fermerPotions");
 let caserneBonus = document.getElementById("caserneBonus"); //ajout
 let bonusFerme = document.getElementById("bonusFerme");
 let boutonFermerBonus = document.getElementById("fermerBonus");
-let competence = document.getElementById("competence");
 
 /* Chronos */
 
@@ -220,25 +226,11 @@ competence.onclick = capaciteSpeciale;
 
 /* Héros */
 
-let guerriere = {
-    nom: "guerriere",
-    capaciteSpeciale() {
-        if (dispoCapacite===true) {
-            vieMonstre -= (3*forceHeros);   
-            verifierMortMonstre();                    // Attaque plus puissante
-            clearInterval(chronoMonstre);                       // Le monstre arrête d'attaquer le héros
-            setTimeout(fixerChronoMonstre, 5000);               // Le monstre n'attaque plus pendant 5sec puis reprend son attaque normale
-            dispoCapacite = false;    
-            setTimeout(reactiverCapacite, 10000)   
-        }               
-    }
-}
-
 function reactiverCapacite() {
     dispoCapacite = true;
 }
 
-let herosActif = guerriere;
+let herosActif;
 
 function capaciteSpeciale() {
     herosActif.capaciteSpeciale();
@@ -255,47 +247,47 @@ competence.onclick = capaciteSpeciale;
 - boutonUtiliserPotion.disabled = true;
 - compléter la fonction rejouer; ??? a checker
 - Faire un compteur de parties; 
-- Faire timer potion de force; 
 */
 
 function ouvrirOngletBonus() {             //modif
     caserneFerme.style.display = "none";
     caserneBonus.style.display = "flex";
 }
-bonusFerme.onclick = ouvrirOngletBonus;     //cliquer sur la div bonus
+bonusFerme.onclick = ouvrirOngletBonus;
 
 function fermerOngletBonus() {             //modif
     caserneFerme.style.display = "flex";
     caserneBonus.style.display = "none";
 }
-boutonFermerBonus.onclick = fermerOngletBonus;  //cliquer sur le bouton fermer
+boutonFermerBonus.onclick = fermerOngletBonus;
 
 function ouvrirOngletPotions() {             //modif
     caserneFerme.style.display = "none";
     casernePotions.style.display = "flex";
 }
-potionsFerme.onclick = ouvrirOngletPotions; //cliquer sur la div potion
+potionsFerme.onclick = ouvrirOngletPotions;
 
 function fermerOngletPotions() {             //modif
     caserneFerme.style.display = "flex";
     casernePotions.style.display = "none";
 }
-boutonFermerPotions.onclick = fermerOngletPotions;  //cliquer sur le bouton fermer
+boutonFermerPotions.onclick = fermerOngletPotions;
 
 function ouvrirOngletAllies() {             //modif
     caserneFerme.style.display = "none";
     caserneAllies.style.display = "flex";
 }
-alliesFerme.onclick = ouvrirOngletAllies;   //cliquer sur la div alliés
+alliesFerme.onclick = ouvrirOngletAllies;
 
 function fermerOngletAllies() {             //modif
     caserneFerme.style.display = "flex";
     caserneAllies.style.display = "none";
 }
-boutonFermerAllies.onclick = fermerOngletAllies;    //cliquer sur le bouton fermer
+boutonFermerAllies.onclick = fermerOngletAllies;
 
-function entierAleatoire(min,max) /* MODIF BY YANN */{
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+function entierAleatoire(min,max) /* MODIF BY YANN */
+{
+ return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 let aleatoire = entierAleatoire(1, 120);
@@ -309,7 +301,7 @@ function selectionneGuerriere() {                   // Louise //
     voleur.style.border = "";// Louise // 
     herosImage.innerHTML = `<img src="images/heros/warrior.png"> `;// Louise // 
     competence.innerHTML = `<img src="images/icones/arme2.png">` ;
-    herosActif = guerriereObjet ;      
+    herosActif = guerriereObjet ;   
 }
 guerriere.onclick = selectionneGuerriere;           // Louise // 
 
@@ -358,7 +350,6 @@ function retour () {                           // Louise //
 }
 boutonRetour.onclick = retour;                 // Louise // 
 
-
 function valider () {                          // Louise // 
     introduction.style.display = "none";       // Louise // 
     choisirHeros.style.display = "none";       // Louise // 
@@ -385,7 +376,29 @@ function reinitialiser(){
     clearInterval(chronoMonstre);
 }
 boutonReinitialiser.onclick = reinitialiser;
-///////////////////////////////////////////////////////////////////////////
+
+function ouvrirCredits() {
+        credits.style.display = "block";
+}
+boutonCredits.onclick = ouvrirCredits;
+////////////////////////CREDITS///////////////////////////////////////////
+function retourParametre () { 
+    credits.style.display = "none";
+}
+boutonRetourParametre.onclick = retourParametre;
+
+////////////////////////BOUTIQUE PERMANENTE///////////////////////////////////////////
+function ouvrirBoutiquePermanente () {
+    boutiquePermanente.style.display = "block";    
+}
+boutonBoutiquePermanente.onclick = ouvrirBoutiquePermanente;
+
+function retourBienvenue () {
+    boutiquePermanente.style.display = "none";     
+}
+
+boutonRetourBienvenue.onclick = retourBienvenue;
+////////////////////////CREDITS///////////////////////////////////////////
 
 function attaquerMonstre() {
     vieMonstre -= forceHeros;
@@ -442,7 +455,9 @@ boutonRejouer.onclick = rejouer;
 function nouveauMonstre() {
     vieMonstre = vieBaseMonstre + 15 * compteurMonstresTues;    //argumentation de la vie max du prochain monstre
     vieMaxMonstre = vieMonstre;
-    if (compteurMonstresTues%5===0) {forceMonstre = forceMonstre*2}
+    if (compteurMonstresTues%5===0) {
+      forceMonstre = forceMonstre*2;
+    }
     aleatoire = entierAleatoire(1, 120);
     vieHeros += 10; //soin du héros
     if (vieHeros > vieMaxHeros) {   //on empeche le héros de regagner plus de vie que son maximum
@@ -454,6 +469,15 @@ function nouveauMonstre() {
     clearInterval(chronoMonstre);   //on reset le timer
     fixerChronoMonstre();   
 }
+
+// function monstreElite {
+//     if (compteurMonstresTues%10===0) {
+
+//     }
+//     else {
+//         nouveauMonstre();
+//     }
+// }
 
 function actualisationAffichage() { //actualisation des valeurs affichées à l'écran
     // monstre.innerHTML = "<p>Vie du monstre : " + vieMonstre + "</p>";
@@ -715,7 +739,6 @@ boutonAchatSeigneur.onclick = acheterSeigneur;  //ajout 27/01 des alliés
 //     }
 // }
 // boutonAttaquePlus.onclick = acheterAttaquePlus;
-
 // function acheterPvPlus() {
 //     if(or >= prixPvPlus) {
 //         or -= prixPvPlus;

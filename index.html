@@ -55,32 +55,30 @@
     	<h1>TAP N'DIE</h1>
     	<div id="boutonDeDepart">
         	<button id="boutonChoixHeros">CHOISIR MON HEROS</button> <!-- Choix Heros -->
-        	<button id="boutiquePermanente">BOUTIQUE</button> <!-- Boutique -->
+        	<button id="boutonBoutiquePermanente">BOUTIQUE</button> <!-- Boutique -->
         </div>
     </div>
-          
+
 <!-- ////////////////////////////////////////////// -->
 <!-- /////////////CHOIX DU HEROS/////////////////// -->
 <!-- ////////////////////////////////////////////// -->
-          
-<div id="choisirHeros">   <!-- Choix du héros -->
-    <h2> CHOISISSEZ VOTRE HEROS</h2>
-    <div id="lesHeros">
-        <div id="guerriere"></div><!-- Héros 1 -->
-        <div id="archere"></div><!-- Héros 2 -->
-        <div id="magicienne"></div><!-- Héros 3 -->
-        <div id="voleur"></div><!-- Héros 4 -->
+    <div id="choisirHeros">   <!-- Choix du héros -->
+        <h2> CHOISISSEZ VOTRE HEROS</h2>
+        <div id="lesHeros">
+            <div id="guerriere"></div><!-- Héros 1 -->
+            <div id="archere"></div><!-- Héros 2 -->
+            <div id="magicienne"></div><!-- Héros 3 -->
+            <div id="voleur"></div><!-- Héros 4 -->
+        </div>
+        <div id="boutonChoixHeros">
+        	<button id="boutonRetour">RETOUR</button> <!-- Retour -->
+        	<button id="boutonValider">VALIDER </button> <!-- Valider -->
+    	</div>
     </div>
-    <div id="boutonChoixHeros">
-        <button id="boutonRetour">RETOUR</button> <!-- Retour -->
-        <button id="boutonValider">VALIDER </button> <!-- Valider -->
-    </div>
-</div>
-      
+
 <!-- ////////////////////////////////////////////// -->
 <!-- /////////////////TRY AGAIN//////////////////// -->
 <!-- ////////////////////////////////////////////// -->
-          
     <div id="defaite">           <!-- You died --> 
         <h1> YOU DIED !</h1>
         <h2> TRY AGAIN</h2>
@@ -126,7 +124,89 @@
         </div>
     </div>
 <!-- /////////////////////////////////////////////// --> 
-          
+<!-- ////////////////////CREDITS//////////////////// --> 
+<!-- /////////////////////////////////////////////// --> 
+
+
+    <div id="credits"> 
+            <h3>CREDITS</h3>
+            
+            <p> Developpeur Web : <br/>
+                CARIOU Yann <br/>
+                IDJELLIDAINE Matthieu <br/> 
+                OUALLET Vincent <br/>
+                PEREZ Louise <br/> 
+                <br/>
+                <br/>
+                Sources images :  www.flaticon.com , favpng , fr.freepik.com, https://pipoya.itch.io/free-rpg-monster-pack , https://pipoya.itch.io/pipoya-free-rpg-character-sprites-32x32, https://shikashiassets.itch.io/shikashis-fantasy-icons-pack, 
+            </p>
+        <button id="boutonRetourParametre">RETOUR</button>
+    </div> 
+
+<!-- /////////////////////////////////////////////// --> 
+<!-- ////////////BOUTIQUE PERMANENTE//////////////// --> 
+<!-- /////////////////////////////////////////////// --> 
+
+    <div id="boutiquePermanente">
+        <h3>BOUTIQUE PERMANENTE</h3>
+        
+        <h4> ARTEFACTS </h4> 
+        
+        <div id="artefacts">
+            <div id="artefacts1" class="achatallies">
+                <img src="images/icones/epee.png">
+                <p> ATTAQUE +1% </p>
+                <div class="prixAllies">
+                    <br/> 10
+                    <img src="images/icones/gemmes.png">
+                </div>
+            </div>
+            <div id="artefacts2" class="achatallies">
+                <img src="images/icones/alliees.png">
+                <p> ATTAQUE ALLIES +17% </p>
+                <div class="prixAllies">
+                    <br/> 25
+                    <img src="images/icones/gemmes.png">
+                </div>
+            </div>
+            <div id="artefacts3" class="achatallies">
+                <img src="images/icones/sante.png">
+                <p> PV HEROS +14 </p>
+                <div class="prixAllies">
+                    <br/> 50
+                    <img src="images/icones/gemmes.png">
+                </div>
+            </div>
+        </div>
+
+        <h4> ALLIES PERMANENTS </h4> 
+       
+        <div id="alliesPermanent">
+            <div id="acheterToundra" class="achatallies">
+                <img src="images/allies/toundra.png">
+                <p> TOUNDRA, FILLE DE FENRIR</p>
+                <div class="prixAllies">
+                    <br/> 500
+                    <img src="images/icones/gemmes.png">
+                </div>
+            </div>
+            <div id="acheterShiva" class="achatallies">
+                <img src="images/allies/shiva.png">
+                <p> SHIVA, DEESSE DE LA DESTRUCTION </p>
+                <div class="prixAllies">
+                   <br/>1000
+                    <img src="images/icones/gemmes.png">
+                </div>
+            </div>
+        </div>
+
+        <button id="boutonRetourBienvenue">RETOUR</button>
+
+    </div>
+
+
+<!-- /////////////////////////////////////////////// --> 
+<!-- /////////////////////////////////////////////// -->      
             <div class="monstreDiv">
                 <div class="monstreVieCadre">
                     <!-- Barre de vie Monstre (rouge foncé)-->
@@ -203,7 +283,6 @@
             </div>
 
             <div id="caserneAllies">
-
                 <h5>Alliés</h5>
 
                 <div class="marron achatCaserne" id="acheterPaysan">
@@ -300,66 +379,25 @@
 
         </div>
 
-        </div>
-
-    </div>
-
-
-
-    <div style="display: none;">
-        <!-- Bienvenue -->
-        <h1> Bienvenue sur Tap N'Die</h1>
-        <button></button> <!-- Choix Heros -->
-        <button></button> <!-- Boutique -->
-    </div>
-
-
-    <div style="display: none;">
-        <!-- Choix du héros -->
-        <h2> Choisissez votre héros</h2>
-        <div>
-            <div></div><!-- Héros 1 -->
-            <div></div><!-- Héros 2 -->
-            <div></div><!-- Héros 3 -->
-            <div></div><!-- Héros 4 -->
-        </div>
-        <button></button> <!-- Retour -->
-        <button></button> <!-- Valider -->
-    </div>
-
+          
     <div style="display: none;">
         <button></button> <!-- Petite croix -->
 
-        <h3>Options</h3> <!-- Options (+img )  -->
-
-        <div>
-            <!-- Volume -->
-            <p>Volume</p>
         </div>
 
-        <div>
-            <p>Affichage des dégâts</p>
-            <!-- Checkbox -->
-        </div>
-
-        <div>
-            <button></button> <!-- Haut - Faits-->
-            <button></button> <!-- Crédits -->
-            <button></button> <!-- Réinitialiser la partie -->
         </div>
 
     </div>
 
-    <div style="display: none;">
-        <!-- Boutique Permanente -->
 
-    </div>
+<!-- /////////////////////////////////////////////// --> 
+<!-- /////////////////////////////////////////////// --> 
 
 
     <div style="display: none;">
         <!-- Haut - Faits-->
-
     </div>
+
     <script src="script.js"></script>
 </body>
 
