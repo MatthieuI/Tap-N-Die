@@ -35,10 +35,7 @@ let forceGarde = 100;
 let nombreGenerals = 0; 
 let prixGeneral = 10000;
 let forceGeneral = 200;
-let nombrePretres = 0; 
-let prixPretre = 20000;
-let forcePretre = 500;
-let nombreEnchanteresses = 0; 
+let nombrePretres = 0;
 let prixEnchanteresse = 40000;
 let forceEnchanteresse = 1000;
 let nombreSeigneurs = 0; 
@@ -116,6 +113,7 @@ let boutonFermerPotions = document.getElementById("fermerPotions");
 let caserneBonus = document.getElementById("caserneBonus"); //ajout
 let bonusFerme = document.getElementById("bonusFerme");
 let boutonFermerBonus = document.getElementById("fermerBonus");
+let monstreElite = document.getElementById("elite");
 
 /* Chronos */
 
@@ -161,6 +159,8 @@ let mageObjet = {
             verifierMortMonstre();
             dispoCapacite = false;    
             setTimeout(reactiverCapacite, 30000);
+            chronoCapacite = setInterval(capaciteRecharge, 1000);
+            setTimeout(clearInterval, 30000, chronoCapacite);
         }
     }
 }
@@ -173,6 +173,8 @@ let archereObjet = {
             setTimeout(clearInterval, 5000, chronoArchere);
             dispoCapacite = false;    
             setTimeout(reactiverCapacite, 30000);
+            chronoCapacite = setInterval(capaciteRecharge, 1000);
+            setTimeout(clearInterval, 30000, chronoCapacite);
         }
     }
 }
@@ -189,9 +191,10 @@ function competenceVoleur() {
         or += or/100; 
         or = Math.round(or);
     }
+   
 }
 
-function resetCapaciteVoleur() {
+function resetCapaciteVoleur() {                                            // QUAND L'APPELLE QUAND ?
     boutonAttaquer.onclick = attaquerMonstre;
 }
 
@@ -204,6 +207,8 @@ let voleurObjet = {
             setTimeout(resetCapaciteVoleur, 10000);
             dispoCapacite = false;    
             setTimeout(reactiverCapacite, 30000);
+            chronoCapacite = setInterval(capaciteRecharge, 1000);
+            setTimeout(clearInterval, 30000, chronoCapacite);
         }
     }
 }
@@ -424,6 +429,7 @@ function rejouer() {    //reset du jeu  //modif 26/01 matthieu //resolution bugs
     potion = "";
     boutonUtiliserPotion.innerHTML = "";
     ecranDefaite.style.display = "none";    //on enlève la fenêtre de défaite
+    monstreElite.style.display = "none";  
     actualisationAffichage();
     fixerChronoMonstre();
 }
@@ -432,8 +438,17 @@ boutonRejouer.onclick = rejouer;
 function nouveauMonstre() {
     vieMonstre = vieBaseMonstre + 15 * compteurMonstresTues;    //argumentation de la vie max du prochain monstre
     vieMaxMonstre = vieMonstre;
-    if (compteurMonstresTues%5===0) {
+    monstreElite.style.display = "none";  
+
+    if ((compteurMonstresTues+1)%5===0) {                   // SCALING
       forceMonstre = forceMonstre*2;
+
+    }
+    if ((compteurMonstresTues+1)%10===0) {                   // ELITE
+        forceMonstre = forceMonstre*2;
+        vieMaxMonstre = vieMaxMonstre*2;
+        vieMonstre = vieMonstre*2;
+        monstreElite.style.display = "block";
     }
     aleatoire = entierAleatoire(1, 120);
     vieHeros += 10; //soin du héros
@@ -464,9 +479,7 @@ function achatPotionVie() {
         or -= 70;
         actualisationAffichage();
         boutonUtiliserPotion.innerHTML = '<img src="images/icones/potionrouge.png">';
-        potion = "vie";
-    }
-    else if (or < 70) {
+        potion = "vie";monstreElite.style.display = "none";  
         alert("Vous n'avez pas assez d'or.");
     }
     else {
