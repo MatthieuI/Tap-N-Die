@@ -1,13 +1,15 @@
 /* Valeurs */
 
+let herosActif;
 let vieHeros = 100;
 let vieMaxHeros = 100; //pour ne pas dépasser la vie max du héros
 let forceHeros = 10;
+let forceMonstre = 1;
 let vieMonstre = 100;
 let vieBaseMonstre = 100;   //besoin pour augmenter la vie du monstre suivant
 let vieMaxMonstre = 100;
 let compteurMonstresTues = 0; //besoin pour augmenter la vie du monstre suivant
-let or = 1000000000;
+let or = 0;
 let gemmes = 0;   
 let gemmesGagnes = 10; 
 let score = 0;
@@ -47,6 +49,7 @@ let prixPvPlus = 50;
 let prixAttaquePlus = 25;
 let prixAttaqueAlliesPlus = 75;
 let dispoCapacite = true;
+let i = 30;
 
 /* Eléments du html */
 
@@ -63,8 +66,15 @@ let competence = document.getElementById ("competence");
 let fermeture = document.getElementById ("fermeture");
 let ecrou = document.getElementById ("ecrou");
 let parametres = document.getElementById ("parametres");
+let boutonCredits = document.getElementById ("boutonCredits");
 let boutonReinitialiser = document.getElementById ("boutonReinitialiser"); 
-/////////////////////////////////////
+/* Crédits*/
+let credits = document.getElementById ("credits")
+let boutonRetourParametre = document.getElementById ("boutonRetourParametre");
+
+let boutonBoutiquePermanente = document.getElementById ("boutonBoutiquePermanente");
+let boutonRetourBienvenue = document.getElementById ("boutonRetourBienvenue");
+
 let boutonRetour = document.getElementById("boutonRetour");     // Louise //
 let boutonValider = document.getElementById ("boutonValider");  // Louise // 
 
@@ -111,40 +121,96 @@ let boutonFermerBonus = document.getElementById("fermerBonus");
 
 let chronoMonstre;
 let chronoAllies = [];
+let chronoArchere;
 
 /* Héros */
 
-let guerriereObj = {
+let guerriereObjet = {
     nom: "guerriere",
     capaciteSpeciale() {
         if (dispoCapacite===true) {
             vieMonstre -= (3*forceHeros);   
-            verifierMortMonstre();                    // Attaque plus puissante
+            verifierMortMonstre();                              // Attaque plus puissante
             clearInterval(chronoMonstre);                       // Le monstre arrête d'attaquer le héros
             setTimeout(fixerChronoMonstre, 5000);               // Le monstre n'attaque plus pendant 5sec puis reprend son attaque normale
             dispoCapacite = false;    
-            setTimeout(reactiverCapacite, 10000)   
-        }               
+            setTimeout(reactiverCapacite, 30000);
+            chronoCapacite = setInterval(capaciteRecharge, 1000);
+            setTimeout(clearInterval, 30000, chronoCapacite);
+        }            
     }
 }
 
-function reactiverCapacite() {
-    dispoCapacite = true;
-}
 
-let mageObj = {
+function capaciteRecharge() {  
+    i--;
+    competence.innerHTML = "";
+    competence.innerHTML = "<p>" + i + "</p>";
+    actualisationAffichage();
+    if (i===0) {
+        competence.innerHTML = `<img src="images/icones/arme2.png">` ;
+        i = 30;
+        }
+    } 
+
+let mageObjet = {
     nom : "mage",
     capaciteSpeciale() {
         if (dispoCapacite===true) {
             vieMonstre -= (10*forceHeros);                      // Attaque plus puissante
             verifierMortMonstre();
             dispoCapacite = false;    
-            setTimeout(reactiverCapacite, 10000)
+            setTimeout(reactiverCapacite, 30000);
         }
     }
 }
 
-let herosActif = guerriere;
+let archereObjet = {
+    nom : "archere",
+    capaciteSpeciale() {
+        if (dispoCapacite===true) {
+            chronoArchere = setInterval(degatsAuto, 100, forceHeros/5);
+            setTimeout(clearInterval, 5000, chronoArchere);
+            dispoCapacite = false;    
+            setTimeout(reactiverCapacite, 30000);
+        }
+    }
+}
+
+function competenceVoleur() {
+    attaquerMonstre();
+    let critique = entierAleatoire(1, 100);
+    if (critique<=10) {
+        vieHeros += vieHeros/100;
+        vieHeros = Math.round(vieHeros);
+        if (vieHeros>vieMaxHeros) {vieHeros=vieMaxHeros}
+    }    
+    if (critique>=90) {
+        or += or/100; 
+        or = Math.round(or);
+    }
+}
+
+function resetCapaciteVoleur() {
+    boutonAttaquer.onclick = attaquerMonstre;
+}
+
+
+let voleurObjet = {
+    nom : "voleur",
+    capaciteSpeciale() {
+        if (dispoCapacite===true) {
+            boutonAttaquer.onclick = competenceVoleur;
+            setTimeout(resetCapaciteVoleur, 10000);
+            dispoCapacite = false;    
+            setTimeout(reactiverCapacite, 30000);
+        }
+    }
+}
+
+function reactiverCapacite() {
+    dispoCapacite = true;
+}
 
 function capaciteSpeciale() {
     herosActif.capaciteSpeciale();
@@ -156,47 +222,45 @@ competence.onclick = capaciteSpeciale;
 - boutonUtiliserPotion.disabled = true;
 - compléter la fonction rejouer; ??? a checker
 - Faire un compteur de parties; 
-- Faire timer potion de force; 
 */
 
 function ouvrirOngletBonus() {             //modif
     caserneFerme.style.display = "none";
     caserneBonus.style.display = "flex";
 }
-bonusFerme.onclick = ouvrirOngletBonus;     //cliquer sur la div bonus
+bonusFerme.onclick = ouvrirOngletBonus;
 
 function fermerOngletBonus() {             //modif
     caserneFerme.style.display = "flex";
     caserneBonus.style.display = "none";
 }
-boutonFermerBonus.onclick = fermerOngletBonus;  //cliquer sur le bouton fermer
+boutonFermerBonus.onclick = fermerOngletBonus;
 
 function ouvrirOngletPotions() {             //modif
     caserneFerme.style.display = "none";
     casernePotions.style.display = "flex";
 }
-potionsFerme.onclick = ouvrirOngletPotions; //cliquer sur la div potion
+potionsFerme.onclick = ouvrirOngletPotions;
 
 function fermerOngletPotions() {             //modif
     caserneFerme.style.display = "flex";
     casernePotions.style.display = "none";
 }
-boutonFermerPotions.onclick = fermerOngletPotions;  //cliquer sur le bouton fermer
+boutonFermerPotions.onclick = fermerOngletPotions;
 
 function ouvrirOngletAllies() {             //modif
     caserneFerme.style.display = "none";
     caserneAllies.style.display = "flex";
 }
-alliesFerme.onclick = ouvrirOngletAllies;   //cliquer sur la div alliés
+alliesFerme.onclick = ouvrirOngletAllies;
 
 function fermerOngletAllies() {             //modif
     caserneFerme.style.display = "flex";
     caserneAllies.style.display = "none";
 }
-boutonFermerAllies.onclick = fermerOngletAllies;    //cliquer sur le bouton fermer
+boutonFermerAllies.onclick = fermerOngletAllies;
 
-function entierAleatoire(min,max) /* MODIF BY YANN */
-{
+function entierAleatoire(min,max) { /* MODIF BY YANN */
  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
@@ -211,7 +275,7 @@ function selectionneGuerriere() {                   // Louise //
     voleur.style.border = "";// Louise // 
     herosImage.innerHTML = `<img src="images/heros/warrior.png"> `;// Louise // 
     competence.innerHTML = `<img src="images/icones/arme2.png">` ;
-    herosActif = guerriere ;      
+    herosActif = guerriereObjet ;   
 }
 guerriere.onclick = selectionneGuerriere;           // Louise // 
 
@@ -220,27 +284,33 @@ function selectionneArchere() {                   // Louise //
     guerriere.style.border = "";// Louise // 
     magicienne.style.border = "";// Louise // 
     voleur.style.border = "";// Louise // 
-    herosImage.innerHTML = `<img src="images/heros/archer.png"> `;// Louise // 
+    herosImage.innerHTML = `<img src="images/heros/archer.png"> `;// Louise //boutonAttaquer.onclick
+    competence.innerHTML = `<img src="images/icones/arme2.png">` ;
+    herosActif = archereObjet ;         // Louise // 
 }
-archere.onclick = selectionneArchere;           // Louise // 
+archere.onclick = selectionneArchere; 
 
 function selectionneMagicienne() {                   // Louise // 
     magicienne.style.border = "3px solid #bb0b0b";   // Louise // 
     archere.style.border = "";// Louise // 
     guerriere.style.border = "";// Louise // 
     voleur.style.border = "";// Louise // 
-    herosImage.innerHTML = `<img src="images/heros/mage.png"> `;// Louise // 
+    herosImage.innerHTML = `<img src="images/heros/mage.png"> `;// Louise //
+    competence.innerHTML = `<img src="images/icones/capaheros.png">` ;
+    herosActif = mageObjet ;      
 }
 magicienne.onclick = selectionneMagicienne;           // Louise // 
 
 function selectionneVoleur() {                   // Louise // 
     voleur.style.border = "3px solid #bb0b0b";   // Louise // 
     archere.style.border = "";                   // Louise //    
-    magicienne.style.border = "";                // Louise // 
-    guerriere.style.border = "";      
+    magicienne.style.border = "";   
+    guerriere.style.border = "";       
     herosImage.innerHTML = `<img src="images/heros/rogue.png"> `;// Louise // 
+    competence.innerHTML = `<img src="images/icones/alliees.png">` ;
+    herosActif = voleurObjet ;      
 }
-voleur.onclick = selectionneVoleur;           // Louise // 
+voleur.onclick = selectionneVoleur;
 
 function boutonHeros() {                       // Louise // 
     introduction.style.display = "none";       // Louise // 
@@ -280,7 +350,29 @@ function reinitialiser(){
     clearInterval(chronoMonstre);
 }
 boutonReinitialiser.onclick = reinitialiser;
-///////////////////////////////////////////////////////////////////////////
+
+function ouvrirCredits() {
+        credits.style.display = "block";
+}
+boutonCredits.onclick = ouvrirCredits;
+////////////////////////CREDITS///////////////////////////////////////////
+function retourParametre () { 
+    credits.style.display = "none";
+}
+boutonRetourParametre.onclick = retourParametre;
+
+////////////////////////BOUTIQUE PERMANENTE///////////////////////////////////////////
+function ouvrirBoutiquePermanente () {
+    boutiquePermanente.style.display = "block";    
+}
+boutonBoutiquePermanente.onclick = ouvrirBoutiquePermanente;
+
+function retourBienvenue () {
+    boutiquePermanente.style.display = "none";     
+}
+
+boutonRetourBienvenue.onclick = retourBienvenue;
+////////////////////////CREDITS///////////////////////////////////////////
 
 function attaquerMonstre() {
     vieMonstre -= forceHeros;
@@ -299,7 +391,7 @@ function verifierMortMonstre() {
 }
 
 function attaquerHeros() {
-    vieHeros -= 10;
+    vieHeros -= forceMonstre;
     if (vieHeros > 0) { //pour ne pas passer en négatif
         actualisationAffichage();
     }
@@ -314,7 +406,7 @@ function fixerChronoMonstre() {
     chronoMonstre = setInterval(attaquerHeros, 1000);   //timer entre chaque attaque du monstre (en ms)
 }
 
-function rejouer() {    //reset du jeu  //modif 26/01 matthieu
+function rejouer() {    //reset du jeu  //modif 26/01 matthieu //resolution bugs mineurs
     vieHeros = 100;
     vieMaxMonstre = 100;
     vieMonstre = 100;
@@ -326,6 +418,8 @@ function rejouer() {    //reset du jeu  //modif 26/01 matthieu
     for(let j = 0; j < chronoAllies.length; j++) {
         clearInterval(chronoAllies[j]);
     }
+    forceMonstre = 1;
+    clearInterval(chronoMonstre);
     alliesDiv.innerHTML = "";
     potion = "";
     boutonUtiliserPotion.innerHTML = "";
@@ -338,6 +432,9 @@ boutonRejouer.onclick = rejouer;
 function nouveauMonstre() {
     vieMonstre = vieBaseMonstre + 15 * compteurMonstresTues;    //argumentation de la vie max du prochain monstre
     vieMaxMonstre = vieMonstre;
+    if (compteurMonstresTues%5===0) {
+      forceMonstre = forceMonstre*2;
+    }
     aleatoire = entierAleatoire(1, 120);
     vieHeros += 10; //soin du héros
     if (vieHeros > vieMaxHeros) {   //on empeche le héros de regagner plus de vie que son maximum
@@ -350,14 +447,6 @@ function nouveauMonstre() {
     fixerChronoMonstre();   
 }
 
-// function monstreElite {
-//     if (compteurMonstresTues%10===0) {
-//     }
-//     else {
-//         nouveauMonstre();
-//     }
-// }
-
 function actualisationAffichage() { //actualisation des valeurs affichées à l'écran
     monstre.innerHTML = `<img src="images/monstres/MonsterPack/${aleatoire}.png">`;
     monstreVieBarre.style.width = `${vieMonstre*400/vieMaxMonstre}px`;                  /* MODIF BY YANN */
@@ -368,10 +457,6 @@ function actualisationAffichage() { //actualisation des valeurs affichées à l'
     affichageGemmes2.innerHTML =  gemmesGagnes ;
     heros.innerHTML = "<p>" + vieHeros + "/" + vieMaxHeros +"</p>";                     /* MODIF BY YANN */
     herosVieBarre.style.width = `${vieHeros*100/vieMaxHeros}%`;
-    // dpsHeros.innerHTML = "<p>Dégats du héros : " + forceHeros + "</p>";
-    // dpsAllies.innerHTML = "<p>Bonus aux alliés : DPS x" + multiplicateurAllies + "</p>";
-    // boutonPvPlus.innerHTML = "PV +<br>Prix : " + prixPvPlus;
-    // boutonAttaquePlus.innerHTML = "Attaque +<br>Prix : " + prixAttaquePlus;
 }
 
 function achatPotionVie() {
@@ -409,7 +494,6 @@ boutonAchatPotionForce.onclick = achatPotionForce;
 function resetPotionForce() {
     forceHeros /= 2;
 }
-
 function utiliserPotion() {
     if(potion === "vie") {
         vieHeros += 0.6 * vieMaxHeros;
