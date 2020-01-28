@@ -408,6 +408,7 @@ body {
     margin-top: 50px;
 }
 
+
 #bienvenue #boutonBoutiquePermanente{
     background-color: #003451;
     color: white; 
@@ -615,10 +616,6 @@ body {
     width: 40px;
     height: 40px;
     padding-right: 10px;
-}
-
-#volume hr{
-
 }
 
 #reglageSon {

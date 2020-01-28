@@ -102,11 +102,9 @@ let boutonAchatGeneral = document.getElementById("acheterGeneral");
 let boutonAchatPretre = document.getElementById("acheterPretre");
 let boutonAchatEnchanteresse = document.getElementById("acheterEnchanteresse");
 let boutonAchatSeigneur = document.getElementById("acheterSeigneur");   //ajout 27/01
-// let boutonAttaquePlus = document.getElementById("attaquePlus");
-// let boutonAttaqueAlliesPlus = document.getElementById("attaqueAlliesPlus");
-// let boutonPvPlus = document.getElementById("pvPlus");
-// let dpsHeros = document.getElementById("dpsHeros");
-// let dpsAllies = document.getElementById("dpsAllies");
+let boutonAttaquePlus = document.getElementById("attaquePlus");
+let boutonAttaqueAlliesPlus = document.getElementById("attaqueAlliesPlus");
+let boutonPvPlus = document.getElementById("pvPlus");
 let caserneAllies = document.getElementById("caserneAllies");  //ajout
 let alliesFerme = document.getElementById("alliesFerme");
 let caserneFerme = document.getElementById("caserneFerme");
@@ -122,7 +120,7 @@ let boutonFermerBonus = document.getElementById("fermerBonus");
 /* Chronos */
 
 let chronoMonstre;
-let chronoAllies;
+let chronoAllies = [];
 let chronoArchere;
 
 /* Héros */
@@ -139,9 +137,10 @@ let guerriereObjet = {
             setTimeout(reactiverCapacite, 30000);
             chronoCapacite = setInterval(capaciteRecharge, 1000);
             setTimeout(clearInterval, 30000, chronoCapacite);
-        }               
+        }            
     }
 }
+
 
 function capaciteRecharge() {  
     i--;
@@ -219,30 +218,6 @@ function capaciteSpeciale() {
 
 competence.onclick = capaciteSpeciale;
 
-// let bonusPermanents = {
-//     attaqueHeros = 0,
-//    // [...]
-// }
-
-/* Héros */
-
-function reactiverCapacite() {
-    dispoCapacite = true;
-}
-
-let herosActif;
-
-function capaciteSpeciale() {
-    herosActif.capaciteSpeciale();
-}
-
-competence.onclick = capaciteSpeciale;
-
-// let bonusPermanents = {
-//     attaqueHeros = 0,
-//    // [...]
-// }
-
 /* Bugs et corrections :
 - boutonUtiliserPotion.disabled = true;
 - compléter la fonction rejouer; ??? a checker
@@ -285,8 +260,7 @@ function fermerOngletAllies() {             //modif
 }
 boutonFermerAllies.onclick = fermerOngletAllies;
 
-function entierAleatoire(min,max) /* MODIF BY YANN */
-{
+function entierAleatoire(min,max) { /* MODIF BY YANN */
  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
@@ -430,7 +404,7 @@ function attaquerHeros() {
 
 function fixerChronoMonstre() {
     chronoMonstre = setInterval(attaquerHeros, 1000);   //timer entre chaque attaque du monstre (en ms)
-} //modif 26/01 matthieu
+}
 
 function rejouer() {    //reset du jeu  //modif 26/01 matthieu //resolution bugs mineurs
     vieHeros = 100;
@@ -439,10 +413,13 @@ function rejouer() {    //reset du jeu  //modif 26/01 matthieu //resolution bugs
     compteurMonstresTues = 0;
     or = 0;
     score = 0;
-    forceMonstre = 1;
     gemmes += gemmesGagnes;
     clearInterval(chronoMonstre);
-    clearInterval(chronoAllies);        //sensé reset les alliés ?
+    for(let j = 0; j < chronoAllies.length; j++) {
+        clearInterval(chronoAllies[j]);
+    }
+    forceMonstre = 1;
+    clearInterval(chronoMonstre);
     alliesDiv.innerHTML = "";
     potion = "";
     boutonUtiliserPotion.innerHTML = "";
@@ -470,17 +447,7 @@ function nouveauMonstre() {
     fixerChronoMonstre();   
 }
 
-// function monstreElite {
-//     if (compteurMonstresTues%10===0) {
-
-//     }
-//     else {
-//         nouveauMonstre();
-//     }
-// }
-
 function actualisationAffichage() { //actualisation des valeurs affichées à l'écran
-    // monstre.innerHTML = "<p>Vie du monstre : " + vieMonstre + "</p>";
     monstre.innerHTML = `<img src="images/monstres/MonsterPack/${aleatoire}.png">`;
     monstreVieBarre.style.width = `${vieMonstre*400/vieMaxMonstre}px`;                  /* MODIF BY YANN */
     affichageScore.innerHTML = "<p>Score : " + score + "</p>";
@@ -490,10 +457,6 @@ function actualisationAffichage() { //actualisation des valeurs affichées à l'
     affichageGemmes2.innerHTML =  gemmesGagnes ;
     heros.innerHTML = "<p>" + vieHeros + "/" + vieMaxHeros +"</p>";                     /* MODIF BY YANN */
     herosVieBarre.style.width = `${vieHeros*100/vieMaxHeros}%`;
-    // dpsHeros.innerHTML = "<p>Dégats du héros : " + forceHeros + "</p>";
-    // dpsAllies.innerHTML = "<p>Bonus aux alliés : DPS x" + multiplicateurAllies + "</p>";
-    // boutonPvPlus.innerHTML = "PV +<br>Prix : " + prixPvPlus;
-    // boutonAttaquePlus.innerHTML = "Attaque +<br>Prix : " + prixAttaquePlus;
 }
 
 function achatPotionVie() {
@@ -528,6 +491,9 @@ function achatPotionForce() {
 }
 boutonAchatPotionForce.onclick = achatPotionForce;
 
+function resetPotionForce() {
+    forceHeros /= 2;
+}
 function utiliserPotion() {
     if(potion === "vie") {
         vieHeros += 0.6 * vieMaxHeros;
@@ -540,6 +506,7 @@ function utiliserPotion() {
     } 
     else if(potion === "force") {
         forceHeros *= 2;
+        setTimeout(resetPotionForce, 10000);
         boutonUtiliserPotion.innerHTML = "";
         potion = "";
 
@@ -554,7 +521,8 @@ function degatsAuto(dps) {
 }
 
 function fixerChronoAllies(dps) {
-    chronoAllies = setInterval(degatsAuto, 1000, dps);   //appelle degatsAuto(dps) une fois par seconde
+    let intervalID = setInterval(degatsAuto, 1000, dps);
+    chronoAllies.push(intervalID);
 }
 
 function acheterPaysan() {
@@ -727,28 +695,50 @@ function acheterSeigneur() {
 }
 boutonAchatSeigneur.onclick = acheterSeigneur;  //ajout 27/01 des alliés
 
-// function acheterAttaquePlus() {
-//     if(or >= prixAttaquePlus) {
-//         or -= prixAttaquePlus;
-//         prixAttaquePlus *= 2;
-//         forceHeros++;
+function acheterAttaquePlus() {
+    if(or >= prixAttaquePlus) {
+        or -= prixAttaquePlus;
+        prixAttaquePlus *= 1.5;
+        prixAttaquePlus = Math.round(prixAttaquePlus);
+        forceHeros++;
+        boutonAttaquePlus.children[2].innerHTML = '<p>' + prixAttaquePlus + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
+        actualisationAffichage();
+    }
+    else {
+        alert("Vous n'avez pas assez d'or.")
+    }
+}
+boutonAttaquePlus.onclick = acheterAttaquePlus;
+
+function acheterPvPlus() {
+    if(or >= prixPvPlus) {
+        or -= prixPvPlus;
+        prixPvPlus *= 1.5; 
+        prixPvPlus = Math.round(prixPvPlus);
+        vieMaxHeros += 10;
+        vieHeros += 10;
+        boutonPvPlus.children[2].innerHTML = '<p>' + prixPvPlus + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
+        actualisationAffichage();
+    }
+    else {
+        alert("Vous n'avez pas assez d'or.")
+    }
+}
+boutonPvPlus.onclick = acheterPvPlus;
+
+// function acheterAttaqueAlliesPlus() {
+//     if(or >= prixAttaqueAlliesPlus) {
+//         or -= prixAttaqueAlliesPlus;
+//         prixAttaqueAlliesPlus *= 1.5; 
+//         prixAttaqueAlliesPlus = Math.round(prixAttaqueAlliesPlus);
+//         multiplicateurAllies += 0.2;
+//         clearInterval(chronoAllies);
+//         [...]
+//         boutonAttaqueAlliesPlus.children[2].innerHTML = '<p>' + prixAttaqueAlliesPlus + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
 //         actualisationAffichage();
 //     }
 //     else {
 //         alert("Vous n'avez pas assez d'or.")
 //     }
 // }
-// boutonAttaquePlus.onclick = acheterAttaquePlus;
-// function acheterPvPlus() {
-//     if(or >= prixPvPlus) {
-//         or -= prixPvPlus;
-//         prixPvPlus *= 1.5; 
-//         vieMaxHeros += 10;
-//         vieHeros += 10;
-//         actualisationAffichage();
-//     }
-//     else {
-//         alert("Vous n'avez pas assez d'or.")
-//     }
-// }
-// boutonPvPlus.onclick = acheterPvPlus;
+// boutonAttaqueAlliesPlus.onclick = acheterAttaqueAlliesPlus;
