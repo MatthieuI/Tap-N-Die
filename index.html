@@ -32,15 +32,19 @@
 
     <div class="conteneur">
       
-        <div class="conteneurGauche">
+        <div class="conteneurGauche" id="jdb">
             <!-- Journal de bord -->
-            <div></div> <!-- Journal de bord déplié -->
-
-            <div class="jdbFerme">
+            <div id ="jdbFerme">
                 <h5>JOURNAL DE BORD</h5> <!-- Journal de bord replié-->
-                <img src="images/icones/arrow.png"> <!-- Bouton de déroulement du bouton -->
+                <img src="images/icones/arrow.png" id="ouvrirJdbBouton"> <!-- Bouton de déroulement du bouton -->
             </div>
-
+            <div id="jdbOuvert" >
+                <h5>JOURNAL DE BORD</h5>
+                <ul id="listeJdb">
+    
+                </ul>
+                <img src="images/icones/arrow.png" id="fermerJdbBouton">
+            </div> <!-- Journal de bord déplié -->
         </div>
 
         <div class="conteneurMilieu">
@@ -123,7 +127,16 @@
             <button id="boutonReinitialiser">REINITIALISER PARTIE</button>
         </div>
     </div>
-
+<!-- /////////////////////////////////////////////// --> 
+          
+            <div class="monstreDiv">
+                <div class="monstreVieCadre">
+                    <!-- Barre de vie Monstre (rouge foncé)-->
+                    <div id="monstreVieBarre">
+                        <!-- Vie perdu Monstre  (rouge clair) -->
+                    </div>
+                </div>
+              
 <!-- /////////////////////////////////////////////// --> 
 <!-- ////////////////////HAUTS-FAITS////////////////// --> 
 <!-- /////////////////////////////////////////////// --> 
@@ -533,7 +546,6 @@
         </div>
 
     </div>
-
 
     <script src="script.js"></script>
 </body>
