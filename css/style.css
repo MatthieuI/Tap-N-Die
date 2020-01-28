@@ -810,3 +810,46 @@ body {
 #acheterShiva{
 
 }
+
+/* ////////////// Hauts-Faits ////////// */
+
+#hautFaits {
+    z-index: 2100;
+    margin: 60px 0 0 0;
+    height: 550px;
+    width: 60%;
+    background: rgba(0, 0, 53, 1);
+    border-radius: 2%;
+    border: 1px solid #000;
+    display: none;
+    position: fixed;
+    color: white;
+    text-align: center;
+    font-family: "Dalelands";
+    overflow-y: scroll;
+}
+
+#hautFaits h3 { 
+    font-size: 33px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.marginXAuto {
+    margin: 15px auto;
+    width: 60%;
+    opacity: 0.3;
+}
+
+#hautFaits button {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: #003451;
+    color: white; 
+    font-family: "Dalelands";
+    border: 2px solid black;
+    border-radius: 10px;
+    height: 40px;
+    width: 200px;
+    font-size: 20px;
+}
