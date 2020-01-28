@@ -74,8 +74,6 @@ body {
 
 /***** JOURNAL DE BORD FERME *****/
 
-/* JOURNAL DE BORD FERME */
-
 #jdbFerme {
     width: 50px;
     height: 800px;
@@ -89,13 +87,13 @@ body {
     top: 150px;
 }
 
-#jdbFerme h5 {
     writing-mode: vertical-rl;
     text-orientation: upright;
     margin: auto;
     font-size: 25px;
     letter-spacing: 0.5rem;
 }
+
 
 #jdbFerme img {
     height: 50px;
@@ -157,6 +155,9 @@ de bord ouvert n'apparaissent pas, passe en flex à l'appel de ouvrirJdb() */
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    background: url(../images/textures/scroll.jpg);
+    background-size: cover;
+    border: 1px solid #000;
     position: absolute;
     right:0;
     top: 120px;
@@ -181,6 +182,11 @@ de bord ouvert n'apparaissent pas, passe en flex à l'appel de ouvrirJdb() */
 }
 
 /* Caserne ouverte */
+#caserneFerme img {
+    height: 50px;
+    width: 50px;
+    transform: rotate(-90deg);
+}
 
 #caserneAllies, #casernePotions, #caserneBonus { /* modif */
     display: none;
@@ -287,6 +293,17 @@ de bord ouvert n'apparaissent pas, passe en flex à l'appel de ouvrirJdb() */
     margin: auto;
 }
 
+#monstreEmplacement {
+    position: relative;
+}
+
+.monstreTest {
+    height: 300px;
+    width: 400px;
+    margin: auto;
+    position: relative;
+}
+
 #monstre img {
     height: 100%;
     width: 100%;
@@ -309,6 +326,20 @@ de bord ouvert n'apparaissent pas, passe en flex à l'appel de ouvrirJdb() */
     left: 0;
     height: 20px;
     border-radius: 5px;
+}
+
+#elite {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    right:0;
+    top:0;
+    display: none;
+}
+
+#elite img {
+    height: 50px;
+    width: 50px;
 }
 
 /* PANEL DU HEROS */
@@ -884,4 +915,47 @@ de bord ouvert n'apparaissent pas, passe en flex à l'appel de ouvrirJdb() */
 
 #acheterShiva{
 
+}
+
+/* ////////////// Hauts-Faits ////////// */
+
+#hautFaits {
+    z-index: 2100;
+    margin: 60px 0 0 0;
+    height: 550px;
+    width: 60%;
+    background: rgba(0, 0, 53, 1);
+    border-radius: 2%;
+    border: 1px solid #000;
+    display: none;
+    position: fixed;
+    color: white;
+    text-align: center;
+    font-family: "Dalelands";
+    overflow-y: scroll;
+}
+
+#hautFaits h3 { 
+    font-size: 33px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.marginXAuto {
+    margin: 15px auto;
+    width: 60%;
+    opacity: 0.3;
+}
+
+#hautFaits button {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: #003451;
+    color: white; 
+    font-family: "Dalelands";
+    border: 2px solid black;
+    border-radius: 10px;
+    height: 40px;
+    width: 200px;
+    font-size: 20px;
 }
