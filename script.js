@@ -23,10 +23,10 @@ let prixPaysan = 50;
 let forcePaysan = 1;
 let nombreMiliciens = 0; 
 let prixMilicien = 110;
-let forceMilicien = 3;
+let forceMilicien = 5;
 let nombreLanciers = 0; 
 let prixLancier = 350;
-let forceLancier = 5;
+let forceLancier = 10;
 let nombreSoldats = 0; 
 let prixSoldat = 1000;
 let forceSoldat = 20;
@@ -257,8 +257,7 @@ function ajouterAuJdb(evenement) {
     }
     
 }
-ajouterAuJdb ('Préparez vous à taper fort pour survivre!');
-ajouterAuJdb ('Préparez vous à taper vite poour survivre!');
+ajouterAuJdb ('Préparez vous à taper vite pour survivre!');
 ajouterAuJdb ('Je vous la donne en 1000, préparez vous à taper...');
 
 
@@ -291,13 +290,24 @@ let guerriereObjet = {
 function capaciteRecharge() {
     i--;
     competence.innerHTML = "";
-    competence.innerHTML = "<p>" + i + "</p>";
+    competence.innerHTML = "<p>" + Math.round(i) + "</p>";
     actualisationAffichage();
-    if (i===0) {
-        competence.innerHTML = `<img src="images/icones/arme2.png">` ;
-        i = cooldownCapacite;
+    if ((i>=0) && (i<1)) {
+        if(herosActif === guerriereObjet) {
+            competence.innerHTML = `<img src="images/icones/guerriereCapacite.png">`;
         }
-    } 
+        else if(herosActif === mageObjet) {
+            competence.innerHTML = `<img src="images/icones/mageCapacite.png">`;
+        }
+        else if(herosActif === archereObjet) {
+            competence.innerHTML = `<img src="images/icones/archereCapacite.png">`;
+        }
+        else if(herosActif === voleurObjet) {
+            competence.innerHTML = `<img src="images/icones/voleurCapacite.png">`;
+        }
+        i = cooldownCapacite;
+    }
+} 
 
 let mageObjet = {
     nom : "mage",
@@ -377,13 +387,6 @@ function capaciteSpeciale() {
 
 competence.onclick = capaciteSpeciale;
 
-/* Bugs et corrections :
-- boutonUtiliserPotion.disabled = true;
-- compléter la fonction rejouer; ??? a checker
-- Faire un compteur de parties; 
-*/
-
-
 function ouvrirOngletBonus() {             //modif
     caserneFerme.style.display = "none";
     caserneBonus.style.display = "flex";
@@ -437,7 +440,7 @@ function selectionneGuerriere() {                   // Louise //
     magicienne.style.border = "";// Louise // 
     voleur.style.border = "";// Louise // 
     herosImage.innerHTML = `<img src="images/heros/warrior.png"> `;// Louise // 
-    competence.innerHTML = `<img src="images/icones/arme2.png">` ;
+    competence.innerHTML = `<img src="images/icones/guerriereCapacite.png">` ;
     herosActif = guerriereObjet ;   
 }
 guerriere.onclick = selectionneGuerriere;           // Louise // 
@@ -450,7 +453,7 @@ function selectionneArchere() {                   // Louise //
          magicienne.style.border = "";// Louise // 
          voleur.style.border = "";// Louise // 
          herosImage.innerHTML = `<img src="images/heros/archer.png"> `;// Louise //boutonAttaquer.onclick
-         competence.innerHTML = `<img src="images/icones/arme2.png">` ;
+         competence.innerHTML = `<img src="images/icones/archereCapacite.png">` ;
          herosActif = archereObjet ;         // Louise // 
      }
      else {
@@ -467,7 +470,7 @@ function selectionneArchere() {                   // Louise //
          guerriere.style.border = "";// Louise // 
          voleur.style.border = "";// Louise // 
          herosImage.innerHTML = `<img src="images/heros/mage.png"> `;// Louise //
-         competence.innerHTML = `<img src="images/icones/capaheros.png">` ;
+         competence.innerHTML = `<img src="images/icones/mageCapacite.png">` ;
          herosActif = mageObjet ;     
      }
      else {
@@ -485,7 +488,7 @@ function selectionneArchere() {                   // Louise //
          magicienne.style.border = "";   
          guerriere.style.border = "";       
          herosImage.innerHTML = `<img src="images/heros/rogue.png"> `;// Louise // 
-         competence.innerHTML = `<img src="images/icones/alliees.png">` ;
+         competence.innerHTML = `<img src="images/icones/voleurCapacite.png">` ;
          herosActif = voleurObjet ; 
      }
      else {
@@ -607,7 +610,7 @@ function acheterAttaquePlusHerosPerm() {   //Louise 28/01 //
     if(gemmes >= prixAttaquePlusHerosPerm) {
         gemmes -= prixAttaquePlusHerosPerm;
         forceHeros = Math.round(forceHeros*1.1); // A VERIFIER // ///////////////////////////////////////////
-        nombreAttaqueHerosPlusPerm ++
+        nombreAttaqueHerosPlusPerm ++;
         nombreBagueVerte.innerHTML = `X` + nombreAttaqueHerosPlusPerm ;
         actualisationAffichage();
     }
@@ -620,8 +623,49 @@ boutonAttaqueHerosPlusPerm.onclick = acheterAttaquePlusHerosPerm;// Louise //
 function acheterAttaqueAlliesPlusPerm() {   //Louise 28/01 // 
     if(gemmes >= prixAttaqueAlliesPlusPerm ) {
         gemmes -= prixAttaqueAlliesPlusPerm ;
-        multiplicateurAllies *= 1.05 ; // A VERIFIER // ///////////////////////////////////////////
-        nombreAttaqueAlliesPlusPerm ++
+        multiplicateurAllies *= 1.05; // A VERIFIER // ///////////////////////////////////////////
+        nombreAttaqueAlliesPlusPerm ++;
+        forcePaysan = Math.round(forcePaysan*multiplicateurAllies);
+        forceMilicien = Math.round(forceMilicien*multiplicateurAllies);
+        forceLancier = Math.round(forceLancier*multiplicateurAllies);
+        forceSoldat = Math.round(forceSoldat*multiplicateurAllies);
+        forceFantassin = Math.round(forceFantassin*multiplicateurAllies);
+        forceGarde = Math.round(forceGarde*multiplicateurAllies);
+        forceGeneral = Math.round(forceGeneral*multiplicateurAllies);
+        forcePretre = Math.round(forcePretre*multiplicateurAllies);
+        forceEnchanteresse = Math.round(forceEnchanteresse*multiplicateurAllies);
+        forceSeigneur = Math.round(forceSeigneur*multiplicateurAllies);
+        effacerAllies();
+        for(k = 0; k < nombrePaysans; k++) {
+            fixerChronoAllies(forcePaysan);
+        }
+        for(k = 0; k < nombreMiliciens; k++) {
+            fixerChronoAllies(forceMilicien);
+        }
+        for(k = 0; k < nombreLanciers; k++) {
+            fixerChronoAllies(forceLancier);
+        }
+        for(k = 0; k < nombreSoldats; k++) {
+            fixerChronoAllies(forceSoldat);
+        }
+        for(k = 0; k < nombreFantassins; k++) {
+            fixerChronoAllies(forceFantassin);
+        }
+        for(k = 0; k < nombreGardes; k++) {
+            fixerChronoAllies(forceGarde);
+        }
+        for(k = 0; k < nombreGenerals; k++) {
+            fixerChronoAllies(forceGeneral);
+        }
+        for(k = 0; k < nombrePretres; k++) {
+            fixerChronoAllies(forcePretre);
+        }
+        for(k = 0; k < nombreEnchanteresses; k++) {
+            fixerChronoAllies(forceEnchanteresse);
+        }
+        for(k = 0; k < nombreSeigneurs; k++) {
+            fixerChronoAllies(forceSeigneur);
+        }
         nombreBagueBleu.innerHTML = `X` + nombreAttaqueAlliesPlusPerm ;
         actualisationAffichage();
     }
@@ -649,7 +693,7 @@ boutonAugmentationPvHerosPerm.onclick = acheterPvPerm;// Louise //
 function acheterCoolDonwPerm() {   //Louise 28/01 // 
     if(gemmes >= prixCoolDownPerm) {
         gemmes -= prixCoolDownPerm;
-        // INSERER LA VARIABLE POUR REDUIRE LE COOL DOWN // /////////////////////////////////////
+        cooldownCapacite = cooldownCapacite - (cooldownCapacite*3/100);
         nombreCoolDownPerm ++;
         nombreAnneau.innerHTML = `X` + nombreCoolDownPerm;
         actualisationAffichage();
@@ -753,75 +797,89 @@ function fermerHautFaits() {
 boutonRetourHautFaits.onclick = fermerHautFaits;
 
 function debloquageHautFaits() {
-    if (((compteurMonstresTues+1) === 10) && (!(hautFaitDebloque1))) {
+    if (((compteurMonstresTues+1) === 11) && (!(hautFaitDebloque1))) {
         gemmes += 40;
         hautFaitDebloque1 = true;
         alert("Vous avez battu votre premier élite. Vous gagnez 40 gemmes.");
+        ajouterAuJdb("Vous avez battu votre premier élite. Vous gagnez 40 gemmes.");
     }
-    else if (((compteurMonstresTues+1) === 25) && (!(hautFaitDebloque2))) {
+    else if (((compteurMonstresTues+1) === 26) && (!(hautFaitDebloque2))) {
         gemmes += 40;
         hautFaitDebloque2 = true;
         alert("Vous atteint le niveau 25. Vous gagnez 40 gemmes.");
+        ajouterAuJdb("Vous atteint le niveau 25. Vous gagnez 40 gemmes.");
     }
-    else if (((compteurMonstresTues+1) === 50) && (!(hautFaitDebloque3))) {
+    else if (((compteurMonstresTues+1) === 51) && (!(hautFaitDebloque3))) {
         gemmes += 50;
         hautFaitDebloque3 = true;
         alert("Vous atteint le niveau 50. Vous gagnez 50 gemmes.");
+        ajouterAuJdb("Vous atteint le niveau 50. Vous gagnez 50 gemmes.");
     }
-    else if (((compteurMonstresTues+1) === 75) && (!(hautFaitDebloque4))) {
+    else if (((compteurMonstresTues+1) === 76) && (!(hautFaitDebloque4))) {
         gemmes += 60;
         hautFaitDebloque4 = true;
         alert("Vous atteint le niveau 75. Vous gagnez 60 gemmes.");
+        ajouterAuJdb("Vous atteint le niveau 75. Vous gagnez 60 gemmes.");
     }
-    else if (((compteurMonstresTues+1) === 100) && (!(hautFaitDebloque5))) {
+    else if (((compteurMonstresTues+1) === 101) && (!(hautFaitDebloque5))) {
         gemmes += 70;
         hautFaitDebloque5 = true;
         alert("Vous atteint le niveau 100. Vous gagnez 70 gemmes.");
+        ajouterAuJdb("Vous atteint le niveau 100. Vous gagnez 70 gemmes.");
     }
-    else if (((compteurMonstresTues+1) === 300) && (!(hautFaitDebloque6))) {
+    else if (((compteurMonstresTues+1) === 301) && (!(hautFaitDebloque6))) {
         gemmes += 100;
         hautFaitDebloque6 = true;
         alert("Vous atteint le niveau 300. Vous gagnez 100 gemmes.");
+        ajouterAuJdb("Vous atteint le niveau 300. Vous gagnez 100 gemmes.");
     }
-    else if (((compteurMonstresTues+1) === 500) && (!(hautFaitDebloque7))) {
+    else if (((compteurMonstresTues+1) === 501) && (!(hautFaitDebloque7))) {
         gemmes += 100;
         hautFaitDebloque7 = true;
         alert("Vous atteint le niveau 500. Vous gagnez 100 gemmes.");
+        ajouterAuJdb("Vous atteint le niveau 500. Vous gagnez 100 gemmes.");
     }
-    else if (((compteurMonstresTues+1) === 700) && (!(hautFaitDebloque8))) {
+    else if (((compteurMonstresTues+1) === 701) && (!(hautFaitDebloque8))) {
         gemmes += 100;
         hautFaitDebloque8 = true;
         alert("Vous atteint le niveau 700. Vous gagnez 100 gemmes.");
+        ajouterAuJdb("Vous atteint le niveau 700. Vous gagnez 100 gemmes.");
     }
-    else if (((compteurMonstresTues+1) === 900) && (!(hautFaitDebloque9))) {
+    else if (((compteurMonstresTues+1) === 901) && (!(hautFaitDebloque9))) {
         gemmes += 100;
         hautFaitDebloque9 = true;
         alert("Vous atteint le niveau 900. Vous gagnez 100 gemmes.");
+        ajouterAuJdb("Vous atteint le niveau 900. Vous gagnez 100 gemmes.");
     }
-    else if (((compteurMonstresTues+1) === 200) && (!(hautFaitDebloque10))) {
+    else if (((compteurMonstresTues+1) === 201) && (!(hautFaitDebloque10))) {
         gemmes += 120;
         hautFaitDebloque10 = true;
         alert("Vous avez battu le premier boss. Vous gagnez 120 gemmes.");
+        ajouterAuJdb("Vous avez battu le premier boss. Vous gagnez 120 gemmes.");
     }
-    else if (((compteurMonstresTues+1) === 400) && (!(hautFaitDebloque11))) {
+    else if (((compteurMonstresTues+1) === 401) && (!(hautFaitDebloque11))) {
         gemmes += 140;
         hautFaitDebloque11 = true;
         alert("Vous avez battu le deuxième boss. Vous gagnez 140 gemmes.");
+        ajouterAuJdb("Vous avez battu le deuxième boss. Vous gagnez 140 gemmes.");
     }
-    else if (((compteurMonstresTues+1) === 600) && (!(hautFaitDebloque12))) {
+    else if (((compteurMonstresTues+1) === 601) && (!(hautFaitDebloque12))) {
         gemmes += 160;
         hautFaitDebloque12 = true;
         alert("Vous avez battu le troisième boss. Vous gagnez 160 gemmes.");
+        ajouterAuJdb("Vous avez battu le troisième boss. Vous gagnez 160 gemmes.");
     }
-    else if (((compteurMonstresTues+1) === 800) && (!(hautFaitDebloque13))) {
+    else if (((compteurMonstresTues+1) === 801) && (!(hautFaitDebloque13))) {
         gemmes += 180;
         hautFaitDebloque13 = true;
         alert("Vous avez battu le quatrième boss. Vous gagnez 180 gemmes.");
+        ajouterAuJdb("Vous avez battu le quatrième boss. Vous gagnez 180 gemmes.");
     }
-    else if (((compteurMonstresTues+1) === 1000) && (!(hautFaitDebloque14))) {
+    else if (((compteurMonstresTues+1) === 1001) && (!(hautFaitDebloque14))) {
         gemmes += 500;
         hautFaitDebloque14 = true;
         alert("Vous avez battu Chtulhu. Vous gagnez 500 gemmes.");
+        ajouterAuJdb("Vous avez battu Chtulhu. Vous gagnez 500 gemmes.");
     }
 }
 
@@ -840,29 +898,35 @@ function evenementsAleatoires() {
             let evenement = entierAleatoire(1,9);
             if (evenement === 1 || evenement === 8){
                 alert("Vous trouvez un coffre contenant 15 gemmes.");
+                ajouterAuJdb("Vous trouvez un coffre contenant 15 gemmes.");
                 gemmes += 15;
             }
             else if (evenement === 2 || evenement === 7) {
                 alert("Vous mangez un bon rôti, vos PV sont entièrement restaurés.");
+                ajouterAuJdb("Vous mangez un bon rôti, vos PV sont entièrement restaurés.");
                 vieHeros = vieMaxHeros;
             }
             else if (evenement === 3 || evenement === 9){
                 alert("Vous faites une sieste et vous vous sentez en forme. Votre force est augmentée de 50% pendant deux minutes.");
+                ajouterAuJdb("Vous faites une sieste et vous vous sentez en forme. Votre force est augmentée de 50% pendant deux minutes.");
                 let forceBase = forceHeros;
                 forceHeros = forceHeros + (forceHeros/2);
                 setTimeout(function(){forceHeros = forceBase;}, 120000);
             }
             else if (evenement === 4) {
-                alert("Vous avez fait une indigestion, votre force est divisée par deux pendant deux minutes.")
+                alert("Vous avez fait une indigestion, votre force est divisée par deux pendant deux minutes.");
+                ajouterAuJdb("Vous avez fait une indigestion, votre force est divisée par deux pendant deux minutes.");
                 forceHeros /= 2;
                 setTimeout(function(){forceHeros *= 2;}, 120000);
             }
             else if (evenement === 5) {
                 alert("Un gobelin malicieux arrive sournoisement et vous vole une partie de votre or.");
+                ajouterAuJdb("Un gobelin malicieux arrive sournoisement et vous vole une partie de votre or.");
                 or = or - (or/10);
             }
             else if (evenement === 6) {
                 alert("Vous mangez une baie non comestible, vous êtes empoisonné et perdez vos PV graduellement pendant 30 secondes.");
+                ajouterAuJdb("Vous mangez une baie non comestible, vous êtes empoisonné et perdez vos PV graduellement pendant 30 secondes.");
                 chronoPoison = setInterval(poison, 1000);
                 setTimeout(clearInterval, 30000, chronoPoison);
             }
@@ -873,29 +937,35 @@ function evenementsAleatoires() {
             let evenement = entierAleatoire(1,6);
             if (evenement === 1){
                 alert("Vous trouvez un coffre contenant 15 gemmes.");
+                ajouterAuJdb("Vous trouvez un coffre contenant 15 gemmes.");
                 gemmes += 15;
             }
             else if (evenement === 2) {
                 alert("Vous mangez un bon rôti, vos PV sont entièrement restaurés.");
+                ajouterAuJdb("Vous mangez un bon rôti, vos PV sont entièrement restaurés.");
                 vieHeros = vieMaxHeros;
             }
             else if (evenement === 3){
                 alert("Vous faites une sieste et vous vous sentez en forme. Votre force est augmentée de 50% pendant deux minutes.");
+                ajouterAuJdb("Vous faites une sieste et vous vous sentez en forme. Votre force est augmentée de 50% pendant deux minutes.");
                 let forceBase = forceHeros;
                 forceHeros = forceHeros + (forceHeros/2);
                 setTimeout(function(){forceHeros = forceBase;}, 120000);
             }
             else if (evenement === 4) {
-                alert("Vous avez fait une indigestion, votre force est divisée par deux pendant deux minutes.")
+                alert("Vous avez fait une indigestion, votre force est divisée par deux pendant deux minutes.");
+                ajouterAuJdb("Vous avez fait une indigestion, votre force est divisée par deux pendant deux minutes.");
                 forceHeros /= 2;
                 setTimeout(function(){forceHeros *= 2;}, 120000);
             }
             else if (evenement === 5) {
                 alert("Un gobelin malicieux arrive sournoisement et vous vole une partie de votre or.");
+                ajouterAuJdb("Un gobelin malicieux arrive sournoisement et vous vole une partie de votre or.");
                 or = or - (or/10);
             }
             else if (evenement === 6) {
                 alert("Vous mangez une baie non comestible, vous êtes empoisonné et perdez vos PV graduellement pendant 30 secondes.");
+                ajouterAuJdb("Vous mangez une baie non comestible, vous êtes empoisonné et perdez vos PV graduellement pendant 30 secondes.");
                 chronoPoison = setInterval(poison, 1000);
                 setTimeout(clearInterval, 30000, chronoPoison);
             }
@@ -1056,7 +1126,13 @@ function nouveauMonstre() {
     score +=  orGagne + 1 * compteurMonstresTues;
     actualisationAffichage();
     clearInterval(chronoMonstre);   //on reset le timer
-    fixerChronoMonstre();   
+    fixerChronoMonstre();
+    if((compteurMonstresTues+1)%10===0) {
+        ajouterAuJdb("Vous avez atteint le palier " + (compteurMonstresTues+1) + ".")
+    }
+    if((compteurMonstresTues+1)%200===0) {
+        ajouterAuJdb("Vous rencontrez un boss.");
+    }
 }
 
 function actualisationAffichage() { //actualisation des valeurs affichées à l'écran
@@ -1073,6 +1149,7 @@ function actualisationAffichage() { //actualisation des valeurs affichées à l'
     boutonAchatSeigneur.children[2].innerHTML = '<p>' + prixSeigneur + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
     boutonAttaquePlus.children[2].innerHTML = '<p>' + prixAttaquePlus + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
     boutonPvPlus.children[2].innerHTML = '<p>' + prixPvPlus + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
+    boutonAttaqueAlliesPlus.children[2].innerHTML = '<p>' + prixAttaqueAlliesPlus + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
     monstreVieBarre.style.width = `${vieMonstre*400/vieMaxMonstre}px`;                  /* MODIF BY YANN */
     affichageScore.innerHTML = "<p>Score : " + score + "</p><br><p>" + vieMonstre+ "/" + vieMaxMonstre + "</p>";
     affichageNiveau.innerHTML = "<p>Niveau " + (compteurMonstresTues+1) + "</p>";
@@ -1121,7 +1198,7 @@ function achatPotionVie() {
         or -= 70;
         actualisationAffichage();
         boutonUtiliserPotion.innerHTML = '<img src="images/icones/potionrouge.png">';
-        potion = "vie";monstreElite.style.display = "none";  
+        potion = "vie";
         alert("Vous n'avez pas assez d'or.");
     }
     else {
@@ -1394,19 +1471,57 @@ function acheterPvPlus() {
 }
 boutonPvPlus.onclick = acheterPvPlus;
 
-// function acheterAttaqueAlliesPlus() {
-//     if(or >= prixAttaqueAlliesPlus) {
-//         or -= prixAttaqueAlliesPlus;
-//         prixAttaqueAlliesPlus *= 1.5; 
-//         prixAttaqueAlliesPlus = Math.round(prixAttaqueAlliesPlus);
-//         multiplicateurAllies += 0.2;
-//         clearInterval(chronoAllies);
-//         [...]
-//         boutonAttaqueAlliesPlus.children[2].innerHTML = '<p>' + prixAttaqueAlliesPlus + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
-//         actualisationAffichage();
-//     }
-//     else {
-//         alert("Vous n'avez pas assez d'or.")
-//     }
-// }
-// boutonAttaqueAlliesPlus.onclick = acheterAttaqueAlliesPlus;
+function acheterAttaqueAlliesPlus() {
+    if(or >= prixAttaqueAlliesPlus) {
+        or -= prixAttaqueAlliesPlus;
+        prixAttaqueAlliesPlus *= 1.5; 
+        prixAttaqueAlliesPlus = Math.round(prixAttaqueAlliesPlus);
+        multiplicateurAllies += 0.5;
+        forcePaysan = Math.round(forcePaysan*multiplicateurAllies);
+        forceMilicien = Math.round(forceMilicien*multiplicateurAllies);
+        forceLancier = Math.round(forceLancier*multiplicateurAllies);
+        forceSoldat = Math.round(forceSoldat*multiplicateurAllies);
+        forceFantassin = Math.round(forceFantassin*multiplicateurAllies);
+        forceGarde = Math.round(forceGarde*multiplicateurAllies);
+        forceGeneral = Math.round(forceGeneral*multiplicateurAllies);
+        forcePretre = Math.round(forcePretre*multiplicateurAllies);
+        forceEnchanteresse = Math.round(forceEnchanteresse*multiplicateurAllies);
+        forceSeigneur = Math.round(forceSeigneur*multiplicateurAllies);
+        effacerAllies();
+        for(k = 0; k < nombrePaysans; k++) {
+            fixerChronoAllies(forcePaysan);
+        }
+        for(k = 0; k < nombreMiliciens; k++) {
+            fixerChronoAllies(forceMilicien);
+        }
+        for(k = 0; k < nombreLanciers; k++) {
+            fixerChronoAllies(forceLancier);
+        }
+        for(k = 0; k < nombreSoldats; k++) {
+            fixerChronoAllies(forceSoldat);
+        }
+        for(k = 0; k < nombreFantassins; k++) {
+            fixerChronoAllies(forceFantassin);
+        }
+        for(k = 0; k < nombreGardes; k++) {
+            fixerChronoAllies(forceGarde);
+        }
+        for(k = 0; k < nombreGenerals; k++) {
+            fixerChronoAllies(forceGeneral);
+        }
+        for(k = 0; k < nombrePretres; k++) {
+            fixerChronoAllies(forcePretre);
+        }
+        for(k = 0; k < nombreEnchanteresses; k++) {
+            fixerChronoAllies(forceEnchanteresse);
+        }
+        for(k = 0; k < nombreSeigneurs; k++) {
+            fixerChronoAllies(forceSeigneur);
+        }
+        actualisationAffichage();
+    }
+    else {
+        alert("Vous n'avez pas assez d'or.")
+    }
+}
+boutonAttaqueAlliesPlus.onclick = acheterAttaqueAlliesPlus;

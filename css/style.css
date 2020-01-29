@@ -17,6 +17,11 @@ body {
     position: relative;
 }
 
+audio{
+    height: 25px;
+    width: 140px;
+}
+
 /* HEADER */
 .headbar {
     background-image: url(../images/textures/wood.png);
@@ -50,9 +55,9 @@ body {
 
 /* CONTENEUR */
 
-.conteneur {
+/* .conteneur {
 
-}
+} */
 
 #conteneurBG {
     display: flex;
@@ -91,7 +96,7 @@ body {
     border: 1px solid #000;
     position: absolute;
     left: 0;
-    top: 150px;
+    top: 120px;
 }
 
 #jdbFerme h5 {
@@ -232,6 +237,11 @@ de bord ouvert n'apparaissent pas, passe en flex à l'appel de ouvrirJdb() */
     margin-left: 5%;
     margin-right: 5%;
     padding: 3% 3%;    
+}
+
+#caserneAllies > div {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .marron {
@@ -728,7 +738,7 @@ de bord ouvert n'apparaissent pas, passe en flex à l'appel de ouvrirJdb() */
     background: rgba(0, 0, 53, 1);
     border-radius: 2%;
     border: 1px solid #000;
-   display: none;
+    display: none;
     position: fixed;
     color: white;
     text-align: center;
@@ -774,6 +784,12 @@ de bord ouvert n'apparaissent pas, passe en flex à l'appel de ouvrirJdb() */
     margin-left: auto;
     margin-right: auto;
     margin-top: 25px;
+}
+
+#boutonOptions{
+    display: flex;
+    flex-direction: column;
+    align-items : center;
 }
 
 #boutonReinitialiser{
