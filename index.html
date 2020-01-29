@@ -31,18 +31,20 @@
     </div>
 
     <div class="conteneur">
-      
-        <div class="conteneurGauche">
+        <div class="conteneurGauche" id="jdb">
             <!-- Journal de bord -->
-            <div></div> <!-- Journal de bord déplié -->
-
-            <div class="jdbFerme">
+            <div id ="jdbFerme">
                 <h5>JOURNAL DE BORD</h5> <!-- Journal de bord replié-->
-                <img src="images/icones/arrow.png"> <!-- Bouton de déroulement du bouton -->
+                <img src="images/icones/arrow.png" id="ouvrirJdbBouton"> <!-- Bouton de déroulement du bouton -->
             </div>
-
+            <div id="jdbOuvert" >
+                <h5>JOURNAL DE BORD</h5>
+                <ul id="listeJdb">
+    
+                </ul>
+                <img src="images/icones/arrow.png" id="fermerJdbBouton">
+            </div> <!-- Journal de bord déplié -->
         </div>
-
         <div class="conteneurMilieu">
 
 <!-- ////////////////////////////////////////////// -->
@@ -124,6 +126,20 @@
         </div>
     </div>
 
+          
+            <div class="monstreDiv">
+                <div class="monstreVieCadre">
+                    <!-- Barre de vie Monstre (rouge foncé)-->
+                    <div id="monstreVieBarre">
+                        <!-- Vie perdu Monstre  (rouge clair) -->
+                    </div>
+                </div>
+              
+<!-- /////////////////////////////////////////////// --> 
+<!-- ////////////////////HAUTS-FAITS////////////////// --> 
+<!-- /////////////////////////////////////////////// --> 
+
+<!-- /////////////////////////////////////////////// --> 
 <!-- ////////////////////CREDITS//////////////////// --> 
 <!-- /////////////////////////////////////////////// --> 
 
@@ -232,7 +248,127 @@
 
 <!-- /////////////////////////////////////////////// --> 
 <!-- /////////////////////////////////////////////// -->      
+    <div id="hautFaits">
+        <h3>Hauts-Faits</h3>
 
+        <div id="elementsHautsFaits">
+
+            <div id="hautFait1" class="achatallies marginXAuto">
+                <p> Premier Elite </p>
+                <div class="prixAllies">
+                    <br/> 40
+                    <img src="images/icones/gemmes.png">
+                </div>
+            </div>
+
+            <div id="hautFait2" class="achatallies marginXAuto">
+                <p> Niveau 25 Atteint </p>
+                <div class="prixAllies">
+                    <br/> 40
+                    <img src="images/icones/gemmes.png">
+                </div>
+            </div>
+
+            <div id="hautFait3" class="achatallies marginXAuto">
+                <p> Niveau 50 Atteint </p>
+                <div class="prixAllies">
+                    <br/> 50
+                    <img src="images/icones/gemmes.png">
+                </div>
+            </div>
+
+            <div id="hautFait4" class="achatallies marginXAuto">
+                <p> Niveau 75 Atteint </p>
+                <div class="prixAllies">
+                    <br/> 60
+                    <img src="images/icones/gemmes.png">
+                </div>
+            </div>
+
+            <div id="hautFait5" class="achatallies marginXAuto">
+                <p> Niveau 100 Atteint </p>
+                <div class="prixAllies">
+                    <br/> 70
+                    <img src="images/icones/gemmes.png">
+                </div>
+            </div>
+
+            <div id="hautFait6" class="achatallies marginXAuto">
+                <p> Niveau 300 Atteint </p>
+                <div class="prixAllies">
+                    <br/> 100
+                    <img src="images/icones/gemmes.png">
+                </div>
+            </div>
+
+            <div id="hautFait7" class="achatallies marginXAuto">
+                <p> Niveau 500 Atteint </p>
+                <div class="prixAllies">
+                    <br/> 100
+                    <img src="images/icones/gemmes.png">
+                </div>
+            </div>
+
+            <div id="hautFait8" class="achatallies marginXAuto">
+                <p> Niveau 700 Atteint </p>
+                <div class="prixAllies">
+                    <br/> 100
+                    <img src="images/icones/gemmes.png">
+                </div>
+            </div>
+
+            <div id="hautFait9" class="achatallies marginXAuto">
+                <p> Niveau 900 Atteint </p>
+                <div class="prixAllies">
+                    <br/> 100
+                    <img src="images/icones/gemmes.png">
+                </div>
+            </div>
+
+            <div id="hautFait10" class="achatallies marginXAuto">
+                <p> Premier Boss </p>
+                <div class="prixAllies">
+                    <br/> 120
+                    <img src="images/icones/gemmes.png">
+                </div>
+            </div>
+
+            <div id="hautFait11" class="achatallies marginXAuto">
+                <p> Deuxième Boss </p>
+                <div class="prixAllies">
+                    <br/> 140
+                    <img src="images/icones/gemmes.png">
+                </div>
+            </div>
+
+            <div id="hautFait12" class="achatallies marginXAuto">
+                <p> Troisième Boss </p>
+                <div class="prixAllies">
+                    <br/> 160
+                    <img src="images/icones/gemmes.png">
+                </div>
+            </div>
+
+            <div id="hautFait13" class="achatallies marginXAuto">
+                <p> Quatrième Boss </p>
+                <div class="prixAllies">
+                    <br/> 180
+                    <img src="images/icones/gemmes.png">
+                </div>
+            </div>
+
+            <div id="hautFait14" class="achatallies marginXAuto">
+                <p> Chtulhu </p>
+                <div class="prixAllies">
+                    <br/> 500
+                    <img src="images/icones/gemmes.png">
+                </div>
+            </div>
+
+            <button id="boutonRetourHautFaits">Retour</button>
+
+        </div>
+    </div>
           
             <div class="monstreDiv">
                 <div class="monstreVieCadre">
@@ -241,11 +377,15 @@
                         <!-- Vie perdu Monstre  (rouge clair) -->
                     </div>
                 </div>
+                <div id="monstreEmplacement">
+                    <div class="monstreTest">
+                        <div id="monstre">
 
-                <div id="monstre">
-                    <!-- Images Monstre (changeante) -->
-
-
+                        </div>
+                        <div id="elite">
+                            <img src="images/icones/coin.png">
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -297,7 +437,6 @@
                 <!-- Allié temporaire -->
 
             </div>
-
         </div>
 
         <div class="conteneurDroite">
@@ -428,8 +567,12 @@
                     <img src="images/icones/potionverte.png">
                     <p>Potion de force</p>
                     <div><p>110<img src="images/icones/coin.png" width="24px" height="24px"></p></div>
+          
+                <div class="marron achatCaserne" id="acheterPotionChance">
+                    <img src="images/icones/potionjaune.png">
+                    <p>Potion de chance</p>
+                    <div><p>200<img src="images/icones/coin.png" width="24px" height="24px"></p></div>
                 </div>
-
                 <button id="fermerPotions">X</button>
 
             </div><!-- potion ouvert -->

@@ -13,6 +13,7 @@
 }
 
 body {
+    font-family: "Dalelands";
     position: relative;
     background-image: url(../images/bg/foret.jpg);
     background-size: cover;
@@ -73,7 +74,7 @@ body {
 
 /***** JOURNAL DE BORD FERME *****/
 
-.jdbFerme {
+#jdbFerme {
     width: 50px;
     height: 800px;
     background: url(../images/textures/scroll.jpg);
@@ -82,12 +83,12 @@ body {
     flex-direction: column;
     border: 1px solid #000;
     position: absolute;
-    left:0;
-    top: 120px;
+    left: 0;
+    top: 150px;
 
 }
 
-.jdbFerme h5 {
+#jdbFerme h5 {
     writing-mode: vertical-rl;
     text-orientation: upright;
     margin: auto;
@@ -95,25 +96,68 @@ body {
     letter-spacing: 0.5rem;
 }
 
-.jdbFerme img {
+#jdbFerme img {
     height: 50px;
     width: 50px;
     transform: rotate(90deg);
 }
 
-/***** JOURNAL DE BORD OUVERT *****/
+/* JOURNAL DE BORD OUVERT */
 
+#jdbOuvert {
+    width: 350px;
+    height: 800px;
+    background: url(../images/textures/scroll.jpg);
+    background-size: cover;
+    display: none;
+/* mis en none pour qu'au chargement le journal
+de bord ouvert n'apparaisse pas, passe en flex à l'appel de ouvrirJdb() */
+    flex-direction: column;
+    border: 1px solid #000;
+    margin-top: -15%;
+    position: relative;
+    left: 0;
+    top: 120px;
+}
+
+#jdbOuvert h5 {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 10%;
+    margin-top: 10%;
+}
+
+#jdbOuvert ul li {
+    background-color: #382400;
+    border: 1px solid #000;
+    border-radius: 7px;
+    color: white;
+    list-style: none;
+    margin-bottom: 30px;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding: 5% 5%;
+}
+
+#jdbOuvert img {
+    height: 50px;
+    width: 50px;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    transform: rotate(-90deg);
+}
 
 /************** CASERNE ************/
 
 #caserneFerme {
     width: 50px;
     height: 800px;
-    background: url(../images/textures/scroll.jpg);
-    background-size: cover;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    background: url(../images/textures/scroll.jpg);
+    background-size: cover;
     border: 1px solid #000;
     position: absolute;
     right:0;
@@ -121,7 +165,10 @@ body {
 }
 
 #caserneFerme div {
-    height: 30%;
+    background: url(../images/textures/scroll.jpg);
+    background-size: cover;
+    border-radius: 3%;
+    height: 33%;
     display: flex;
     border-bottom: 1px solid #000;
 }
@@ -135,6 +182,7 @@ body {
     letter-spacing: 0.3rem;
 }
 
+/* Caserne ouverte */
 #caserneFerme img {
     height: 50px;
     width: 50px;
@@ -150,9 +198,41 @@ body {
     flex-direction: column;
     justify-content: space-between;
     border: 1px solid #000;
+    border-radius: 1%;
     position: absolute;
     right:0;
     top: 120px;
+}
+
+#fermerAllies, #fermerAllies2, #fermerBonus, #fermerBonus2, #fermerPotions, #fermerPotions2 {
+    background: none;
+    border: none;
+    height: 50px;
+    width: 50px;
+}
+
+#fermerAllies img, #fermerAllies2 img, #fermerBonus img,
+#fermerBonus2 img, #fermerPotions img, #fermerPotions2 img {
+    height: 50px;
+    width: 50px;
+    transform: rotate(90deg);
+}
+
+#caserneAllies {
+    height: 900px;;
+}
+
+#caserneAllies h5, #casernePotions h5, #caserneBonus h5 {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 10%;
+    margin-top: 10%;
+}
+
+#caserneAllies div, #casernePotions div, #caserneBonus div {
+    margin-left: 5%;
+    margin-right: 5%;
+    padding: 3% 3%;    
 }
 
 .marron {
@@ -174,6 +254,8 @@ body {
     background-color: grey;
     border: 1px solid #000;
     height: 30px;
+    /* margin-bottom: 30px;
+    margin-top: 30px; */
 }
 
 .achatCaserne img {
@@ -212,6 +294,17 @@ body {
     margin: auto;
 }
 
+#monstreEmplacement {
+    position: relative;
+}
+
+.monstreTest {
+    height: 300px;
+    width: 400px;
+    margin: auto;
+    position: relative;
+}
+
 #monstre img {
     height: 100%;
     width: 100%;
@@ -236,6 +329,19 @@ body {
     border-radius: 5px;
 }
 
+#elite {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    right:0;
+    top:0;
+    display: none;
+}
+
+#elite img {
+    height: 50px;
+    width: 50px;
+}
 /* PANEL DU HEROS */
 
 .herosDiv {
@@ -309,12 +415,14 @@ body {
     bottom:0;
     border: 1px solid #000;
 }
+
 #toundra img {
     width: 80px; 
     height: 80px;
     position: relative;
     margin-left: -10px;
 }
+
 .herosDiv .herosDivMilieu {
     width: 500px;
     display: flex;
@@ -384,6 +492,7 @@ body {
    display: inline-block;
    font-size: 10px;
 }
+
 .alliesDiv {
     background: url(../images/textures/scroll.jpg) rgba(0,0,0,.65);
     background-size: cover;
@@ -501,6 +610,7 @@ body {
     border: 1px solid black;
     border-radius: 25px;
     opacity: 0.5; 
+  
 }
 #magicienne{
     width: 150px;
@@ -835,6 +945,7 @@ body {
     height: 60px;
     padding-left: 20px;
 }
+
 #acheterToundra {
 
 }
@@ -843,7 +954,38 @@ body {
 
 }
 
-#boutonRetourBienvenue { 
+/* ////////////// Hauts-Faits ////////// */
+
+#hautFaits {
+    z-index: 2100;
+    margin: 60px 0 0 0;
+    height: 550px;
+    width: 60%;
+    background: rgba(0, 0, 53, 1);
+    border-radius: 2%;
+    border: 1px solid #000;
+    display: none;
+    position: fixed;
+    color: white;
+    text-align: center;
+    font-family: "Dalelands";
+    overflow-y: scroll;
+}
+
+#hautFaits h3 { 
+    font-size: 33px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.marginXAuto {
+    margin: 15px auto;
+    width: 60%;
+    opacity: 0.3;
+}
+
+#hautFaits button {
+    margin-bottom: 15px;
     background-color: #003451;
     color: white; 
     font-family: "Dalelands";
@@ -853,4 +995,4 @@ body {
     width: 200px;
     font-size: 20px;
     margin-top: 10px;
- }
+}
