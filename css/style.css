@@ -14,8 +14,6 @@
 
 body {
     position: relative;
-    background-image: url(../images/bg/foret.jpg);
-    background-size: cover;
 }
 
 /* HEADER */
@@ -52,9 +50,16 @@ body {
 /* CONTENEUR */
 
 .conteneur {
+
+}
+
+#conteneurBG {
     display: flex;
     height: 100%;
     min-height: 700px;
+    background: url(../images/bg/1.jpg);
+    background-size: cover;
+
 }
 
 .conteneurGauche,

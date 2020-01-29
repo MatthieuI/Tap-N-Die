@@ -49,6 +49,9 @@ let prixAttaquePlus = 25;
 let prixAttaqueAlliesPlus = 75;
 let dispoCapacite = true;
 let i = 30;
+let aleatoire;
+let aleatoireBG;
+let garantieChangementBG;
 
 /* Eléments du html */
 
@@ -118,6 +121,7 @@ let boutonFermerBonus = document.getElementById("fermerBonus");
 let monstreElite = document.getElementById("elite");
 let cooldownCapacite = 30;
 let cooldownCapaciteMS = cooldownCapacite*1000;
+let conteneurBG = document.getElementById("conteneurBG");
 
 /* Chronos */
 
@@ -282,7 +286,7 @@ function entierAleatoire(min,max) { /* MODIF BY YANN */
  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-let aleatoire = entierAleatoire(1, 120);
+aleatoire = entierAleatoire(1, 120);
 
 /* fonctions */
 
@@ -483,12 +487,15 @@ function nouveauMonstre() {
         monstreElite.style.display = "block";
     }
 
+    else if ((compteurMonstresTues)%10===0) {
+        changementBG();
+    }
+
     else if ((compteurMonstresTues+1)%5===0) {                   // LES MONSTRES GAGNENT EN ATTAQUE TOUS LES 5 NIVEAUX
       forceMonstre = forceMonstre*2;
 
     }
 
-    
     aleatoire = entierAleatoire(1, 120);
 
     vieHeros += 10; //soin du héros
@@ -535,6 +542,17 @@ function verificationBoss() {
     else {
         monstre.innerHTML = `<img src="images/monstres/MonsterPack/${aleatoire}.png">`;
     }
+}
+
+function changementBG() {
+    aleatoireBG = entierAleatoire(1, 9);
+    while (garantieChangementBG===aleatoireBG) {
+        aleatoireBG = entierAleatoire(1, 9);
+    }
+    conteneurBG.style.background = `url(images/bg/${aleatoireBG}.jpg)`;
+    conteneurBG.style.backgroundSize = "cover";
+    actualisationAffichage();
+    garantieChangementBG = aleatoireBG;
 }
 
 function achatPotionVie() {
