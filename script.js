@@ -14,6 +14,9 @@ let orGagne = 100;
 let gemmes = 0;   
 let gemmesGagnes = 10; 
 let score = 0;
+let compteurPartie = 0 ; //Louise 28/01 // 
+
+//Boutique temporaire// 
 let potion = "";
 let nombrePaysans = 0; 
 let prixPaysan = 50;
@@ -53,17 +56,46 @@ let dispoCapacite = true;
 let i = 30;
 let potionChance = false;
 
-/* Eléments du html */
+//Allies permanents // 
+let prixToundra = 500; //Louise // 
+let forceToundra = 2000;//Louise // 
+let prixShiva = 1000; //Louise // 
+let forceShiva = 4000 ; //Louise // 
+/* Boutique permanente */ 
+let nombreAttaqueHerosPlusPerm = 0;
+let nombreAttaqueAlliesPlusPerm = 0;
+let nombrePvHerosPerm = 0; 
+let nombreCoolDownPerm = 0;
+let nombreMultiplicateurOrPerm = 0; 
+let nombreCoutRecrutementPerm = 0;
 
+let prixAttaquePlusHerosPerm = 10;
+let prixAttaqueAlliesPlusPerm = 25; 
+let prixPvHerosPerm = 25; 
+let prixCoolDownPerm = 50; 
+let prixMultiplicateurOrPrem = 100;
+let prixCoutRecrutementPerm = 100; 
+
+
+
+
+/* Eléments du html */
+/* Ecran de bienvenue */ 
 let introduction = document.getElementById ("bienvenue");       //Louise // 
 let boutonChoixheros = document.getElementById("boutonChoixHeros");     // Louise //
+let boutonBoutiquePermanente = document.getElementById ("boutonBoutiquePermanente");// Louise // 
+
+/* Choix du héros */ 
 let choisirHeros = document.getElementById ("choisirHeros")     // Louise // 
 let guerriere = document.getElementById ("guerriere") ;// Louise //
 let archere = document.getElementById ("archere") ;// Louise //
 let magicienne = document.getElementById ("magicienne") ;// Louise //
 let voleur = document.getElementById ("voleur") ;// Louise //
+let boutonRetour = document.getElementById("boutonRetour");     // Louise //
+let boutonValider = document.getElementById ("boutonValider");  // Louise // 
+let competence = document.getElementById ("competence");// Louise // 
 
-let competence = document.getElementById ("competence");
+
 /* Parametre */ 
 let fermeture = document.getElementById ("fermeture");
 let ecrou = document.getElementById ("ecrou");
@@ -73,15 +105,44 @@ let boutonReinitialiser = document.getElementById ("boutonReinitialiser");
 let boutonHautsFaits = document.getElementById("boutonHautsFaits");
 let boutonRetourHautFaits = document.getElementById("boutonRetourHautFaits");
 let hautFaits = document.getElementById("hautFaits");
+
+/* JDB */
+let fermerJdbBouton = document.getElementById("fermerJdbBouton");
+let ouvrirJdbBouton = document.getElementById("ouvrirJdbBouton");
+let jdbFerme = document.getElementById("jdbFerme");
+let jdbOuvert = document.getElementById("jdbOuvert");
+let listeJdb = document.getElementById("listeJdb"); 
+
 /* Crédits*/
 let credits = document.getElementById ("credits")
 let boutonRetourParametre = document.getElementById("boutonRetourParametre");
-let boutiquePermanente = document.getElementById("boutiquePermanente");
-let boutonBoutiquePermanente = document.getElementById("boutonBoutiquePermanente");
-let boutonRetourBienvenue = document.getElementById("boutonRetourBienvenue");
 
-let boutonRetour = document.getElementById("boutonRetour");     // Louise //
-let boutonValider = document.getElementById ("boutonValider");  // Louise // 
+/* Allies permanents */ 
+let boutonRetourBienvenue = document.getElementById ("boutonRetourBienvenue");// Louise // 
+let boutiquePermanente = document.getElementById("boutiquePermanente");// Louise // 
+let boutonAchatToundra = document.getElementById ("boutonAchatToundra"); 
+let toundra = document.getElementById ("toundra");
+let boutonAchatShiva = document.getElementById ("boutonAchatShiva");
+let shiva = document.getElementById ("shiva");
+
+
+/* Boutique Permanente */ 
+let emplacementArtefacts = document.getElementById ("emplacementArtefacts");
+let boutonAttaqueHerosPlusPerm = document.getElementById ("boutonAttaqueHerosPlusPerm");
+let boutonAttaqueAllliesPlusPerm = document.getElementById ("boutonAttaqueAllliesPlusPerm");
+let boutonAugmentationPvHerosPerm = document.getElementById("boutonAugmentationPvHerosPerm");
+let boutonCoolDownPerm = document.getElementById ("boutonCoolDownPerm");
+let boutonMultiplicateurOrPerm = document.getElementById ("boutonMultiplicateurOrPerm");
+let boutonCoutRecrutementPerm = document.getElementById ("boutonCoutRecrutementPerm");
+
+
+let nombreBagueVerte = document.getElementById ("nombreBagueVerte");
+let nombreBagueBleu = document.getElementById ("nombreBagueBleu");
+let nombreBagueRouge = document.getElementById ("nombreBagueRouge");
+let nombreAnneau = document.getElementById ("nombreAnneau");
+let nombreCollier = document.getElementById ("nombreCollier");
+let nombreCollierPointe = document.getElementById ("nombreCollierPointe");
+
 
 let affichageNiveau = document.getElementById("niveauEnCours");
 let affichageScore = document.getElementById("score");
@@ -115,13 +176,17 @@ let caserneAllies = document.getElementById("caserneAllies");  //ajout
 let alliesFerme = document.getElementById("alliesFerme");
 let caserneFerme = document.getElementById("caserneFerme");
 let boutonFermerAllies = document.getElementById("fermerAllies");
+let fermerAllies2 = document.getElementById("fermerAllies2");
 let alliesDiv = document.getElementById("alliesDiv");
 let casernePotions = document.getElementById("casernePotions"); //ajout
 let potionsFerme = document.getElementById("potionsFerme");
 let boutonFermerPotions = document.getElementById("fermerPotions");
+let fermerPotions2 = document.getElementById("fermerPotions2");
 let caserneBonus = document.getElementById("caserneBonus"); //ajout
 let bonusFerme = document.getElementById("bonusFerme");
 let boutonFermerBonus = document.getElementById("fermerBonus");
+let fermerBonus2 = document.getElementById("fermerBonus2");
+
 
 let hautFaitDebloque1 = false;
 let hautFaitDebloque2 = false;
@@ -157,7 +222,43 @@ let hautFait14 = document.getElementById("hautFait14");
 let chronoMonstre;
 let chronoAllies = [];
 let chronoArchere;
+let chronoToundra;
+let chronoShiva ;
+let chronoCapacite ; 
 let chronoPoison;
+
+/* JDB */
+
+function ouvrirJdb() {             
+    jdbFerme.style.display = "none";
+    jdbOuvert.style.display = "flex";
+}
+ouvrirJdbBouton.onclick = ouvrirJdb;
+
+function fermerJdb() {            
+    jdbOuvert.style.display = "none";
+    jdbFerme.style.display = "flex";
+}
+fermerJdbBouton.onclick = fermerJdb;
+
+jdbTab = [];
+function ajouterAuJdb(evenement) {
+    listeJdb.innerHTML = "";
+    jdbTab.unshift(evenement);
+    for (i=0; i<jdbTab.length; i++) {
+        listeJdb.innerHTML += `<li>${jdbTab[i]}</li>`;
+    }
+    
+}
+ajouterAuJdb ('Préparez vous à taper fort pour survivre!');
+ajouterAuJdb ('Préparez vous à taper vite poour survivre!');
+ajouterAuJdb ('Je vous la donne en 1000, préparez vous à taper...');
+
+
+function clearJdb () {
+    jdbTab = [];
+    listeJdb.innerHTML = "";
+}
 
 /* Héros */
 
@@ -260,6 +361,7 @@ competence.onclick = capaciteSpeciale;
 - Faire un compteur de parties; 
 */
 
+
 function ouvrirOngletBonus() {             //modif
     caserneFerme.style.display = "none";
     caserneBonus.style.display = "flex";
@@ -271,6 +373,7 @@ function fermerOngletBonus() {             //modif
     caserneBonus.style.display = "none";
 }
 boutonFermerBonus.onclick = fermerOngletBonus;
+fermerBonus2.onclick = fermerOngletBonus;
 
 function ouvrirOngletPotions() {             //modif
     caserneFerme.style.display = "none";
@@ -283,6 +386,7 @@ function fermerOngletPotions() {             //modif
     casernePotions.style.display = "none";
 }
 boutonFermerPotions.onclick = fermerOngletPotions;
+fermerPotions2.onclick = fermerOngletPotions;
 
 function ouvrirOngletAllies() {             //modif
     caserneFerme.style.display = "none";
@@ -295,7 +399,7 @@ function fermerOngletAllies() {             //modif
     caserneAllies.style.display = "none";
 }
 boutonFermerAllies.onclick = fermerOngletAllies;
-
+fermerAllies2.onclick = fermerOngletAllies;
 function entierAleatoire(min,max) { /* MODIF BY YANN */
  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -316,37 +420,56 @@ function selectionneGuerriere() {                   // Louise //
 guerriere.onclick = selectionneGuerriere;           // Louise // 
 
 function selectionneArchere() {                   // Louise // 
-    archere.style.border = "3px solid #bb0b0b";   // Louise // 
-    guerriere.style.border = "";// Louise // 
-    magicienne.style.border = "";// Louise // 
-    voleur.style.border = "";// Louise // 
-    herosImage.innerHTML = `<img src="images/heros/archer.png"> `;// Louise //boutonAttaquer.onclick
-    competence.innerHTML = `<img src="images/icones/arme2.png">` ;
-    herosActif = archereObjet ;         // Louise // 
-}
-archere.onclick = selectionneArchere; 
-
-function selectionneMagicienne() {                   // Louise // 
-    magicienne.style.border = "3px solid #bb0b0b";   // Louise // 
-    archere.style.border = "";// Louise // 
-    guerriere.style.border = "";// Louise // 
-    voleur.style.border = "";// Louise // 
-    herosImage.innerHTML = `<img src="images/heros/mage.png"> `;// Louise //
-    competence.innerHTML = `<img src="images/icones/capaheros.png">` ;
-    herosActif = mageObjet ;      
-}
-magicienne.onclick = selectionneMagicienne;           // Louise // 
-
-function selectionneVoleur() {                   // Louise // 
-    voleur.style.border = "3px solid #bb0b0b";   // Louise // 
-    archere.style.border = "";                   // Louise //    
-    magicienne.style.border = "";   
-    guerriere.style.border = "";       
-    herosImage.innerHTML = `<img src="images/heros/rogue.png"> `;// Louise // 
-    competence.innerHTML = `<img src="images/icones/alliees.png">` ;
-    herosActif = voleurObjet ;      
-}
-voleur.onclick = selectionneVoleur;
+    if (compteurPartie >= 5){
+         archere.style.opacity = "1";
+         archere.style.border = "3px solid #bb0b0b";   // Louise // 
+         guerriere.style.border = "";// Louise // 
+         magicienne.style.border = "";// Louise // 
+         voleur.style.border = "";// Louise // 
+         herosImage.innerHTML = `<img src="images/heros/archer.png"> `;// Louise //boutonAttaquer.onclick
+         competence.innerHTML = `<img src="images/icones/arme2.png">` ;
+         herosActif = archereObjet ;         // Louise // 
+     }
+     else {
+         archere.style.opacity = "0.5";
+     }
+ }
+ archere.onclick = selectionneArchere; 
+ 
+ function selectionneMagicienne() {                   // Louise // 
+     if (compteurPartie >= 10) {
+         magicienne.style.opacity = "1";
+         magicienne.style.border = "3px solid #bb0b0b";   // Louise // 
+         archere.style.border = "";// Louise // 
+         guerriere.style.border = "";// Louise // 
+         voleur.style.border = "";// Louise // 
+         herosImage.innerHTML = `<img src="images/heros/mage.png"> `;// Louise //
+         competence.innerHTML = `<img src="images/icones/capaheros.png">` ;
+         herosActif = mageObjet ;     
+     }
+     else {
+         magicienne.style.opacity = "0.5";
+     }
+  
+ }
+ magicienne.onclick = selectionneMagicienne;           // Louise // 
+ 
+ function selectionneVoleur() {                   // Louise // 
+     if (compteurPartie >= 15) {
+         voleur.style.opacity = "15";
+         voleur.style.border = "3px solid #bb0b0b";   // Louise // 
+         archere.style.border = "";                   // Louise //    
+         magicienne.style.border = "";   
+         guerriere.style.border = "";       
+         herosImage.innerHTML = `<img src="images/heros/rogue.png"> `;// Louise // 
+         competence.innerHTML = `<img src="images/icones/alliees.png">` ;
+         herosActif = voleurObjet ; 
+     }
+     else {
+         voleur.style.opacity = "0.5";
+     }     
+ }
+ voleur.onclick = selectionneVoleur;
 
 function boutonHeros() {                       // Louise // 
     introduction.style.display = "none";       // Louise // 
@@ -398,16 +521,153 @@ function retourParametre () {
 }
 boutonRetourParametre.onclick = retourParametre;
 
-////////////////////////BOUTIQUE PERMANENTE///////////////////////////////////////////
-function ouvrirBoutiquePermanente () {
-    boutiquePermanente.style.display = "block";    
+////////////////////////ALLIES PERMANENTS///////////////////////////////////////////
+function ouvrirBoutiquePermanente () {                      // Louise // 
+    boutiquePermanente.style.display = "block";
 }
 boutonBoutiquePermanente.onclick = ouvrirBoutiquePermanente;
 
 function retourBienvenue () {
     boutiquePermanente.style.display = "none";     
 }
+
 boutonRetourBienvenue.onclick = retourBienvenue;
+
+
+function acheterToundra () { // Louise // 
+    if (gemmes >= prixToundra) {
+        gemmes -= prixToundra;
+        actualisationAffichage();
+        toundra.innerHTML = '<img src="images/allies/toundra.png">' ; 
+        fixerChronoToundra(forceToundra);
+    }
+    else {
+        alert("Vous n'avez pas assez de gemmes.");
+    }
+}
+boutonAchatToundra.onclick = acheterToundra;// Louise // 
+
+
+function fixerChronoToundra(dps) {// Louise // 
+    chronoToundra = setInterval(degatsAuto, 1000, dps);
+}
+
+function acheterShiva () { // Louise // 
+    if (gemmes >= prixShiva) {
+        gemmes -= prixShiva;
+        actualisationAffichage();
+        shiva.innerHTML = '<img src="images/allies/shiva.png">' ; 
+        fixerChronoShiva(forceShiva);
+    }
+    else {
+        alert("Vous n'avez pas assez de gemmes.");// Louise // 
+    }
+}
+boutonAchatShiva.onclick = acheterShiva;// Louise // 
+
+
+function fixerChronoShiva(dps) {// Louise // 
+    chronoShiva = setInterval(degatsAuto, 1000, dps);
+}
+
+
+/////////////////////BOUTIQUE PERMANENTE/////////////////////
+
+
+function acheterAttaquePlusHerosPerm() {   //Louise 28/01 // 
+    if(gemmes >= prixAttaquePlusHerosPerm) {
+        gemmes -= prixAttaquePlusHerosPerm;
+        forceHeros *= 1.1 ; // A VERIFIER // ///////////////////////////////////////////
+        nombreAttaqueHerosPlusPerm ++
+        nombreBagueVerte.innerHTML = `X` + nombreAttaqueHerosPlusPerm ;
+        actualisationAffichage();
+    }
+    else if (gemmes <= prixAttaquePlusHerosPerm) {// Louise // 
+        alert("Vous n'avez pas assez de gemmes.");
+    }
+}
+boutonAttaqueHerosPlusPerm.onclick = acheterAttaquePlusHerosPerm;// Louise // 
+
+function acheterAttaqueAlliesPlusPerm() {   //Louise 28/01 // 
+    if(gemmes >= prixAttaqueAlliesPlusPerm ) {
+        gemmes -= prixAttaqueAlliesPlusPerm ;
+        multiplicateurAllies *= 1.05 ; // A VERIFIER // ///////////////////////////////////////////
+        nombreAttaqueAlliesPlusPerm ++
+        nombreBagueBleu.innerHTML = `X` + nombreAttaqueAlliesPlusPerm ;
+        actualisationAffichage();
+    }
+    else if (gemmes <= prixAttaqueAlliesPlusPerm) {// Louise // 
+        alert("Vous n'avez pas assez de gemmes.");
+    }
+}
+boutonAttaqueAllliesPlusPerm.onclick = acheterAttaqueAlliesPlusPerm;// Louise // 
+
+function acheterPvPerm() {   //Louise 28/01 // 
+    if(gemmes >= prixPvHerosPerm) {
+        gemmes -= prixPvHerosPerm;
+        vieHeros += 20;
+        vieMaxHeros += 20;
+        nombrePvHerosPerm ++;
+        nombreBagueRouge.innerHTML = `X` + nombrePvHerosPerm;
+        actualisationAffichage();
+    }
+    else if (gemmes <= prixPvHerosPerm) {// Louise // 
+        alert("Vous n'avez pas assez de gemmes.");
+    }
+}
+boutonAugmentationPvHerosPerm.onclick = acheterPvPerm;// Louise // 
+
+function acheterCoolDonwPerm() {   //Louise 28/01 // 
+    if(gemmes >= prixCoolDownPerm) {
+        gemmes -= prixCoolDownPerm;
+        // INSERER LA VARIABLE POUR REDUIRE LE COOL DOWN // /////////////////////////////////////
+        nombreCoolDownPerm ++
+        nombreAnneau.innerHTML = `X` + nombreCoolDownPerm;
+        actualisationAffichage();
+    }
+    else if (gemmes <= prixCoolDownPerm) {// Louise // 
+        alert("Vous n'avez pas assez de gemmes.");
+    }
+}
+boutonCoolDownPerm.onclick = acheterCoolDonwPerm;// Louise // 
+
+function acheterMultiplicateurOrPerm() {   //Louise 28/01 // 
+    if(gemmes >= prixMultiplicateurOrPrem) {
+        gemmes -= prixMultiplicateurOrPrem;
+        orGagne *= 2 ; // A VERIFIER // /////////////////////////////////////////////////////////////
+        nombreMultiplicateurOrPerm ++
+        nombreCollier.innerHTML = `X` + nombreMultiplicateurOrPerm ;
+        actualisationAffichage();
+    }
+    else if (gemmes <= prixMultiplicateurOrPrem) {// Louise // 
+        alert("Vous n'avez pas assez de gemmes.");
+    }
+}
+boutonMultiplicateurOrPerm.onclick = acheterMultiplicateurOrPerm;// Louise // 
+
+
+function acheterCoutRecrutementPerm() {   //Louise 28/01 // 
+    if(gemmes >= prixCoutRecrutementPerm) {
+        gemmes -= prixCoutRecrutementPerm;
+        prixPaysan *= 0.95;// A VERIFIER // ///////////////////////////////////////////
+        prixMilicien *= 0.95;// A VERIFIER // ///////////////////////////////////////////
+        prixMilicien *= 0.95;// A VERIFIER // ///////////////////////////////////////////
+        prixSoldat *= 0.95;// A VERIFIER // ///////////////////////////////////////////
+        prixFantassin *= 0.95;// A VERIFIER // ///////////////////////////////////////////
+        prixGarde *= 0.95;// A VERIFIER // ///////////////////////////////////////////
+        prixGeneral *= 0.95;// A VERIFIER // ///////////////////////////////////////////
+        prixPretre *= 0.95;// A VERIFIER // ///////////////////////////////////////////
+        prixEnchanteresse *= 0.95;// A VERIFIER // ///////////////////////////////////////////
+        prixSeigneur *= 0.95;// A VERIFIER // ///////////////////////////////////////////
+        nombreCoutRecrutementPerm ++
+        nombreCollierPointe.innerHTML = `X` + nombreCoutRecrutementPerm ;
+        actualisationAffichage();
+    }
+    else if (gemmes <= prixCoutRecrutementPerm) {// Louise // 
+        alert("Vous n'avez pas assez de gemmes.");
+    }
+}
+boutonCoutRecrutementPerm.onclick = acheterCoutRecrutementPerm;// Louise // 
 
 ////////////////////////HAUT-FAITS///////////////////////////////////////////
 
@@ -660,6 +920,7 @@ function rejouer() {    //reset du jeu  //modif 26/01 matthieu //resolution bugs
     or = 0;
     score = 0;
     gemmes += gemmesGagnes;
+    compteurPartie ++ ;               //Louise // 
     clearInterval(chronoMonstre);
     forceMonstre = 1;
     effacerAllies();

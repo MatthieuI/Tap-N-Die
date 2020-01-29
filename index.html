@@ -32,14 +32,19 @@
 
     <div class="conteneur">
       
-        <div class="conteneurGauche">
+        <div class="conteneurGauche" id="jdb">
             <!-- Journal de bord -->
-            <div></div> <!-- Journal de bord déplié -->
-
-            <div class="jdbFerme">
+            <div id ="jdbFerme">
                 <h5>JOURNAL DE BORD</h5> <!-- Journal de bord replié-->
-                <img src="images/icones/arrow.png"> <!-- Bouton de déroulement du bouton -->
+                <img src="images/icones/arrow.png" id="ouvrirJdbBouton"> <!-- Bouton de déroulement du bouton -->
             </div>
+            <div id="jdbOuvert" >
+                <h5>JOURNAL DE BORD</h5>
+                <ul id="listeJdb">
+    
+                </ul>
+                <img src="images/icones/arrow.png" id="fermerJdbBouton">
+            </div> <!-- Journal de bord déplié -->
 
         </div>
 
@@ -272,39 +277,13 @@
     <!-- /////////////////////////////////////////////// -->
     <!-- ////////////BOUTIQUE PERMANENTE//////////////// -->
     <!-- /////////////////////////////////////////////// -->
-
     <div id="boutiquePermanente">
         <h3>BOUTIQUE PERMANENTE</h3>
-        <h4> ARTEFACTS </h4>
-        <div id="artefacts">
-            <div id="artefacts1" class="achatallies">
-                <img src="images/icones/epee.png">
-                <p> ATTAQUE +1% </p>
-                <div class="prixAllies">
-                    <br/> 10
-                    <img src="images/icones/gemmes.png">
-                </div>
-            </div>
-            <div id="artefacts2" class="achatallies">
-                <img src="images/icones/alliees.png">
-                <p> ATTAQUE ALLIES +17% </p>
-                <div class="prixAllies">
-                    <br/> 25
-                    <img src="images/icones/gemmes.png">
-                </div>
-            </div>
-            <div id="artefacts3" class="achatallies">
-                <img src="images/icones/sante.png">
-                <p> PV HEROS +14 </p>
-                <div class="prixAllies">
-                    <br/> 50
-                    <img src="images/icones/gemmes.png">
-                </div>
-            </div>
-        </div>
-        <h4> ALLIES PERMANENTS </h4>
+        
+        <h4> ALLIES PERMANENTS </h4> 
+       
         <div id="alliesPermanent">
-            <div id="acheterToundra" class="achatallies">
+            <div id="boutonAchatToundra" class="achatallies">
                 <img src="images/allies/toundra.png">
                 <p> TOUNDRA, FILLE DE FENRIR</p>
                 <div class="prixAllies">
@@ -312,17 +291,76 @@
                     <img src="images/icones/gemmes.png">
                 </div>
             </div>
-            <div id="acheterShiva" class="achatallies">
+            <div id="boutonAchatShiva" class="achatallies">
                 <img src="images/allies/shiva.png">
                 <p> SHIVA, DEESSE DE LA DESTRUCTION </p>
                 <div class="prixAllies">
-                <br/>1000
+                   <br/>1000
                     <img src="images/icones/gemmes.png">
                 </div>
             </div>
         </div>
+
+        <h4> ARTEFACTS </h4> 
+        
+        <div id="artefacts">
+            <div id="boutonAttaqueHerosPlusPerm" class="achatallies">
+                <img src="images/icones/baguevert.png">
+                <p> ATTAQUE +1% </p>
+                <div class="prixAllies">
+                    <br/> 10
+                    <img src="images/icones/gemmes.png">
+                </div>
+            </div>
+            <div id="boutonAttaqueAllliesPlusPerm" class="achatallies">
+                <img src="images/icones/bague1.png">
+                <p> ATTAQUE ALLIES +5% </p>
+                <div class="prixAllies">
+                    <br/> 25
+                    <img src="images/icones/gemmes.png">
+                </div>
+            </div>
+            <div id="boutonAugmentationPvHerosPerm" class="achatallies">
+                <img src="images/icones/baguerouge.png">
+                <p> PV HEROS +2% </p>
+                <div class="prixAllies">
+                    <br/> 50
+                    <img src="images/icones/gemmes.png">
+                </div>
+            </div>
+            <div id="boutonCoolDownPerm" class="achatallies">
+                <img src="images/icones/ring.png">
+                <p> Cool Down Héros + 1 % </p>
+                <div class="prixAllies">
+                    <br/> 50
+                    <img src="images/icones/gemmes.png">
+                </div>
+            </div>
+            <div id="boutonMultiplicateurOrPerm" class="achatallies">
+                <img src="images/icones/collier.png">
+                <p> Multiplicateur d'or </p>
+                <div class="prixAllies">
+                    <br/> 100
+                    <img src="images/icones/gemmes.png">
+                </div>
+            </div>
+            <div id="boutonCoutRecrutementPerm" class="achatallies">
+                <img src="images/icones/collierpointe.png">
+                <p> Coût de recrutement -5% </p>
+                <div class="prixAllies">
+                    <br/> 100
+                    <img src="images/icones/gemmes.png">
+                </div>
+            </div>
+        </div>
+
+       
+
         <button id="boutonRetourBienvenue">RETOUR</button>
+
     </div>
+
+
 
     <!-- /////////////////////////////////////////////// -->
     <!-- /////////////////////////////////////////////// -->
@@ -354,6 +392,16 @@
                         </div>
                     </div>
                     <div class="herosDivMilieu">
+                        <div id="emplacementArtefacts">
+                            <img src="images/icones/baguevert.png"> <p id="nombreBagueVerte">x0</p>
+                            <img src="images/icones/bague1.png"> <p id="nombreBagueBleu">x0</p>
+                            <img src="images/icones/baguerouge.png"> <p id="nombreBagueRouge">x0</p>
+                            <img src="images/icones/ring.png"> <p id="nombreAnneau">x0</p>
+                            <img src="images/icones/collier.png"> <p id="nombreCollier">x0</p>
+                            <img src="images/icones/collierpointe.png"> <p id="nombreCollierPointe">x0</p>
+                            
+                            
+                        </div>
                         <div id="herosImage">
                             <img src="images/heros/warrior.png" alt="">
                         </div>
@@ -399,10 +447,11 @@
                     <h5>POTIONS</h5>
                 </div><!-- potion fermé -->
 
-                <img src="images/icones/arrow.png"> <!-- Bouton de déroulement du bouton -->
-            </div>
+                  </div>
 
             <div id="caserneAllies">
+
+                <button id="fermerAllies2"><img src="images/icones/arrow.png" alt="flechesortie"></button>
 
                 <h5>Alliés</h5>
 
@@ -466,11 +515,14 @@
                     <div><p>100000<img src="images/icones/coin.png" width="24px" height="24px"></p></div>
                 </div>
               
-                <button id="fermerAllies">X</button>
+                <button id="fermerAllies"><img src="images/icones/arrow.png" alt="flechesortie"></button>
                 
             </div> <!-- alliés ouvert -->
 
             <div id="caserneBonus">
+
+                <button id="fermerBonus2"><img src="images/icones/arrow.png" alt="flechesortie"></button>
+
 
                 <h5>Bonus</h5>
 
@@ -492,11 +544,14 @@
                     <div><p>50<img src="images/icones/coin.png" width="24px" height="24px"></p></div>
                 </div>
 
-                <button id="fermerBonus">X</button>
+                <button id="fermerBonus"><img src="images/icones/arrow.png" alt="flechesortie"></button>
 
             </div><!-- bonus ouvert -->
 
             <div id="casernePotions">
+
+                <button id="fermerPotions2"><img src="images/icones/arrow.png" alt="flechesortie"></button>
+
 
                 <h5>Potions</h5>
 
@@ -518,7 +573,8 @@
                     <div><p>200<img src="images/icones/coin.png" width="24px" height="24px"></p></div>
                 </div>
 
-                <button id="fermerPotions">X</button>
+                <button id="fermerPotions"><img src="images/icones/arrow.png" alt="flechesortie"></button>
+
 
             </div><!-- potion ouvert -->
 
