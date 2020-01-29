@@ -39,10 +39,9 @@ let forceGarde = 100;
 let nombreGenerals = 0; 
 let prixGeneral = 10000;
 let forceGeneral = 200;
-let nombrePretres = 0; 
+let nombrePretres = 0;
 let prixPretre = 20000;
 let forcePretre = 500;
-let nombreEnchanteresses = 0; 
 let prixEnchanteresse = 40000;
 let forceEnchanteresse = 1000;
 let nombreSeigneurs = 0; 
@@ -54,6 +53,9 @@ let prixAttaquePlus = 25;
 let prixAttaqueAlliesPlus = 75;
 let dispoCapacite = true;
 let i = 30;
+let aleatoire;
+let aleatoireBG;
+let garantieChangementBG;
 let potionChance = false;
 
 //Allies permanents // 
@@ -61,6 +63,8 @@ let prixToundra = 500; //Louise //
 let forceToundra = 2000;//Louise // 
 let prixShiva = 1000; //Louise // 
 let forceShiva = 4000 ; //Louise // 
+let achatToundra = false;
+let achatShiva = false;
 /* Boutique permanente */ 
 let nombreAttaqueHerosPlusPerm = 0;
 let nombreAttaqueAlliesPlusPerm = 0;
@@ -75,7 +79,6 @@ let prixPvHerosPerm = 25;
 let prixCoolDownPerm = 50; 
 let prixMultiplicateurOrPrem = 100;
 let prixCoutRecrutementPerm = 100; 
-
 
 
 
@@ -186,6 +189,10 @@ let caserneBonus = document.getElementById("caserneBonus"); //ajout
 let bonusFerme = document.getElementById("bonusFerme");
 let boutonFermerBonus = document.getElementById("fermerBonus");
 let fermerBonus2 = document.getElementById("fermerBonus2");
+let monstreElite = document.getElementById("elite");
+let cooldownCapacite = 30;
+let cooldownCapaciteMS = cooldownCapacite*1000;
+let conteneurBG = document.getElementById("conteneurBG");
 
 
 let hautFaitDebloque1 = false;
@@ -222,9 +229,9 @@ let hautFait14 = document.getElementById("hautFait14");
 let chronoMonstre;
 let chronoAllies = [];
 let chronoArchere;
+let chronoCapacite;
 let chronoToundra;
-let chronoShiva ;
-let chronoCapacite ; 
+let chronoShiva;
 let chronoPoison;
 
 /* JDB */
@@ -270,23 +277,25 @@ let guerriereObjet = {
             verifierMortMonstre();                              // Attaque plus puissante
             clearInterval(chronoMonstre);                       // Le monstre arrête d'attaquer le héros
             setTimeout(fixerChronoMonstre, 5000);               // Le monstre n'attaque plus pendant 5sec puis reprend son attaque normale
-            dispoCapacite = false;    
-            setTimeout(reactiverCapacite, 30000);
+            dispoCapacite = false;
+            i = cooldownCapacite;
+            cooldownCapaciteMS = cooldownCapacite*1000      
+            setTimeout(reactiverCapacite, cooldownCapaciteMS);   
             chronoCapacite = setInterval(capaciteRecharge, 1000);
-            setTimeout(clearInterval, 30000, chronoCapacite);
+            setTimeout(clearInterval, cooldownCapaciteMS, chronoCapacite);
         }            
     }
 }
 
 
-function capaciteRecharge() {  
+function capaciteRecharge() {
     i--;
     competence.innerHTML = "";
     competence.innerHTML = "<p>" + i + "</p>";
     actualisationAffichage();
     if (i===0) {
         competence.innerHTML = `<img src="images/icones/arme2.png">` ;
-        i = 30;
+        i = cooldownCapacite;
         }
     } 
 
@@ -296,8 +305,12 @@ let mageObjet = {
         if (dispoCapacite===true) {
             vieMonstre -= (10*forceHeros);                      // Attaque plus puissante
             verifierMortMonstre();
-            dispoCapacite = false;    
-            setTimeout(reactiverCapacite, 30000);
+            dispoCapacite = false;
+            i = cooldownCapacite;
+            cooldownCapaciteMS = cooldownCapacite*1000      
+            setTimeout(reactiverCapacite, cooldownCapaciteMS);   
+            chronoCapacite = setInterval(capaciteRecharge, 1000);
+            setTimeout(clearInterval, cooldownCapaciteMS, chronoCapacite);
         }
     }
 }
@@ -308,8 +321,12 @@ let archereObjet = {
         if (dispoCapacite===true) {
             chronoArchere = setInterval(degatsAuto, 100, forceHeros/5);
             setTimeout(clearInterval, 5000, chronoArchere);
-            dispoCapacite = false;    
-            setTimeout(reactiverCapacite, 30000);
+            dispoCapacite = false;
+            i = cooldownCapacite;
+            cooldownCapaciteMS = cooldownCapacite*1000      
+            setTimeout(reactiverCapacite, cooldownCapaciteMS);   
+            chronoCapacite = setInterval(capaciteRecharge, 1000);
+            setTimeout(clearInterval, cooldownCapaciteMS, chronoCapacite);
         }
     }
 }
@@ -326,9 +343,10 @@ function competenceVoleur() {
         or += or/100; 
         or = Math.round(or);
     }
+   
 }
 
-function resetCapaciteVoleur() {
+function resetCapaciteVoleur() {                                            // QUAND L'APPELLE QUAND ?
     boutonAttaquer.onclick = attaquerMonstre;
 }
 
@@ -339,8 +357,12 @@ let voleurObjet = {
         if (dispoCapacite===true) {
             boutonAttaquer.onclick = competenceVoleur;
             setTimeout(resetCapaciteVoleur, 10000);
-            dispoCapacite = false;    
-            setTimeout(reactiverCapacite, 30000);
+            dispoCapacite = false;
+            i = cooldownCapacite;
+            cooldownCapaciteMS = cooldownCapacite*1000      
+            setTimeout(reactiverCapacite, cooldownCapaciteMS);   
+            chronoCapacite = setInterval(capaciteRecharge, 1000);
+            setTimeout(clearInterval, cooldownCapaciteMS, chronoCapacite);
         }
     }
 }
@@ -400,11 +422,12 @@ function fermerOngletAllies() {             //modif
 }
 boutonFermerAllies.onclick = fermerOngletAllies;
 fermerAllies2.onclick = fermerOngletAllies;
+
 function entierAleatoire(min,max) { /* MODIF BY YANN */
  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-let aleatoire = entierAleatoire(1, 120);
+aleatoire = entierAleatoire(1, 120);
 
 /* fonctions */
 
@@ -487,6 +510,12 @@ function valider () {                          // Louise //
     introduction.style.display = "none";       // Louise // 
     choisirHeros.style.display = "none";       // Louise // 
     fixerChronoMonstre();                      //modif 26/01 matthieu
+    if(achatShiva){
+        fixerChronoShiva(forceShiva);
+    }
+    if(achatToundra){
+        fixerChronoToundra(forceToundra);
+    }
 }
 boutonValider.onclick = valider;               // Louise // 
 
@@ -539,7 +568,7 @@ function acheterToundra () { // Louise //
         gemmes -= prixToundra;
         actualisationAffichage();
         toundra.innerHTML = '<img src="images/allies/toundra.png">' ; 
-        fixerChronoToundra(forceToundra);
+        achatToundra = true;
     }
     else {
         alert("Vous n'avez pas assez de gemmes.");
@@ -556,8 +585,8 @@ function acheterShiva () { // Louise //
     if (gemmes >= prixShiva) {
         gemmes -= prixShiva;
         actualisationAffichage();
-        shiva.innerHTML = '<img src="images/allies/shiva.png">' ; 
-        fixerChronoShiva(forceShiva);
+        shiva.innerHTML = '<img src="images/allies/shiva.png">';
+        achatShiva = true;
     }
     else {
         alert("Vous n'avez pas assez de gemmes.");// Louise // 
@@ -577,7 +606,7 @@ function fixerChronoShiva(dps) {// Louise //
 function acheterAttaquePlusHerosPerm() {   //Louise 28/01 // 
     if(gemmes >= prixAttaquePlusHerosPerm) {
         gemmes -= prixAttaquePlusHerosPerm;
-        forceHeros *= 1.1 ; // A VERIFIER // ///////////////////////////////////////////
+        forceHeros = Math.round(forceHeros*1.1); // A VERIFIER // ///////////////////////////////////////////
         nombreAttaqueHerosPlusPerm ++
         nombreBagueVerte.innerHTML = `X` + nombreAttaqueHerosPlusPerm ;
         actualisationAffichage();
@@ -621,7 +650,7 @@ function acheterCoolDonwPerm() {   //Louise 28/01 //
     if(gemmes >= prixCoolDownPerm) {
         gemmes -= prixCoolDownPerm;
         // INSERER LA VARIABLE POUR REDUIRE LE COOL DOWN // /////////////////////////////////////
-        nombreCoolDownPerm ++
+        nombreCoolDownPerm ++;
         nombreAnneau.innerHTML = `X` + nombreCoolDownPerm;
         actualisationAffichage();
     }
@@ -634,9 +663,9 @@ boutonCoolDownPerm.onclick = acheterCoolDonwPerm;// Louise //
 function acheterMultiplicateurOrPerm() {   //Louise 28/01 // 
     if(gemmes >= prixMultiplicateurOrPrem) {
         gemmes -= prixMultiplicateurOrPrem;
-        orGagne *= 2 ; // A VERIFIER // /////////////////////////////////////////////////////////////
-        nombreMultiplicateurOrPerm ++
-        nombreCollier.innerHTML = `X` + nombreMultiplicateurOrPerm ;
+        orGagne = Math.round(orGagne*1.5); // A VERIFIER // /////////////////////////////////////////////////////////////
+        nombreMultiplicateurOrPerm ++;
+        nombreCollier.innerHTML = `X` + nombreMultiplicateurOrPerm;
         actualisationAffichage();
     }
     else if (gemmes <= prixMultiplicateurOrPrem) {// Louise // 
@@ -649,17 +678,17 @@ boutonMultiplicateurOrPerm.onclick = acheterMultiplicateurOrPerm;// Louise //
 function acheterCoutRecrutementPerm() {   //Louise 28/01 // 
     if(gemmes >= prixCoutRecrutementPerm) {
         gemmes -= prixCoutRecrutementPerm;
-        prixPaysan *= 0.95;// A VERIFIER // ///////////////////////////////////////////
-        prixMilicien *= 0.95;// A VERIFIER // ///////////////////////////////////////////
-        prixMilicien *= 0.95;// A VERIFIER // ///////////////////////////////////////////
-        prixSoldat *= 0.95;// A VERIFIER // ///////////////////////////////////////////
-        prixFantassin *= 0.95;// A VERIFIER // ///////////////////////////////////////////
-        prixGarde *= 0.95;// A VERIFIER // ///////////////////////////////////////////
-        prixGeneral *= 0.95;// A VERIFIER // ///////////////////////////////////////////
-        prixPretre *= 0.95;// A VERIFIER // ///////////////////////////////////////////
-        prixEnchanteresse *= 0.95;// A VERIFIER // ///////////////////////////////////////////
-        prixSeigneur *= 0.95;// A VERIFIER // ///////////////////////////////////////////
-        nombreCoutRecrutementPerm ++
+        prixPaysan = Math.round(prixPaysan*0.95);
+        prixMilicien = Math.round(prixMilicien*0.95);
+        prixLancier = Math.round(prixLancier*0.95);
+        prixSoldat = Math.round(prixSoldat*0.95);
+        prixFantassin = Math.round(prixFantassin*0.95);
+        prixGarde = Math.round(prixGarde*0.95);
+        prixGeneral = Math.round(prixGeneral*0.95);
+        prixPretre = Math.round(prixPretre*0.95);
+        prixEnchanteresse = Math.round(prixEnchanteresse*0.95);
+        prixSeigneur = Math.round(prixSeigneur*0.95);
+        nombreCoutRecrutementPerm ++;
         nombreCollierPointe.innerHTML = `X` + nombreCoutRecrutementPerm ;
         actualisationAffichage();
     }
@@ -883,6 +912,9 @@ function verifierMortMonstre() {
         actualisationAffichage();
     }
     else {
+        if((compteurMonstresTues+1)%10===0) {
+            forceMonstre /= 2;
+        }
         compteurMonstresTues++;
         evenementsAleatoires();
         debloquageHautFaits();
@@ -897,6 +929,10 @@ function attaquerHeros() {
     }
     else {
         heros.innerHTML = "<p>Le héros est mort.</p>";
+        clearInterval(chronoMonstre);
+            for(let j = 0; j < chronoAllies.length; j++) {
+                clearInterval(chronoAllies[j]);
+            }
         herosVieBarre.style.width = "0px"; /*MODIF BY YANN*/
         ecranDefaite.style.display = "block";   //affichage de la fenêtre de défaite
     }
@@ -912,34 +948,106 @@ function effacerAllies() {
     }
 }
 
-function rejouer() {    //reset du jeu  //modif 26/01 matthieu //resolution bugs mineurs
-    vieHeros = 100;
-    vieMaxMonstre = 100;
+function rejouer() {
+    gemmes += gemmesGagnes;
+    effacerAllies();
+    vieHeros = 100 + nombrePvHerosPerm*20;
+    vieMaxHeros = 100 + nombrePvHerosPerm*20;
+    forceHeros = Math.round(10 * Math.pow(1.1, nombreAttaqueHerosPlusPerm));
+    forceMonstre = 1;
     vieMonstre = 100;
+    vieBaseMonstre = 100;
+    vieMaxMonstre = 100;
     compteurMonstresTues = 0;
     or = 0;
     score = 0;
-    gemmes += gemmesGagnes;
-    compteurPartie ++ ;               //Louise // 
+    potion = "";
+    nombrePaysans = 0;
+    prixPaysan = Math.round(50 * Math.pow(0.95, nombreAttaqueHerosPlusPerm));
+    forcePaysan = 1;
+    nombreMiliciens = 0;
+    prixMilicien = Math.round(110 * Math.pow(0.95, nombreAttaqueHerosPlusPerm));
+    forceMilicien = 3;
+    nombreLanciers = 0;
+    prixLancier = Math.round(350 * Math.pow(0.95, nombreAttaqueHerosPlusPerm));
+    forceLancier = 5;
+    nombreSoldats = 0;
+    prixSoldat = Math.round(1000 * Math.pow(0.95, nombreAttaqueHerosPlusPerm));
+    forceSoldat = 20;
+    nombreFantassins = 0;
+    prixFantassin = Math.round(2000 * Math.pow(0.95, nombreAttaqueHerosPlusPerm));
+    forceFantassin = 50;
+    nombreGardes = 0;
+    prixGarde = Math.round(4000 * Math.pow(0.95, nombreAttaqueHerosPlusPerm));
+    forceGarde = 100;
+    nombreGenerals = 0;
+    prixGeneral = Math.round(10000 * Math.pow(0.95, nombreAttaqueHerosPlusPerm));
+    forceGeneral = 200;
+    nombrePretres = 0;
+    prixPretre = Math.round(20000 * Math.pow(0.95, nombreAttaqueHerosPlusPerm));
+    forcePretre = 500;
+    nombreEnchanteresses = 0;
+    prixEnchanteresse = Math.round(40000 * Math.pow(0.95, nombreAttaqueHerosPlusPerm));
+    forceEnchanteresse = 1000;
+    nombreSeigneurs = 0;
+    prixSeigneur = Math.round(100000 * Math.pow(0.95, nombreAttaqueHerosPlusPerm));
+    forceSeigneur = 2000;
+    multiplicateurAllies = 1;
+    prixPvPlus = 50;
+    prixAttaquePlus = 25;
+    prixAttaqueAlliesPlus = 75;
+    dispoCapacite = true;
+    i = 30;
+    jdbTab=[];
     clearInterval(chronoMonstre);
-    forceMonstre = 1;
-    effacerAllies();
     alliesDiv.innerHTML = "";
     potion = "";
     boutonUtiliserPotion.innerHTML = "";
     ecranDefaite.style.display = "none";    //on enlève la fenêtre de défaite
+    introduction.style.display = "block";
     actualisationAffichage();
-    fixerChronoMonstre();
+    // fixerChronoMonstre(); Vincent 29/01 -> fixerCM() sera lancée après choix du héros
 }
 boutonRejouer.onclick = rejouer;
 
 function nouveauMonstre() {
     vieMonstre = vieBaseMonstre + 15 * compteurMonstresTues;    //argumentation de la vie max du prochain monstre
     vieMaxMonstre = vieMonstre;
-    if (compteurMonstresTues%5===0) {
-      forceMonstre = forceMonstre*2;
+    monstreElite.style.display = "none";  
+
+
+    if ((compteurMonstresTues+1)%1000===0) {
+        forceMonstre = forceMonstre*100;
+        vieMaxMonstre = vieMaxMonstre*100;
+        vieMonstre = vieMonstre*100;
+        monstreElite.style.display = "block";
+    }       
+
+    else if ((compteurMonstresTues+1)%200===0) {                  // BOSS TOUS LES 200 NIVEAUX
+        forceMonstre = forceMonstre*10;
+        vieMaxMonstre = vieMaxMonstre*10;
+        vieMonstre = vieMonstre*10;
+        monstreElite.style.display = "block";
     }
+
+    else if ((compteurMonstresTues+1)%10===0) {                  // ELITE TOUS LES 10 NIVEAUX
+        forceMonstre = forceMonstre*3;
+        vieMaxMonstre = vieMaxMonstre*3;
+        vieMonstre = vieMonstre*3;
+        monstreElite.style.display = "block";
+    }
+
+    else if ((compteurMonstresTues)%10===0) {
+        changementBG();
+    }
+
+    else if ((compteurMonstresTues+1)%5===0) {                   // LES MONSTRES GAGNENT EN ATTAQUE TOUS LES 5 NIVEAUX
+      forceMonstre = forceMonstre*2;
+
+    }
+
     aleatoire = entierAleatoire(1, 120);
+
     vieHeros += 10; //soin du héros
     if (vieHeros > vieMaxHeros) {   //on empeche le héros de regagner plus de vie que son maximum
         vieHeros = vieMaxHeros;
@@ -952,9 +1060,21 @@ function nouveauMonstre() {
 }
 
 function actualisationAffichage() { //actualisation des valeurs affichées à l'écran
-    monstre.innerHTML = `<img src="images/monstres/MonsterPack/${aleatoire}.png">`;
+    verificationBoss();
+    boutonAchatPaysan.children[2].innerHTML = '<p>' + prixPaysan + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
+    boutonAchatMilicien.children[2].innerHTML = '<p>' + prixMilicien + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
+    boutonAchatLancier.children[2].innerHTML = '<p>' + prixLancier + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
+    boutonAchatSoldat.children[2].innerHTML = '<p>' + prixSoldat + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
+    boutonAchatFantassin.children[2].innerHTML = '<p>' + prixFantassin + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
+    boutonAchatGarde.children[2].innerHTML = '<p>' + prixGarde + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
+    boutonAchatGeneral.children[2].innerHTML = '<p>' + prixGeneral + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
+    boutonAchatPretre.children[2].innerHTML = '<p>' + prixPretre + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
+    boutonAchatEnchanteresse.children[2].innerHTML = '<p>' + prixEnchanteresse + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
+    boutonAchatSeigneur.children[2].innerHTML = '<p>' + prixSeigneur + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
+    boutonAttaquePlus.children[2].innerHTML = '<p>' + prixAttaquePlus + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
+    boutonPvPlus.children[2].innerHTML = '<p>' + prixPvPlus + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
     monstreVieBarre.style.width = `${vieMonstre*400/vieMaxMonstre}px`;                  /* MODIF BY YANN */
-    affichageScore.innerHTML = "<p>Score : " + score + "</p>";
+    affichageScore.innerHTML = "<p>Score : " + score + "</p><br><p>" + vieMonstre+ "/" + vieMaxMonstre + "</p>";
     affichageNiveau.innerHTML = "<p>Niveau " + (compteurMonstresTues+1) + "</p>";
     affichageOr.innerHTML = "<p>" + or + "</p>";
     affichageGemmes.innerHTML = "<p>" + gemmes + "</p>";
@@ -963,14 +1083,45 @@ function actualisationAffichage() { //actualisation des valeurs affichées à l'
     herosVieBarre.style.width = `${vieHeros*100/vieMaxHeros}%`;
 }
 
+function verificationBoss() {
+    monstre.innerHTML = "";
+    if (compteurMonstresTues===199) {
+        monstre.innerHTML = `<img src="images/monstres/MonsterPack/boss1.png">`;
+    }
+    else if (compteurMonstresTues===399) {
+        monstre.innerHTML = `<img src="images/monstres/MonsterPack/boss2.png">`;
+    }
+    else if (compteurMonstresTues===599) {
+        monstre.innerHTML = `<img src="images/monstres/MonsterPack/boss3.png">`;
+    }
+    else if (compteurMonstresTues===799) {
+        monstre.innerHTML = `<img src="images/monstres/MonsterPack/boss4.png">`;
+    }
+    else if (compteurMonstresTues===999) {
+        monstre.innerHTML = `<img src="images/monstres/Cthulhu.png">`;
+    }
+    else {
+        monstre.innerHTML = `<img src="images/monstres/MonsterPack/${aleatoire}.png">`;
+    }
+}
+
+function changementBG() {
+    aleatoireBG = entierAleatoire(1, 9);
+    while (garantieChangementBG===aleatoireBG) {
+        aleatoireBG = entierAleatoire(1, 9);
+    }
+    conteneurBG.style.background = `url(images/bg/${aleatoireBG}.jpg)`;
+    conteneurBG.style.backgroundSize = "cover";
+    actualisationAffichage();
+    garantieChangementBG = aleatoireBG;
+}
+
 function achatPotionVie() {
     if (or >= 70 && potion === "") {
         or -= 70;
         actualisationAffichage();
         boutonUtiliserPotion.innerHTML = '<img src="images/icones/potionrouge.png">';
-        potion = "vie";
-    }
-    else if (or < 70) {
+        potion = "vie";monstreElite.style.display = "none";  
         alert("Vous n'avez pas assez d'or.");
     }
     else {
@@ -1059,7 +1210,6 @@ function acheterPaysan() {
         prixPaysan *= 1.3;
         prixPaysan = Math.round(prixPaysan);
         actualisationAffichage();
-        boutonAchatPaysan.children[2].innerHTML = '<p>' + prixPaysan + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
         alliesDiv.innerHTML += '<img src="images/allies-temp/soldat4.png">';
         fixerChronoAllies(forcePaysan);
     }
@@ -1069,6 +1219,8 @@ function acheterPaysan() {
 }
 boutonAchatPaysan.onclick = acheterPaysan;
 
+
+
 function acheterMilicien() {
     if(or >= prixMilicien) {
         or -= prixMilicien;
@@ -1076,7 +1228,6 @@ function acheterMilicien() {
         prixMilicien *= 1.3;
         prixMilicien = Math.round(prixMilicien); //prixMilicien = Math.round(prixMilicien*1.8)
         actualisationAffichage();
-        boutonAchatMilicien.children[2].innerHTML = '<p>' + prixMilicien + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
         alliesDiv.innerHTML += '<img src="images/allies-temp/soldat1.png">';
         fixerChronoAllies(forceMilicien);
     }
@@ -1093,7 +1244,6 @@ function acheterLancier() {
         prixLancier *= 1.3;
         prixLancier = Math.round(prixLancier);
         actualisationAffichage();
-        boutonAchatLancier.children[2].innerHTML = '<p>' + prixLancier + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
         alliesDiv.innerHTML += '<img src="images/allies-temp/soldat8.png">';
         fixerChronoAllies(forceLancier);
     }
@@ -1110,7 +1260,6 @@ function acheterSoldat() {
         prixSoldat *= 1.3;
         prixSoldat = Math.round(prixSoldat);
         actualisationAffichage();
-        boutonAchatSoldat.children[2].innerHTML = '<p>' + prixSoldat + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
         alliesDiv.innerHTML += '<img src="images/allies-temp/soldat5.png">';
         fixerChronoAllies(forceSoldat);
     }
@@ -1127,7 +1276,6 @@ function acheterFantassin() {   //ajout 27/01
         prixFantassin *= 1.3;
         prixFantassin = Math.round(prixFantassin);
         actualisationAffichage();
-        boutonAchatFantassin.children[2].innerHTML = '<p>' + prixFantassin + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
         alliesDiv.innerHTML += '<img src="images/allies-temp/soldat2.png">';
         fixerChronoAllies(forceFantassin);
     }
@@ -1144,7 +1292,6 @@ function acheterGarde() {
         prixGarde *= 1.3;
         prixGarde = Math.round(prixGarde);
         actualisationAffichage();
-        boutonAchatGarde.children[2].innerHTML = '<p>' + prixGarde + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
         alliesDiv.innerHTML += '<img src="images/allies-temp/soldat7.png">';
         fixerChronoAllies(forceGarde);
     }
@@ -1161,7 +1308,6 @@ function acheterGeneral() {
         prixGeneral *= 1.3;
         prixGeneral = Math.round(prixGeneral);
         actualisationAffichage();
-        boutonAchatGeneral.children[2].innerHTML = '<p>' + prixGeneral + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
         alliesDiv.innerHTML += '<img src="images/allies-temp/soldat6.png">';
         fixerChronoAllies(forceGeneral);
     }
@@ -1172,13 +1318,12 @@ function acheterGeneral() {
 boutonAchatGeneral.onclick = acheterGeneral;
 
 function acheterPretre() {
-    if(or >= prixPretre) {
+    if (or >= prixPretre) {
         or -= prixPretre;
         nombrePretres++;
         prixPretre *= 1.3;
         prixPretre = Math.round(prixPretre);
         actualisationAffichage();
-        boutonAchatPretre.children[2].innerHTML = '<p>' + prixPretre + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
         alliesDiv.innerHTML += '<img src="images/allies-temp/soldat10.png">';
         fixerChronoAllies(forcePretre);
     }
@@ -1195,7 +1340,6 @@ function acheterEnchanteresse() {
         prixEnchanteresse *= 1.3;
         prixEnchanteresse = Math.round(prixEnchanteresse);
         actualisationAffichage();
-        boutonAchatEnchanteresse.children[2].innerHTML = '<p>' + prixEnchanteresse + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
         alliesDiv.innerHTML += '<img src="images/allies-temp/soldat9.png">';
         fixerChronoAllies(forceEnchanteresse);
     }
@@ -1212,7 +1356,6 @@ function acheterSeigneur() {
         prixSeigneur *= 1.3;
         prixSeigneur = Math.round(prixSeigneur);
         actualisationAffichage();
-        boutonAchatSeigneur.children[2].innerHTML = '<p>' + prixSeigneur + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
         alliesDiv.innerHTML += '<img src="images/allies-temp/soldat3.png">';
         fixerChronoAllies(forceSeigneur);
     }
@@ -1228,7 +1371,6 @@ function acheterAttaquePlus() {
         prixAttaquePlus *= 1.5;
         prixAttaquePlus = Math.round(prixAttaquePlus);
         forceHeros++;
-        boutonAttaquePlus.children[2].innerHTML = '<p>' + prixAttaquePlus + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
         actualisationAffichage();
     }
     else {
@@ -1244,7 +1386,6 @@ function acheterPvPlus() {
         prixPvPlus = Math.round(prixPvPlus);
         vieMaxHeros += 10;
         vieHeros += 10;
-        boutonPvPlus.children[2].innerHTML = '<p>' + prixPvPlus + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
         actualisationAffichage();
     }
     else {

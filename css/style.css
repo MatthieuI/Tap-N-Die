@@ -15,8 +15,6 @@
 body {
     font-family: "Dalelands";
     position: relative;
-    background-image: url(../images/bg/foret.jpg);
-    background-size: cover;
 }
 
 /* HEADER */
@@ -53,9 +51,16 @@ body {
 /* CONTENEUR */
 
 .conteneur {
+
+}
+
+#conteneurBG {
     display: flex;
     height: 100%;
     min-height: 700px;
+    background: url(../images/bg/1.jpg);
+    background-size: cover;
+
 }
 
 .conteneurGauche,
@@ -288,6 +293,19 @@ de bord ouvert n'apparaissent pas, passe en flex à l'appel de ouvrirJdb() */
     margin: auto;
 }
 
+#monstreEmplacement {
+    position: relative;
+}
+
+.monstreTest {
+    height: 300px;
+    width: 400px;
+    margin: auto;
+    position: relative;
+}
+
+
+
 #monstre img {
     height: 100%;
     width: 100%;
@@ -310,6 +328,20 @@ de bord ouvert n'apparaissent pas, passe en flex à l'appel de ouvrirJdb() */
     left: 0;
     height: 20px;
     border-radius: 5px;
+}
+
+#elite {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    right:0;
+    top:0;
+    display: none;
+}
+
+#elite img {
+    height: 50px;
+    width: 50px;
 }
 
 /* PANEL DU HEROS */
@@ -742,12 +774,6 @@ de bord ouvert n'apparaissent pas, passe en flex à l'appel de ouvrirJdb() */
     margin-left: auto;
     margin-right: auto;
     margin-top: 25px;
-}
-
-#boutonOptions{
-    display: flex;
-    flex-direction: column;
-    align-items : center;
 }
 
 #boutonReinitialiser{
