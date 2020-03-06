@@ -155,6 +155,7 @@ let affichageGemmes2 = document.getElementById ("compteurGemmesGagnes");
 let boutonAttaquer = document.getElementById("monstre");
 let page = document.getElementById("chargementJeu");
 let heros = document.getElementById("affichageVieNombre");
+let affichageVieMonstreNombre = document.getElementById('affichageVieMonstreNombre');
 let monstre = document.getElementById("monstre");
 let ecranDefaite = document.getElementById("defaite");
 let boutonRejouer = document.getElementById("rejouer");
@@ -1154,11 +1155,11 @@ function actualisationAffichage() { //actualisation des valeurs affichées à l'
     boutonPvPlus.children[2].innerHTML = '<p>' + prixPvPlus + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
     boutonAttaqueAlliesPlus.children[2].innerHTML = '<p>' + prixAttaqueAlliesPlus + '<img src="images/icones/coin.png" width="24px" height="24px"></p>';
     monstreVieBarre.style.width = `${vieMonstre*400/vieMaxMonstre}px`;                  /* MODIF BY YANN */
-    affichageScore.innerHTML = "<p>Score : " + score + "</p><br><p>" + vieMonstre+ "/" + vieMaxMonstre + "</p>";
     affichageNiveau.innerHTML = "<p>Niveau " + (compteurMonstresTues+1) + "</p>";
     affichageOr.innerHTML = "<p>" + or + "</p>";
     affichageGemmes.innerHTML = "<p>" + gemmes + "</p>";
     affichageGemmes2.innerHTML =  gemmesGagnes ;
+    affichageVieMonstreNombre.innerHTML = "<p>" + vieMonstre + "/" + vieMaxMonstre +"</p>";
     heros.innerHTML = "<p>" + vieHeros + "/" + vieMaxHeros +"</p>";                     /* MODIF BY YANN */
     herosVieBarre.style.width = `${vieHeros*100/vieMaxHeros}%`;
 }
